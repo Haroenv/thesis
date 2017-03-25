@@ -1,0 +1,10 @@
+*.log
+*.aux
+*.bbl
+*.out
+*.blg
+*.fls
+*.fdb_latexmk
+*.toc
+*.pdf
+!**/assets/*.pdf
