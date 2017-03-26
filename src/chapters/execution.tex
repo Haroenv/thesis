@@ -1,27 +1,53 @@
-% !TEX root = ./main.tex
+% !TEX root = ../main.tex
 
-\section{Technical execution} % (fold)
-\label{sec:execution}
+\chapter{Technical execution} % (fold)
+\label{chp:execution}
 
-\subsubsection{Organising state} % (fold)
-\label{ssub:organising_state}
+\section{Organising state} % (fold)
+\label{sec:organising_state}
 
 talk about the difference between storing params and storing widgets
 
-% subsubsection organising_state (end)
+% section organising_state (end)
 
-\subsubsection{Handling state changes} % (fold)
-\label{ssub:handling_state_changes}
+\section{Handling state changes} % (fold)
+\label{sec:handling_state_changes}
 
-% subsubsection handling_state_changes (end)
+Research:
 
-\subsubsection{Getting responses from the API} % (fold)
-\label{ssub:getting_responses_from_the_api}
+\begin{itemize}
+  \item observables vs flux
+  \item Other languages (Elm model)
+\end{itemize}
 
-% subsubsection getting_responses_from_the_api (end)
+% section handling_state_changes (end)
 
-\subsubsection{Complete implementation} % (fold)
-\label{ssub:complete_implementation}
+\section{Getting responses from the API} % (fold)
+\label{sec:getting_responses_from_the_api}
+
+% section getting_responses_from_the_api (end)
+
+\section{Rendering refinements} % (fold)
+\label{sec:rendering_refinements}
+
+
+% section rendering_refinements (end)
+
+\section{Overview} % (fold)
+\label{sec:overview}
+
+\begin{figure}[H]
+  \label{figure:company-logo}
+  \centering
+  \includegraphics[width=\textwidth]{../assets/architecture.pdf}
+  \caption{Architecture overview\cite{blog-architecture}}
+\end{figure}
+
+% section overview (end)
+
+\section{Complete implementation} % (fold)
+\label{sec:complete_implementation}
+
 
 \begin{lstlisting}[caption={Using instantearch-core},label={lst:is-core-usage}]
 // stores.js
@@ -48,5 +74,5 @@ function onInput(event) {
 }
 \end{lstlisting}
 
-% subsubsection complete_implementation (end)
+% section complete_implementation (end)
 

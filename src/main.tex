@@ -1,39 +1,38 @@
 \input{preamble}
 
 \begin{document}
+\frontmatter
+  \include{titlepage}
 
-\include{titlepage}
+  \include{chapters/abstract}
 
-\include{chapters/abstract}
+  \include{chapters/foreword}
 
-\include{chapters/foreword}
+  % TOC
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+  % end TOC
 
-% TOC
-\setcounter{tocdepth}{3}
-\tableofcontents
-% end TOC
+  \include{chapters/list-abbrevs}
 
-\include{chapters/list-abbrevs}
+\mainmatter
+  % main content
+  \include{chapters/presentation}
+  \include{chapters/mission}
+  \include{chapters/action-plan}
+  \include{chapters/preliminary-study}
+  \include{chapters/execution}
+  \include{chapters/conclusion}
+  % end main content
 
-\newpage
+\backmatter
 
-% main content
-\include{chapters/presentation}
-\include{chapters/mission}
-\include{chapters/action-plan}
-\include{chapters/preliminary-study}
-\include{chapters/execution}
-\include{chapters/conclusion}
-% end main content
+  % references
+  \addcontentsline{toc}{section}{References}
+  \bibliographystyle{ieeetr}
+  \bibliography{references}
+  % end references
 
-\newpage
-
-% references
-\addcontentsline{toc}{section}{References}
-\bibliographystyle{ieeetr}
-\bibliography{references}
-% end references
-
-\include{chapters/appendices}
+  \include{chapters/appendices}
 
 \end{document}

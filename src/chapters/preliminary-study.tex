@@ -1,8 +1,8 @@
 % !TEX root = ../main.tex
 
-\section{Preliminary study} % (fold)
-\subsection{Yarn} % (fold)
-\label{sub:yarn}
+\chapter{Preliminary study} % (fold)
+\section{Yarn} % (fold)
+\label{chp:yarn}
 
 Before jumping into making a new library or improving an existing one, one should use it sufficiently. For that purpose my first task at Algolia was to use react-instantsearch in a (complex) production application, the website of yarn\cite{yarn-site}.
 
@@ -10,14 +10,14 @@ Before I joined, the team worked on integrating Algolia search into the website\
 
 In the week before I arrived in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook -- Facebook has the main contributors to the Yarn project -- offices in London to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
 
-% subsection yarn (end)
-\subsection{What is even wrong with the Helper} % (fold)
-\label{sub:what_is_even_wrong_with_the_helper}
+% section yarn (end)
+\section{What is even wrong with the Helper} % (fold)
+\label{sec:what_is_even_wrong_with_the_helper}
 
 There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was the REST API. Then tutorials were written on how to use Algolia to build user interfaces using jQuery, moment.js etc. After that the algoliasearch-helper\cite{algolia-helper-github} was written to avoid boilerplate. And most recently instantsearch.js\cite{instantsearch-js} and react-instantsearch\cite{react-instantsearch} were launched.
 
-\subsubsection{Algolia JS client} % (fold)
-\label{ssub:algolia_js_client}
+\subsection{Algolia JS client} % (fold)
+\label{sub:algolia_js_client}
 
 When Algolia pivoted\cite{algolia-blog-saas} in 2013 to a SaaS product, it had support\cite{algolia-blog-lauch} for six languages out of the box. JavaScript has always been important because of the focus on speed that Algolia has.
 
@@ -25,26 +25,26 @@ There are two options when you want to search. The first is to send a request fr
 
 We prefer our clients to construct the results on the frontend, mostly because it's faster for everyone. Algolia has infrastructure\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, we want to avoid all timeouts.
 
-% subsubsection algolia_js_client (end)
+% subsection algolia_js_client (end)
 
-\subsubsection{Algolia JS Helper} % (fold)
-\label{ssub:algolia_js_helper}
+\subsection{Algolia JS Helper} % (fold)
+\label{sub:algolia_js_helper}
 
-% subsubsection algolia_js_helper (end)
+% subsection algolia_js_helper (end)
 
-\subsubsection{instantsearch.js} % (fold)
-\label{ssub:instantsearch_js}
+\subsection{instantsearch.js} % (fold)
+\label{sub:instantsearch_js}
 
-% subsubsection instantsearch_js (end)
+% subsection instantsearch_js (end)
 
-\subsubsection{React-instantearch} % (fold)
-\label{ssub:react_instantearch}
+\subsection{React-instantearch} % (fold)
+\label{sub:react_instantearch}
 
-% subsubsection react_instantearch (end)
+% subsection react_instantearch (end)
 
-\subsubsection{The future} % (fold)
-\label{ssub:the_future}
+\subsection{The future} % (fold)
+\label{sub:the_future}
 
-% subsubsection the_future (end)
+% subsection the_future (end)
 
-% subsection what_is_even_wrong_with_the_helper (end)
+% section what_is_even_wrong_with_the_helper (end)
