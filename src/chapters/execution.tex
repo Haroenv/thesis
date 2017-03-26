@@ -3,33 +3,50 @@
 \section{Technical execution} % (fold)
 \label{sec:execution}
 
-\subsection{Ondertitel} % (fold)
-\label{sub:ondertitel}
+\subsubsection{Organising state} % (fold)
+\label{ssub:organising_state}
 
-\lipsum[1]
+talk about the difference between storing params and storing widgets
 
-\begin{figure}[H]
-  \label{figure:golden-circle}
-  \centering
-  \includegraphics[width=0.5\textwidth]{logo.pdf}
-  \caption{Figuur met referentie en bijschrift \cite{voorbeeld-ref}}
-\end{figure}
+% subsubsection organising_state (end)
 
-\begin{lstlisting}[caption={Some Javascript code},label={lst:label}]
-// Hello.js
+\subsubsection{Handling state changes} % (fold)
+\label{ssub:handling_state_changes}
 
-const message = 'Hello';
-const numbers = [1, 2, 3];
+% subsubsection handling_state_changes (end)
 
-numbers
-  .map(n => `${message} ${n}`)
-  .forEach(n => console.log(n));
+\subsubsection{Getting responses from the API} % (fold)
+\label{ssub:getting_responses_from_the_api}
 
-// Hello 1
-// Hello 2
-// Hello 3
+% subsubsection getting_responses_from_the_api (end)
+
+\subsubsection{Complete implementation} % (fold)
+\label{ssub:complete_implementation}
+
+\begin{lstlisting}[caption={Using instantearch-core},label={lst:is-core-usage}]
+// stores.js
+import algoliasearch from 'algoliasearch';
+import { createStore } from 'instantsearch-core';
+
+const appId = 'OFCNCOG2CU';
+const apiKey = 'f54e21fa3a2a0160595bb058179bfb1e';
+const indexName = 'products_asc';
+
+const client = algoliasearch(appId, apiKey);
+const productsStore = createStore(client, indexName);
+
+export productsStore;
+
+// widget.js
+import { setQuery } from 'instantsearch-core/actions/query';
+import { productsStore } from './stores';
+
+function onInput(event) {
+  event.preventDefault();
+
+  productsStore.refine(setQuery(event.target.value));
+}
 \end{lstlisting}
 
-Zie codefragment~\ref{lst:label}
+% subsubsection complete_implementation (end)
 
-\lipsum[1]
