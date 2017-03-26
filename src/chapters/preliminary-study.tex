@@ -25,6 +25,8 @@ There are two options when you want to search. The first is to send a request fr
 
 We prefer our clients to construct the results on the frontend, mostly because it's faster for everyone. Algolia has infrastructure\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, we want to avoid all timeouts.
 
+The JS client\cite{algolia-js-client} is our lowest level of abstraction, and handles things like retry strategies, dropped requests
+
 % subsection algolia_js_client (end)
 
 \subsection{Algolia JS Helper} % (fold)

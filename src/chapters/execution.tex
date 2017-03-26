@@ -10,6 +10,19 @@ talk about the difference between storing params and storing widgets
 
 % section organising_state (end)
 
+\section{Changing terminology} % (fold)
+\label{sec:changing_terminology}
+
+Terminology now is the same as in the API
+
+Users don't understand the difference between facet and filter
+
+Make a higher-level language that only uses filters
+
+Mention the doc changes needed
+
+% section changing_terminology (end)
+
 \section{Handling state changes} % (fold)
 \label{sec:handling_state_changes}
 
@@ -25,6 +38,12 @@ Research:
 \section{Getting responses from the API} % (fold)
 \label{sec:getting_responses_from_the_api}
 
+another function listens to changes in state
+
+it transforms params into a JS client request
+
+it replaces the {\tt response} in the state with an action
+
 % section getting_responses_from_the_api (end)
 
 \section{Rendering refinements} % (fold)
@@ -32,6 +51,23 @@ Research:
 
 
 % section rendering_refinements (end)
+
+\section{Saved state} % (fold)
+\label{sec:saved_state}
+
+allow for replacing of whole state
+
+reasons
+
+\begin{enumerate}
+  \item saving state in url
+  \item saving state in localstorage
+  \item SSR
+\end{enumerate}
+
+documentation very clear that this shouldn't regularly be used
+
+% section saved_state (end)
 
 \section{Overview} % (fold)
 \label{sec:overview}
