@@ -25,27 +25,66 @@ There are two options when you want to search. The first is to send a request fr
 
 We prefer our clients to construct the results on the frontend, mostly because it's faster for everyone. Algolia has infrastructure\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, we want to avoid all timeouts.
 
-The JS client\cite{algolia-js-client} is our lowest level of abstraction, and handles things like retry strategies, dropped requests
+The JS client\cite{algolia-js-client} is our lowest level of abstraction, and handles things like retry strategies, dropped requests. Because it originally was the only way to query Algolia, it also supports setting individual parameters before searching.
+
+When using just the JS client, you notice that you have to handle all state yourself. That means keeping track if a certain refinement has been set and unset, and keeping this consistent within your code and when responses come.
+
+\begin{figure}[H]
+  \label{figure:company-logo}
+  \centering
+  \includegraphics[width=\textwidth, height=0.4\textheight, draft]{../assets/js-client-state.pdf}
+  \caption{Handling state with the JS client}
+\end{figure}
 
 % subsection algolia_js_client (end)
 
 \subsection{Algolia JS Helper} % (fold)
 \label{sub:algolia_js_helper}
 
+The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-client} with as its main feature handling state of a search experience. This means
+
+\begin{figure}[H]
+  \label{figure:company-logo}
+  \centering
+  \includegraphics[width=\textwidth, height=0.4\textheight, draft]{../assets/js-helper-state.pdf}
+  \caption{Handling state with the JS Helper}
+\end{figure}
+
 % subsection algolia_js_helper (end)
 
 \subsection{instantsearch.js} % (fold)
 \label{sub:instantsearch_js}
+
+\begin{figure}[H]
+  \label{figure:company-logo}
+  \centering
+  \includegraphics[width=\textwidth, height=0.4\textheight, draft]{../assets/is-js-state.pdf}
+  \caption{Handling state with instantsearch.js v1}
+\end{figure}
 
 % subsection instantsearch_js (end)
 
 \subsection{React-instantearch} % (fold)
 \label{sub:react_instantearch}
 
+\begin{figure}[H]
+  \label{figure:company-logo}
+  \centering
+  \includegraphics[width=\textwidth, height=0.4\textheight, draft]{../assets/is-react-state.pdf}
+  \caption{Handling state with React InstantSearch}
+\end{figure}
+
 % subsection react_instantearch (end)
 
 \subsection{The future} % (fold)
 \label{sub:the_future}
+
+\begin{figure}[H]
+  \label{figure:company-logo}
+  \centering
+  \includegraphics[width=\textwidth, height=0.4\textheight, draft]{../assets/is-core-state.pdf}
+  \caption{Handling state with the instantsearch-core}
+\end{figure}
 
 % subsection the_future (end)
 
