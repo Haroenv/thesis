@@ -4,7 +4,9 @@ TODO: copy abstract here
 
 Work in progress obviously
 
-TODO: add CI to render pdf :smile:, see [link](https://harshjv.github.io/blog/setup-latex-pdf-build-using-travis-ci/)
+# Rendered version
+
+The latest pdf can be found in the github [releases](https://github.com/Haroenv/bachelorproef/releases) tab.
 
 # License
 

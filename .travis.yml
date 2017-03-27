@@ -1,0 +1,14 @@
+before_install:
+- sudo apt-get update && sudo apt-get install --no-install-recommends texlive-fonts-recommended
+  texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng
+script:
+- cd src
+- latexmk -pdf main.tex
+deploy:
+  provider: releases
+  api_key:
+    secure: S52fA7d4wbQfwrpFxPwD0EMwZ8Aa/9HneePXn8aml+7UrswHCJ9yJWySIe8vPxGbKLxNOhn0c+EJya+f0wY2AuV3pGAQa6z8P5msN62bV66a84NQYS8Zfx3x5GNFvtAAptDYUT1YbZaPKCZW72ltU1sXmHz0Fk/35pjjXQ7dAZTWvML7RPoe4rc2lTaeXW5FVG9Lg80eazhO92Ien0MBbk0e130YkYk9R8xGI4PGcbsrjrf3RSrZeWhqO/5lF5bq91ZuUeXIdMoSKJIBVD8L17G2Z5RcP0KIKGE8bZPsDukzgm8UrX8/SXfXpwWYEhBJZr21793zqiX31ENHE6NJhEyiPPtdvpWrP5TIayC2Kx2qpn5CAGRX+AL/xhJaLgaxoCdGkBvAlod80qduoChffnXMrc4wOqMeYeXMUi5yHTkmrQ3VcaSpbypHcxvU26CTR8SnMJCVff3itrmp3FP2hwxKDMKdAh2FbWJJ5dsmBHJfHNPO2O61uAQnYHHlPQFLWaNYwwXSFYknkfLWVcOikdAMQk3OoAplWBwwsQomuHW9rsU2aLlgWk1uVFJbLd4f7DIHWp/Nu6Swir1d4tJD9KvhJ3+aDjflOY8xaG09w0zz5YTn6bnNEKhWWT7FG3tfk218do4iJ9Y/fdYzZJDLxMwo2RcLCZrbuFk/ipEsSUY=
+  file: src/main.pdf
+  skip_cleanup: true
+  on:
+    repo: Haroenv/bachelorproef
