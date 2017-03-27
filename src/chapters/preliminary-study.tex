@@ -41,7 +41,7 @@ When using just the JS client, you notice that you have to handle all state your
 \subsection{Algolia JS Helper} % (fold)
 \label{sub:algolia_js_helper}
 
-The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-client} with as its main feature handling state of a search experience. This means
+The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-client} with as its main feature handling state of a search experience. This means ... keep state of all refinements and separately results
 
 \begin{figure}[H]
   \label{figure:company-logo}
@@ -55,6 +55,8 @@ The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-cli
 \subsection{instantsearch.js} % (fold)
 \label{sub:instantsearch_js}
 
+rely on helper, expose it. Problem: very hard to make new components because you don't know how the helper works
+
 \begin{figure}[H]
   \label{figure:company-logo}
   \centering
@@ -67,6 +69,8 @@ The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-cli
 \subsection{React-instantearch} % (fold)
 \label{sub:react_instantearch}
 
+Add a layer of state on top of the helper. Good because it hides the helper in {\tt connectors}. Problem: helper is still kinda visible but not really and that causes wrong expectations
+
 \begin{figure}[H]
   \label{figure:company-logo}
   \centering
@@ -78,6 +82,8 @@ The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-cli
 
 \subsection{The future} % (fold)
 \label{sub:the_future}
+
+No more using helper, mapping component state to algolia state directly.
 
 \begin{figure}[H]
   \label{figure:company-logo}
