@@ -33,11 +33,10 @@
 \renewcommand\arraystretch{1.7}
 \usepackage{multirow}
 \makeatletter
-\newcommand{\tocfill}{\cleaders\hbox{$\m@th \mkern\@dotsep mu . \mkern\@dotsep mu$}\hfill}
+\newcommand{\tocfill}{\cleaders\hbox{$\m@th \mkern \@dotsep mu . \mkern \@dotsep mu$}\hfill}
 \makeatother
 \newcommand{\abbrlabel}[1]{\makebox[3cm][l]{\textbf{#1}\ \tocfill}}
-\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}%
-                                              \setlength{\itemsep}{0pt}}}{\end{list}}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}\setlength{\itemsep}{0pt}}}{\end{list}}
 \usepackage{listings}
 \lstdefinelanguage{JavaScript}{
   keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, let, const, if, in, while, do, else, case, break},

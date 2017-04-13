@@ -4,35 +4,35 @@
 \section{Yarn} % (fold)
 \label{chp:yarn}
 
-Before jumping into making a new library or improving an existing one, one should use it sufficiently. For that purpose my first task at Algolia was to use react-instantsearch in a (complex) production application, the website of Yarn\cite{yarn-site}.
+Before jumping into making a new library or improving an existing one, one should use it sufficiently. For that purpose my first task at Algolia was to use react-instantsearch in a (complex) production application, the website of Yarn~\cite{yarn-site}.
 
 % formulate without I
 
-Before I joined, the team worked on integrating Algolia search into the website\cite{yarn-pr-add-algolia}. Since the very beginning of 2017, it's possible to look up packages at a very impressive speed at yarnpkg.com/search. I already had some\footnote{\href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} experience with the codebase making small fixes when I saw them earlier, so improving that experience was a project I really loved finding out about.
+Before I joined, the team worked on integrating Algolia search into the website~\cite{yarn-pr-add-algolia}. Since the very beginning of 2017, it's possible to look up packages at a very impressive speed at yarnpkg.com/search. I already had some\footnote{\href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} experience with the codebase making small fixes when I saw them earlier, so improving that experience was a project I really loved finding out about.
 
-In the week before I arrived in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook -- Facebook has the main contributors to the Yarn project -- offices in London to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
+In the week before I arrived in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook --- Facebook has the main contributors to the Yarn project --- offices in London to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
 
 % section yarn (end)
 \section{What is even wrong with the Helper} % (fold)
 \label{sec:what_is_even_wrong_with_the_helper}
 
-There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was the REST API. Then tutorials were written on how to use Algolia to build user interfaces using jQuery, moment.js etc. After that the algoliasearch-helper\cite{algolia-helper} was written to avoid boilerplate. And most recently instantsearch.js\cite{instantsearch-js} and react-instantsearch\cite{react-instantsearch} were launched.
+There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was the REST API\@. Then tutorials were written on how to use Algolia to build user interfaces using jQuery, moment.js etc. After that the algoliasearch-helper~\cite{algolia-js-helper} was written to avoid boilerplate. And most recently InstantSearch.js~\cite{instantsearch-js} and React InstantSearch~\cite{react-instantsearch} were launched.
 
 \subsection{Algolia JS client} % (fold)
 \label{sub:algolia_js_client}
 
-When Algolia pivoted\cite{algolia-blog-saas} in 2013 to a SaaS product, it had support\cite{algolia-blog-lauch} for six languages out of the box. JavaScript has always been important because of the focus on speed that Algolia has.
+When Algolia pivoted in 2013 to a SaaS product~\cite{algolia-blog-saas}, it had support~\cite{algolia-blog-lauch} for six languages out of the box. JavaScript has always been important because of the focus on speed that Algolia has.
 
 There are two major options to make a search experience. The first is to send a request from the frontend to the search service, where a JSON (or XML) response back is returned, which then is uses to render results in client side code. The other is sending that same request via a form on an application-specific backend, and constructing the results there, and eventually sending a completely new page back as a result to the user's query.
 
-We prefer our clients to construct the results on the frontend, mostly because it's faster for everyone. Algolia has infrastructure\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, we want to avoid all timeouts.
+We prefer our clients to construct the results on the frontend, mostly because it's faster for everyone. Algolia has infrastructure~\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, we want to avoid all timeouts.
 
-The JS client\cite{algolia-js-client} is our lowest level of abstraction, and handles things like retry strategies, dropped requests. Because it originally was the only way to query Algolia, it also supports setting individual parameters before searching.
+The JS client~\cite{algolia-js-client} is our lowest level of abstraction, and handles things like retry strategies, dropped requests. Because it originally was the only way to query Algolia, it also supports setting individual parameters before searching.
 
 When using just the JS client, it can be noticed that all state should be handled inside the application code. That means keeping track whether a certain refinement has been set and unset, and keeping this consistent within the application code. Furthermore, the application needs to be aware when Algolia should be queried, and then handling all of the incoming results, dealing with out-of-order responses etc.
 
 \begin{figure}[H]
-  \label{figure:company-logo}
+\label{figure:js-client-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/js-client-state.pdf}
   \caption{Handling state with the JS client}
@@ -43,10 +43,10 @@ When using just the JS client, it can be noticed that all state should be handle
 \subsection{Algolia JS Helper} % (fold)
 \label{sub:algolia_js_helper}
 
-The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-client} with as its main feature handling state of a search experience. This means ... keep state of all refinements and separately results
+The JS Helper was born in 2015 as part of the JS client~\cite{algolia-blog-js-client} with as its main feature handling state of a search experience. This means \ldots keep state of all refinements and separately results
 
 \begin{figure}[H]
-  \label{figure:company-logo}
+\label{figure:js-helper-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/js-helper-state.pdf}
   \caption{Handling state with the JS Helper}
@@ -54,13 +54,13 @@ The JS Helper was born in 2015 as part of the JS client\cite{algolia-blog-js-cli
 
 % subsection algolia_js_helper (end)
 
-\subsection{instantsearch.js} % (fold)
+\subsection{InstantSearch.js} % (fold)
 \label{sub:instantsearch_js}
 
 rely on helper, expose it. Problem: very hard to make new components because you don't know how the helper works, and there's only 
 
 \begin{figure}[H]
-  \label{figure:company-logo}
+\label{figure:is-js-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-js-state.pdf}
   \caption{Handling state with instantsearch.js v1}
@@ -78,13 +78,13 @@ Connectors happened in v2 of instantsearch
 
 % subsection instantsearch_js (end)
 
-\subsection{React-instantearch} % (fold)
+\subsection{React InstantSearch} % (fold)
 \label{sub:react_instantearch}
 
 Add a layer of state on top of the helper. Good because it hides the helper in {\tt connectors}. Problem: helper is still kinda visible but not really and that causes wrong expectations
 
 \begin{figure}[H]
-  \label{figure:company-logo}
+\label{figure:is-react-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-react-state.pdf}
   \caption{Handling state with React InstantSearch}
@@ -100,10 +100,10 @@ RIS also has connectors, they came out at release, not v2, repeat a bit the info
 No more using helper, mapping attribute/component state to algolia state directly.
 
 \begin{figure}[H]
-  \label{figure:company-logo}
+\label{figure:is-core-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-state.pdf}
-  \caption{Handling state with the instantsearch-core}
+  \caption{Handling state with the InstantSearch Core}
 \end{figure}
 
 % subsection the_future (end)

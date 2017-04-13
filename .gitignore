@@ -6,6 +6,8 @@
 *.fls
 *.fdb_latexmk
 *.toc
-*.pdf
+*.run.xml
+*.bcf
 *.synctex.gz
+*.pdf
 !**/assets/*.pdf
