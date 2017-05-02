@@ -6,14 +6,35 @@
 \section{Organizing state} % (fold)
 \label{sec:organizing_state}
 
+\subsection{Widgets and connectors}
+\label{subs:widgets_and_connectors}
 
-talk about the difference between storing params and storing widget state
+The big difference between using Algolia with the Helper compared to InstantSearch is the notion of widgets. In the current implementations there are ten core widgets. Each of these widgets is split up in its logic (a connector) and its display logic (a component). Together these widgets are:
+
+\begin{itemize}
+  \item SearchBox
+  \item Hits
+  \item RefinementList
+  \item Range
+  \item Pagination
+  \item ClearAll
+  \item CurrentRefinements
+  \item Sort By
+  \item Highlight
+  \item Snippet
+\end{itemize}
+
+There are two major kinds of widgets, interactive widgets and display-only widgets. Display-only widgets read the current results and applied refinements from the Algolia response. The other connectors use Helper methods like {\tt helper.state.toggleRefinement} to do their logic.
+
+%%
+talk about the difference between storing parameters and storing widget state
 
 % section organizing_state (end)
 
 \section{Changing terminology} % (fold)
 \label{sec:changing_terminology}
 
+%%
 Terminology now is the same as in the API
 
 Users don't understand the difference between facet and filter
@@ -27,6 +48,7 @@ Mention the doc changes needed
 \section{Handling state changes} % (fold)
 \label{sec:handling_state_changes}
 
+%%
 Research:
 
 \begin{itemize}
