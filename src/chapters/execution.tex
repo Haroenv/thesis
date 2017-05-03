@@ -7,7 +7,7 @@
 \label{sec:organizing_state}
 
 \subsection{Widgets and connectors}
-\label{subs:widgets_and_connectors}
+\label{sub:widgets_and_connectors}
 
 The big difference between using Algolia with the Helper compared to InstantSearch is the notion of widgets. In the current implementations there are ten core widgets. Each of these widgets is split up in its logic (a connector) and its display logic (a component). Together these widgets are:
 
@@ -28,6 +28,11 @@ There are two major kinds of widgets, interactive widgets and display-only widge
 
 %%
 talk about the difference between storing parameters and storing widget state
+
+\subsection{Structuring a state container}
+\label{sub:structuring_a_state container}
+
+connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
 
 % section organizing_state (end)
 
