@@ -3,6 +3,11 @@
 \chapter{Technical development} % (fold)
 \label{chp:execution}
 
+\section{Terminology}
+\label{sec:terminology}
+
+The Algolia API is pushing by uploading schemaless JSON objects to an index
+
 \section{Organizing state} % (fold)
 \label{sec:organizing_state}
 
@@ -30,7 +35,9 @@ There are two major kinds of widgets, interactive widgets and display-only widge
 talk about the difference between storing parameters and storing widget state
 
 \subsection{Structuring a state container}
-\label{sub:structuring_a_state container}
+\label{sub:structuring_a_state_container}
+
+In the InstantSearch Core implementation the choice has been made to structure state per refinement type
 
 connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
 
