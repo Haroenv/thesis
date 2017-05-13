@@ -29,7 +29,9 @@ The big difference between using Algolia with the Helper compared to InstantSear
   \item Snippet
 \end{itemize}
 
-There are two major kinds of widgets, interactive widgets and display-only widgets. Display-only widgets read the current results and applied refinements from the Algolia response. The other connectors use Helper methods like {\tt helper.state.toggleRefinement} to do their logic.
+There are two kinds of widgets, interactive widgets and display-only widgets. Display-only widgets read the current results and applied refinements from the Algolia response. The display-only widgets are Hits, which is a representation of all the results. The other two are Highlight and Snippet, which take an attributen, and display the snipped and highlighted result from the Algolia response.
+
+The other widgets are interactive widgets. They also take their display value from the response, to show which facets are enabled, or which refinement is already made. All of them also expose a {\tt refine()} function. This function will be called whenever is applicable in that case, and uses Helper methods like {\tt helper.state.toggleRefinement} to actually apply their change on the search state.
 
 %%
 talk about the difference between storing parameters and storing widget state
@@ -37,7 +39,55 @@ talk about the difference between storing parameters and storing widget state
 \subsection{Structuring a state container}
 \label{sub:structuring_a_state_container}
 
-In the InstantSearch Core implementation the choice has been made to structure state per refinement type
+In the InstantSearch Core implementation the choice has been made to structure state in three divisions. One for the result that comes from each API call, one for raw parameters like {\tt DISTINCT} and another division for the actual refinements.
+
+...
+
+Finally the state looks like this
+
+
+\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
+const state = {
+  refinements: {
+    color: {
+      type: 'menu',
+      value: 'blue',
+    },
+    brand: {
+      type: 'list',
+      value: ['apple', 'samsung'],
+    },
+    price: {
+      type: 'range',
+      value: '>= 5',
+    },
+    query: {
+      type: 'query',
+      value: '',
+    },
+  },
+  rawParameters: {
+    distinct: true,
+    page: 3,
+  },
+  result: {
+    processingTimeMS: 5,
+    filters: {
+      color: [
+        { label: 'red', value: 10 },
+        { label: 'blue', value: 100 },
+        { label: 'orange', value: 1 },
+      ],
+    },
+    hits: [
+      {
+        objectID: '0x04532',
+        color: 'blue',
+      },
+    ],
+  },
+};
+\end{lstlisting}
 
 connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
 
