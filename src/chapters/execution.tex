@@ -41,7 +41,7 @@ talk about the difference between storing parameters and storing widget state
 
 In the InstantSearch Core implementation the choice has been made to structure state in three divisions. One for the result that comes from each API call, one for raw parameters like {\tt DISTINCT} and another division for the actual refinements.
 
-...
+... % 
 
 Finally the state looks like this
 
@@ -92,20 +92,6 @@ const state = {
 connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
 
 % section organizing_state (end)
-
-\section{Changing terminology} % (fold)
-\label{sec:changing_terminology}
-
-%%
-Terminology now is the same as in the API
-
-Users don't understand the difference between facet and filter
-
-Make a higher-level language that only uses filters
-
-Mention the doc changes needed
-
-% section changing_terminology (end)
 
 \section{Handling state changes} % (fold)
 \label{sec:handling_state_changes}
@@ -166,6 +152,13 @@ documentation very clear that this shouldn't regularly be used
 \end{figure}
 
 % section overview (end)
+
+\section{Usage in libraries} % (fold)
+\label{sec:usage_in_libraries}
+
+PoC in instantsearch.js and ReactInstantsearch for the RefinementList %%
+
+% section usage_in_libraries (end)
 
 \section{Complete implementation} % (fold)
 \label{sec:complete_implementation}
