@@ -2,13 +2,13 @@
 
 \chapter{Exploratory study} % (fold)
 \section{Yarn} % (fold)
-\label{chp:yarn}
+\label{sec:yarn}
 
-Before jumping into making a new library or improving an existing one, one should use it sufficiently. For that purpose my first task at Algolia was to use React InstantSearch in a (complex) production application, the website of Yarn~\cite{yarn-site}.
+Before jumping into making a new library or improving an existing one, one should use it sufficiently. For that purpose my first task at Algolia was to use React InstantSearch in a (complex) production application, the website of Yarn~\cite{yarn-site}~.
 
 % formulate without I
 
-Before I joined, the team worked on integrating Algolia search into the website~\cite{yarn-pr-add-algolia}. Since the very beginning of 2017, it's possible to look up packages at a very impressive speed at yarnpkg.com/search. I already had some\footnote{\href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} experience with the codebase making small fixes when I saw them earlier, so improving that experience was a project I really loved finding out about.
+Before I joined, the team worked on integrating Algolia search into the website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it's possible to look up packages at a very impressive speed at yarnpkg.com/search. I already had some\footnote{\href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} experience with the codebase making small fixes when I saw them earlier, so improving that experience was a project I really loved finding out about.
 
 % no I
 
@@ -51,7 +51,7 @@ When using just the JS client, it can be noticed that all state should be handle
 \subsection{Algolia JS Helper} % (fold)
 \label{sub:algolia_js_helper}
 
-Before being a separate concept, the ``Helper'' was an integral part of the JS API client~\cite{algolia-blog-js-client}. In 2015 it was moved out as a standalone library with as its main feature handling state of a search experience.
+Before being a separate concept, the ``Helper'' was an integral part of the JS API client~\cite{algolia-blog-js-client}~. In 2015 it was moved out as a standalone library with as its main feature handling state of a search experience.
 
 This means that when making a search experience, a new instance --- further called \emph{the} helper for that view --- of the Helper is created. When being initialized it creates a bond with a JS client instance, to be used for sending the API calls to the servers.
 
@@ -68,7 +68,7 @@ This helper exposes functions to modify the current state. It has three kinds of
   \caption{Handling state with the JS Helper\cite{js-helper-concepts}}
 \end{figure}
 
-It also handles the ``Hierarchical faceting''\cite{hierarchical-faceting}. Hierarchical faceting %%
+It also handles the ``Hierarchical faceting''\cite{hierarchical-faceting}~. Hierarchical faceting %%
 
 % subsection algolia_js_helper (end)
 
