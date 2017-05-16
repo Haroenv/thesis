@@ -3,16 +3,17 @@
 \chapter{Exploratory study} % (fold)
 \label{chp:exploratory_study}
 
-\section{title}
+\section{Discover}
+\label{sec:discovery}
+
+A way to discover all intricacies of an ecosystem is to use it in a lot of different ways. Before jumping into making a new library or improving an existing one, one should use it sufficiently. 
+
+To do that, two main methods are used. Firstly it is to convert an existing search implementation using InstantSearch.js\cite{instantsearch-js} to use React InstantSearch in a more complex heavily used production website. For that purpose the website of the package manager Yarn\cite{yarn-site} was chosen.
+
+The other method chosen for this goal is being a full member of the support experience at Algolia. Every developer takes care of their own libraries in all support channels, which helps a lot in finding out whether certain things are wanted by customers, or certain others aren't. This also helps in finding bugs and understanding weaknesses in the product.
 
 \subsection{Yarn} % (fold)
 \label{ssec:yarn}
-
-Note: still need to convert to third person...
-
-A way to discover all intricacies of an ecosystem is to use it in a lot of different ways
-
-Before jumping into making a new library or improving an existing one, one should use it sufficiently. For that purpose my first task at Algolia was to use React InstantSearch in a (complex) production application, the website of Yarn~\cite{yarn-site}~.
 
 Yarn is an open source package manager developed jointly by engineers at Facebook, Google and Tilde for the JavaScript ecosystem, based on the npm package manager. It allows for code to be easily shared among everyone in the world~\cite{yarn-site}~.
 
@@ -22,15 +23,16 @@ The Algolia team already worked on integrating Algolia search into the Yarn webs
 
 The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} that takes in packages in the npm repository, and joins that together with places that have more information, like GitHub, and the amount of monthly downloads per package.
 
-This 
+This search experience was such a success that one week prior to the start of the internship in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook offices in London --- Facebook has the main contributors to the Yarn project --- to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
 
-In the week before I arrived in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook offices in London to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
+The Yarn project is evolving from having metadata from the npm packages in an index, used only on the Yarn website, to a free to use API, which can make great search available to anyone who wants to make something for the ecosystem. The first other website that will use this data will be the online code editor \href{https://codesandbox.io}{CodeSandbox.io} for the interface where someone can add a dependency to a project. A lot of other integrations are expected in the time coming after this service will be formally announced.
 
-The Yarn project is evolving from having metadata from the npm packages in an index, used only on the Yarn website, to a free to use API, which can make great search available to everyone who wants to make something for the ecosystem. The first other website that will use this data will be the online code editor \href{https://codesandbox.io}{CodeSandbox.io} for the interface where someone can add a dependency to a project. A lot of other integrations are expected in the time coming after this service will be formally announced.
+% subsection yarn (end)
+\subsection{Support}
+\label{support}
 
-%% url
+TODO: write about support
 
-% section yarn (end)
 \section{What is even wrong with the Helper} % (fold)
 \label{sec:what_is_even_wrong_with_the_helper}
 
