@@ -3,22 +3,28 @@
 \begin{document}
 
 \frontmatter
+  %% gekleurd titelblad
+  %% wit blad
   \input{titlepage}
+  %% wit blad
+  %% stagegegevens
+  %%
+  \input{chapters/acknowledgements}
   \input{chapters/abstract}
+  \input{chapters/preface}
 
   % TOC
   \setcounter{tocdepth}{3}
   \tableofcontents
   % end TOC
 
-  \input{chapters/preface}
-  \input{chapters/acknowledgements}
   \input{chapters/list-abbrevs}
+  \input{chapters/introduction}
 
 \mainmatter
   % main content
-  \input{chapters/introduction}
   \input{chapters/presentation}
+  \input{chapters/research-question}
   \input{chapters/action-plan}
   \input{chapters/exploratory-study}
   \input{chapters/execution}

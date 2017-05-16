@@ -3,7 +3,7 @@
 \chapter{Exploratory study} % (fold)
 \label{chp:exploratory_study}
 
-\section{Discover}
+\section{Discovery}
 \label{sec:discovery}
 
 A way to discover all intricacies of an ecosystem is to use it in a lot of different ways. Before jumping into making a new library or improving an existing one, one should use it sufficiently. 
@@ -19,13 +19,13 @@ Yarn is an open source package manager developed jointly by engineers at Faceboo
 
 In both the npm and Yarn ecosystem code is shared in packages --- also called modules --- which all have a {\tt package.json} file that describes metadata on the package, together with all the code. Yarn and npm share the npm repository for having the packages of the ecosystem.
 
-The Algolia team already worked on integrating Algolia search into the Yarn website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it’s possible to look up packages at a very impressive speed at \href{https://yarnpkg.com/search}{yarnpkg.com/search}. Making small fixes in the codebase\footnote{\href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} in the past made the project and research on further improving that experience proved to be a very exciting endeavour.
+The Algolia team already worked on integrating Algolia search into the Yarn website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it’s possible to look up packages at a very impressive speed at \href{https://yarnpkg.com/search}{yarnpkg.com/search}. Making small fixes in the codebase\footnote{\href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} in the past made the project and research on further improving that search experience proved to be a very exciting endeavour.
 
 The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} that takes in packages in the npm repository, and joins that together with places that have more information, like GitHub, and the amount of monthly downloads per package.
 
 This search experience was such a success that one week prior to the start of the internship in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook offices in London --- Facebook has the main contributors to the Yarn project --- to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
 
-The Yarn project is evolving from having metadata from the npm packages in an index, used only on the Yarn website, to a free to use API, which can make great search available to anyone who wants to make something for the ecosystem. The first other website that will use this data will be the online code editor \href{https://codesandbox.io}{CodeSandbox.io} for the interface where someone can add a dependency to a project. A lot of other integrations are expected in the time coming after this service will be formally announced.
+The Yarn project is evolving from having metadata from the npm packages in an index, used only on the Yarn website, to a free to use API, which can make great search available to anyone who wants to make a project leveraging the ecosystem. The first other website that will use this data will be the online code editor \href{https://codesandbox.io}{CodeSandbox.io} for the interface where users can add dependencies to their projects. A lot of other integrations are expected in the time coming after this service will be formally announced.
 
 % subsection yarn (end)
 \subsection{Support}
@@ -33,6 +33,7 @@ The Yarn project is evolving from having metadata from the npm packages in an in
 
 TODO: write about support
 
+%% change title
 \section{What is even wrong with the Helper} % (fold)
 \label{sec:what_is_even_wrong_with_the_helper}
 
