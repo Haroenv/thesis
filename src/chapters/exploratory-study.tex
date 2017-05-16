@@ -19,7 +19,7 @@ Yarn is an open source package manager developed jointly by engineers at Faceboo
 
 In both the npm and Yarn ecosystem code is shared in packages --- also called modules --- which all have a {\tt package.json} file that describes metadata on the package, together with all the code. Yarn and npm share the npm repository for having the packages of the ecosystem.
 
-The Algolia team already worked on integrating Algolia search into the Yarn website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it’s possible to look up packages at a very impressive speed at \href{https://yarnpkg.com/search}{yarnpkg.com/search}. Making small fixes in the codebase\footnote{\href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} in the past made the project and research on further improving that search experience proved to be a very exciting endeavour.
+The Algolia team already worked on integrating Algolia search into the Yarn website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it’s possible to look up packages at a very impressive speed at \href{https://yarnpkg.com/search}{yarnpkg.com/search}. Making small fixes in the codebase\footnote{These fixes are \href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335}} in the past made the project and research on further improving that search experience proved to be a very exciting endeavour.
 
 The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} that takes in packages in the npm repository, and joins that together with places that have more information, like GitHub, and the amount of monthly downloads per package.
 
@@ -31,13 +31,17 @@ The Yarn project is evolving from having metadata from the npm packages in an in
 \subsection{Support}
 \label{support}
 
-TODO: write about support
+TODO: write about support%%
 
 %% change title
 \section{What is even wrong with the Helper} % (fold)
 \label{sec:what_is_even_wrong_with_the_helper}
 
-There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the REST API\@. Then tutorials were written on how to use Algolia to build user interfaces using jQuery, moment.js etc. After that the algoliasearch-helper~\cite{algolia-js-helper} was written to avoid boilerplate. And most recently InstantSearch.js~\cite{instantsearch-js} and React InstantSearch~\cite{react-instantsearch} were launched.
+There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the REST API with the Algolia JS client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using techologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement%%   
+
+After noticing that this lead to a lot of boilerplace, the Algolia JS helper~\cite{algolia-js-helper} was written. %%
+
+And most recently InstantSearch.js~\cite{instantsearch-js} and React InstantSearch~\cite{react-instantsearch} were launched. %%
 
 This evolution makes for three distinct phases in how state has been handled, based on which library is used.
 
