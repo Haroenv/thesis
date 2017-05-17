@@ -48,7 +48,9 @@ In the context of a search experience, the state of a page are the active refine
   \caption{Current Refinements in React InstantSearch\cite{ris-current-refinements}}
 \end{figure}
 
-To avoid having users to keep the state of their search experience by themselves, the Algolia JavaScript helper~\cite{algolia-js-helper} was written. Its goal is to have a global state object which can be 
+To avoid having users to keep the state of their search experience by themselves, the Algolia JavaScript helper~\cite{algolia-js-helper} was written. Its goal is to be a reference to the state of the search, and provide ways to change the state.
+
+When an abstraction for the search state has been made, it becomes a lot more straight-forward to 
 
 And most recently InstantSearch.js~\cite{instantsearch-js} and React InstantSearch~\cite{react-instantsearch} were launched. %%
 
@@ -57,7 +59,7 @@ This evolution makes for three distinct phases in how state has been handled, ba
 \subsection{Algolia JavaScript client} % (fold)
 \label{sub:algolia_js_client}
 
-When Algolia pivoted in 2013 to a SaaS product~\cite{algolia-blog-saas}, it had support~\cite{algolia-blog-lauch} for six languages out of the box. JavaScript has always been important because of the focus on speed that Algolia has.
+When Algolia pivoted in 2013 to a SaaS product~\cite{algolia-blog-saas}, API clients~\cite{algolia-blog-lauch} for six programming languages were immediately available. JavaScript has always been important because of the focus on speed that Algolia has.
 
 There are two major options to make a search experience. The first is to send a request from the frontend to the search service, where a JSON response is returned, which then is uses to render results in client side code. The other is sending that same request via a form on an application-specific backend, and constructing the results there, and eventually sending a completely new page back as a result to the user's query.
 
