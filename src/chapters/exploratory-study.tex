@@ -84,12 +84,18 @@ The JavaScript client~\cite{algolia-js-client} is the lowest useful level of abs
 
 When using just the JavaScript client, it can be noticed that all state should be handled inside the application code. That means keeping track whether a certain refinement has been set and unset, and keeping this consistent within the application code. Furthermore, the application needs to be aware when Algolia should be queried, and then handling all of the incoming results, dealing with out-of-order responses etc.
 
+Making a user interface with just the JavaScript client requires you to take ownership of the search state. An intuitive to deal with the state then, is saving it as part as the DOM, for example by setting attributes.
+
+This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to see if the extra refinement is possible. 
+
 \begin{figure}[H]
 \label{figure:js-client-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/js-client-state.pdf}
   \caption{Handling state with the JavaScript client}
 \end{figure}
+
+Adding a ``Clear All'' button in this structure is not trivial. There needs to be either a query for all elements that need to be updated, or they need to be kept up to date in a list. Then for each of those elements the relevant attributes would need to be updated or removed.
 
 % subsection algolia_js_client (end)
 
@@ -98,13 +104,17 @@ When using just the JavaScript client, it can be noticed that all state should b
 
 Before being a separate concept, the ``Helper'' was an integral part of the JavaScript API client~\cite{algolia-blog-js-client}~. In 2015 it was moved out as a standalone library with as its main feature handling state of a search experience.
 
-This means that when making a search experience, a new instance --- further called \emph{the} helper for that view --- of the Helper is created. When being initialized it creates a bond with a JavaScript client instance, to be used for sending the API calls to the servers.
+This means that when making a search experience, a new instance --- further called \emph{the} Helper for that view --- of the Helper is created. When it is being initialized, it creates a bond with a JavaScript API client instance, to be used for sending the API calls to the servers.
 
-This helper exposes functions to modify the current state. It has three kinds of those functions
+This Helper exposes functions to modify the current state. It has three kinds of those functions
+
 
 \begin{enumerate}
   \item idk %%
 \end{enumerate}
+
+The Helper uses an observer pattern to be able to express
+
 
 \begin{figure}[H]
 \label{figure:js-helper-state}
@@ -115,12 +125,12 @@ This helper exposes functions to modify the current state. It has three kinds of
 
 It also handles the ``Hierarchical faceting''\cite{hierarchical-faceting}~. Hierarchical faceting %%
 
-% subsection algolia_js_helper (end)
+% subsection algolia_js_Helper (end)
 
 \subsection{InstantSearch.js} % (fold)
 \label{sub:instantsearch_js}
 
-rely on helper, expose it. Problem: very hard to make new components because you don't know how the helper works, and there's only a carte blanche component. %%
+rely on helper, expose it. Problem: very hard to make new components because you don't know how the Helper works, and there's only a carte blanche component. %%
 
 \begin{figure}[H]
 \label{figure:is-js-state}
@@ -143,7 +153,7 @@ Connectors happened in v2 of instantsearch
 \subsection{React InstantSearch} % (fold)
 \label{sub:react_instantearch}
 
-Add a layer of state on top of the helper. Good because it hides the helper in {\tt connectors}. Problem: helper is still kinda visible but not really and that causes wrong expectations %%
+Add a layer of state on top of the helper. Good because it hides the Helper in {\tt connectors}. Problem: Helper is still kinda visible but not really and that causes wrong expectations %%
 
 \begin{figure}[H]
 \label{figure:is-react-state}
