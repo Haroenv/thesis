@@ -106,15 +106,17 @@ Before being a separate concept, the ``Helper'' was an integral part of the Java
 
 This means that when making a search experience, a new instance --- further called \emph{the} Helper for that view --- of the Helper is created. When it is being initialized, it creates a bond with a JavaScript API client instance, to be used for sending the API calls to the servers.
 
-This Helper exposes functions to modify the current state. It has three kinds of those functions
-
+This Helper exposes functions to modify the current state. It has three kinds of those functions %%
 
 \begin{enumerate}
-  \item idk %%
+  \item facets
+  \item filters
+  \item query parameters
 \end{enumerate}
 
-The Helper uses an observer pattern to be able to express
+The Helper uses an observer pattern to be able to express listening to what happens in the search state, regardless of where it comes from. By attaching listeners to the instance, it's possible to react to every change that happens, and update the UI. This way there's only one central source of truth.
 
+By providing a central place of truth for state, %%
 
 \begin{figure}[H]
 \label{figure:js-helper-state}
