@@ -67,9 +67,7 @@ To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js
 
 InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript library for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. That -- ironically -- means that using InstantSearch.js in a React application is not a trivial operation.
 
-To be able to 
-
- and React InstantSearch~\cite{react-instantsearch} were launched. %%
+Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the DOM, but also expose another concept called connectors, which expose only the data that is relevant to a component, and a way to refine on it, relevant to that refinement.
 
 This evolution makes for three distinct phases in how state has been handled, based on which library is used.
 
