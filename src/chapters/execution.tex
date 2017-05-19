@@ -90,10 +90,14 @@ const refinements = {
     type: 'query',
     value: 'pizza',
   },
+  page: {
+    type: 'page',
+    value: 1,
+  },
 };
 \end{lstlisting}
 
-To be able to handle a lot of cases that can't be foreseen by the refinements, or to handle settings that aren't visible to the user, a {\tt rawParameters} key is available in the search state %%
+To be able to handle a lot of cases that can't be foreseen by the refinements, or to handle settings that aren't visible to the user, a {\tt rawParameters} key is available in the search state. There are some 
 
 \begin{lstlisting}[caption={Passing raw Algolia parameters to InstantSearch Core},label={lst:is-core-state-3}]
 const rawParameters = {
@@ -119,21 +123,25 @@ const result = {
         label: 'blue',
         count: 100,
       },
-      {
-        label: 'orange',
-        count: 1,
-      },
     ],
   },
+  (*@{\vdots}@*)
   hits: [
     {
       objectID: '0x1f355',
       color: 'blue',
+     (*@{\vdots}@*)
     },
+    (*@{\vdots}@*)
   ],
-  meta: { processingTimeMS: 5 },
+  meta: { 
+    processingTimeMS: 5,
+    (*@{\vdots}@*)
+  },
 };
 \end{lstlisting}
+
+Because of this structure, a connector can be made for every refinement. It takes
 
 connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
 
