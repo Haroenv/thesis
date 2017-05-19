@@ -41,53 +41,76 @@ talk about the difference between storing parameters and storing widget state
 
 In the InstantSearch Core implementation the choice has been made to structure state in three divisions. One for the result that comes from each API call, one for raw parameters like {\tt DISTINCT} and another division for the actual refinements.
 
-... % 
+The most interesting container is the {\tt refinements}
 
 Finally the state looks like this
 
 
 \begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
-const state = {
-  refinements: {
-    color: {
-      type: 'menu',
-      value: 'blue',
-    },
-    brand: {
-      type: 'list',
-      value: ['apple', 'samsung'],
-    },
-    price: {
-      type: 'range',
-      value: '>= 5',
-    },
-    query: {
-      type: 'query',
-      value: '',
-    },
+const refinements = {
+  color: {
+    type: 'menu',
+    value: 'blue',
   },
-  rawParameters: {
-    distinct: true,
-    page: 3,
+  brand: {
+    type: 'list',
+    value: ['apple', 'samsung'],
   },
-  result: {
-    processingTimeMS: 5,
-    filters: {
-      color: [
-        { label: 'red', value: 10 },
-        { label: 'blue', value: 100 },
-        { label: 'orange', value: 1 },
-      ],
-    },
-    hits: [
-      {
-        objectID: '0x1f355',
-        color: 'blue',
-      },
-    ],
+  price: {
+    type: 'range',
+    value: '>= 5',
+  },
+  query: {
+    type: 'query',
+    value: '',
   },
 };
 \end{lstlisting}
+
+\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
+const rawParameters = {
+  distinct: true,
+  page: 3,
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
+const result = {
+  meta: { processingTimeMS: 5 },
+  color: {
+    type: 'menu',
+    value: [
+      {
+        label: 'red',
+        count: 10,
+      },
+      {
+        label: 'blue',
+        count: 100,
+      },
+      {
+        label: 'orange',
+        count: 1,
+      },
+    ],
+  },
+  hits: [
+    {
+      objectID: '0x1f355',
+      color: 'blue',
+    },
+  ],
+};
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
+const state = {
+  refinements,
+  rawParameters,
+  result,
+};
+\end{lstlisting}
+
 
 connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
 
