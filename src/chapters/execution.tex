@@ -41,16 +41,35 @@ talk about the difference between storing parameters and storing widget state
 
 In the InstantSearch Core implementation the choice has been made to structure state in three divisions. One for the result that comes from each API call, one for raw parameters like {\tt DISTINCT} and another division for the actual refinements.
 
-The most interesting container is the {\tt refinements}
+Since InstantSearch Core is a JavaScript library, there isn't much choice for a container. A {\tt Map}\cite{mdn-map} could be used as the actual value for the {\tt result} key, but since it's not widely supported and has a significantly less elegant API, and they generally consume more memory in smaller objects. Since in the general case, Algolia results contain about 20 hits, and a finite amount of filters, using {\tt Object} is perfectly reasonable.
 
-Finally the state looks like this
+\begin{lstlisting}[caption={The state container of InstantSearch Core},label={lst:is-core-state-1}]
+const state = {
+  refinements,
+  rawParameters,
+  result,
+};
+\end{lstlisting}
 
+Here, the most interesting container is the {\tt refinements} container. It's structured as another {\tt Object} with a key for every attribute name which is being refined, and is inspired by the structure of the state {\tt Object} in React InstantSearch\cite{react-instantsearch-search-state}.
 
-\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
+Every attribute is another {\tt Object}, with a {\tt type} key, and a {\tt value} key. For each of the possible refinements, a value that is relevant is chosen. 
+
+A menu for example is a refinement that takes a attribute that has been set up for faceting\cite{algolia-set-up-faceting} and has a single value. For that reason a menu takes in a string as a value. A list is a refinement that is exactly the same, but takes a list of strings to be able to set up multiple refined values for that attribute.
+
+Having a structure like this implies that it is trivial to see if any refinements have been set, including the query. This is useful for when an interface is constructed that only shows a search bar until the first character is typed. After that a more elaborate interface shows up to fill the screen with other filters.
+
+If every refinement would be set, the refinements key of the search state would be:
+
+\begin{lstlisting}[caption={Refinements in InstantSearch Core},label={lst:is-core-state-2}]
 const refinements = {
   color: {
     type: 'menu',
     value: 'blue',
+  },
+  products: {
+    type: 'hierarchicalMenu',
+    value: 'Laptops > Surface',
   },
   brand: {
     type: 'list',
@@ -58,25 +77,37 @@ const refinements = {
   },
   price: {
     type: 'range',
-    value: '>= 5',
+    value: {
+      min: 20,
+      max: 3000
+    },
+  },
+  freeShipping: {
+    type: 'toggle',
+    value: false,
   },
   query: {
     type: 'query',
-    value: '',
+    value: 'pizza',
   },
 };
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
+To be able to handle a lot of cases that can't be foreseen by the refinements, or to handle settings that aren't visible to the user, a {\tt rawParameters} key is available in the search state %%
+
+\begin{lstlisting}[caption={Passing raw Algolia parameters to InstantSearch Core},label={lst:is-core-state-3}]
 const rawParameters = {
   distinct: true,
   page: 3,
 };
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
+Finally, very important are the results. These results are not exactly the same as how they come in from the Algolia API. The differentiator is that there is a slight reordering to match the structure of the {\tt refinements} block.
+
+This solves an interesting problem with InstantSearch.js. Whenever something needs to be done which isn't provided by the library, a so-called custom widget needs to be written. To be able to %%
+
+\begin{lstlisting}[caption={Results container in the InstantSearch Core state},label={lst:is-core-state-4}]
 const result = {
-  meta: { processingTimeMS: 5 },
   color: {
     type: 'menu',
     value: [
@@ -100,17 +131,9 @@ const result = {
       color: 'blue',
     },
   ],
+  meta: { processingTimeMS: 5 },
 };
 \end{lstlisting}
-
-\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
-const state = {
-  refinements,
-  rawParameters,
-  result,
-};
-\end{lstlisting}
-
 
 connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
 
