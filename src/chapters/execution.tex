@@ -154,7 +154,37 @@ Because of this structure, a connector can be made for every refinement. It will
 
 While all three keys of the state container will change over time, they each work in a slightly different way. The {\tt results} key is described in section \ref{sec:getting_responses_from_the_api}, and is tracked fairly straightforward. Every time a new API response comes in, it will completely overwrite the previous state of that key. 
 
-All raw parameters are being rewritten in place, similar to how {\tt setState} works in React, a function called {\tt refineRaw} is exposed on a 
+All raw parameters are being rewritten in place, similar to how {\tt setState} works in React, a function called {\tt refineRaw} is exposed on a state container. This function expects a function as an argument. It receives the previous state for the refinements as its parameter, and is expected to return the new state object, based on whatever happened that needs to change.
+
+This pattern allows a developer to have the freedom to change whatever parameters are necessary to change, while having access to the complete truth at that point easily. An example of toggling the {\tt DISTINCT} parameter, for example on an event listener for a button with that purpose would look like this:
+
+\begin{lstlisting}[caption={Toggling the {\tt DISTINCT} parameter},label={lst:is-core-raw}]
+function toggleDistinct(previousState) {
+  // set the distinct parameter as the opposite of previously
+  const oppositeDistinct = { distinct: !previousState.distinct };
+
+  // make an Object to hold the new state
+  const newState = Object.assign({}, previousState, oppositeDistinct);
+  return newState;
+}
+
+state.refineRaw(toggleDistinct);
+\end{lstlisting} 
+
+%
+
+In future JavaScript engines\footnote{spread properties on Objects are currently a Stage 3 proposal for ECMAScript\cite{es-prop-spread}}, it will be able to write this kind of code using spread properties on Objects. This kind of pattern would look like this then:
+
+\begin{lstlisting}[caption={Toggling the {\tt DISTINCT} parameter when object spread is available},label={lst:is-core-raw}]
+function toggleDistinct(previousState) {
+  return {
+    ...previousState,
+    distinct: distinct: !previousState.distinct,
+  }
+}
+
+state.refineRaw(toggleDistinct);
+\end{lstlisting}
 
 %%
 Research:
