@@ -6,7 +6,7 @@
 \section{Terminology}
 \label{sec:terminology}
 
-The Algolia API is pushing by uploading schemaless JSON objects to an index
+The Algolia API is pushing by uploading schemaless JSON objects to an index %%
 
 \section{Organizing state} % (fold)
 \label{sec:organizing_state}
@@ -97,7 +97,9 @@ const refinements = {
 };
 \end{lstlisting}
 
-To be able to handle a lot of cases that can't be foreseen by the refinements, or to handle settings that aren't visible to the user, a {\tt rawParameters} key is available in the search state. There are some 
+To be able to handle a lot of cases that can't be foreseen by the refinements, or to handle settings that aren't visible to the user, a {\tt rawParameters} key is available in the search state. 
+
+These attribute names will be used in the results, exactly as they are in the query, and always supersede the refinements, since usually when someone needs custom parameters that aren't provided by a refinement, they have a good reason for that.
 
 \begin{lstlisting}[caption={Passing raw Algolia parameters to InstantSearch Core},label={lst:is-core-state-3}]
 const rawParameters = {
@@ -106,9 +108,11 @@ const rawParameters = {
 };
 \end{lstlisting}
 
-Finally, very important are the results. These results are not exactly the same as how they come in from the Algolia API. The differentiator is that there is a slight reordering to match the structure of the {\tt refinements} block.
+Finally, and maybe more importantly are the results. The results are not exactly the same as how they come in from the Algolia API. The differentiator is that there is a slight reordering to match the structure of the {\tt refinements} block.
 
-This solves an interesting problem with InstantSearch.js. Whenever something needs to be done which isn't provided by the library, a so-called custom widget needs to be written. To be able to %%
+This solves an interesting problem with InstantSearch.js. Whenever something needs to be done which isn't provided by the library, a so-called custom widget needs to be written. To be able to call any Algolia related functionality, the Helper is used. 
+
+When certain functionality is needed, there's a gap in terminology between the widgets and the actual Algolia parameters. For example: what's called a menu widget in InstantSearch.js, is called a hierarchicalRefinement. In most cases this doesn't really matter, but when someone needs to recreate a widget without a connector, they should know that the terminology can be different.
 
 \begin{lstlisting}[caption={Results container in the InstantSearch Core state},label={lst:is-core-state-4}]
 const result = {
@@ -141,21 +145,23 @@ const result = {
 };
 \end{lstlisting}
 
-Because of this structure, a connector can be made for every refinement. It takes
-
-connectors are easier when you can just have one listener / changer per connector type. Don't care about the global state basically.
+Because of this structure, a connector can be made for every refinement. It will change something in a refinement, and subscribe for the changes to the results, and only needs to take one key into account. Ultimately this leads to a more understandable API for people using this library.
 
 % section organizing_state (end)
 
 \section{Handling state changes} % (fold)
 \label{sec:handling_state_changes}
 
+While all three keys of the state container will change over time, they each work in a slightly different way. The {\tt results} key is described in section \ref{sec:getting_responses_from_the_api}, and is tracked fairly straightforward. Every time a new API response comes in, it will completely overwrite the previous state of that key. 
+
+All raw parameters are being rewritten in place, similar to how {\tt setState} works in React, a function called {\tt refineRaw} is exposed on a 
+
 %%
 Research:
 
 \begin{itemize}
   \item observables vs flux
-  \item Other languages (Elm model)\cite{csstricks-elm}
+  \item Other languages (Elm model)\cite{csstricks-elm} %%
 \end{itemize}
 
 % section handling_state_changes (end)
@@ -163,7 +169,7 @@ Research:
 \section{Getting responses from the API} % (fold)
 \label{sec:getting_responses_from_the_api}
 
-another function listens to changes in state
+another function listens to changes in state %%
 
 it transforms params into a JS client request
 
@@ -174,7 +180,7 @@ it replaces the {\tt response} in the state with an action
 \section{Rendering refinements} % (fold)
 \label{sec:rendering_refinements}
 
-Stuff to think about: dynamic facets as core part of this API or not?
+Stuff to think about: dynamic facets as core part of this API or not? %%
 
 % section rendering_refinements (end)
 
@@ -185,21 +191,21 @@ The API also allows for an initialisation with a certain state passed in. This m
 
 This is useful for three major use cases. The first is URL synchronisation. For URL synchronisation the structure would be to first listen on every state change with {\tt .subscribe()}, and then asynchronously transform that to query parameters to set. If a user comes to a page with query parameters, a function to take in the query string and put out a state object would then be called. After that point a new InstantSearch Core instance can be built with the {\tt preloadedState} parameter set in the constructor.
 
-INSERT: image to show how URL-sync should be implemented
+INSERT: image to show how URL-sync should be implemented %%
 
 Similarly it is also possible to do that process with a different medium than query parameters, for example {\tt localStorage}. For that reason this process is left over to the user, possibly with other small packages dealing with browser inconsistencies on top of it. 
 
-This pattern is also useful for when Server Side Rendering (SSR) is implemented. When ...
+This pattern is also useful for when Server Side Rendering (SSR) is implemented. When ...%%
 
 \begin{enumerate}
   \item execute the IS function once
   \item render the output as html
   \item also output the state object in a global object
   \item send that html to the client
-  \item start the IS instance frontend with preloadedState: {\tt window.PRELOADED\_STATE}
+  \item start the IS instance frontend with preloadedState: {\tt window.PRELOADED\_STATE} %%
 \end{enumerate}
 
-INSERT: image to show how SSR should be implemented
+INSERT: image to show how SSR should be implemented %%
 
 % section saved_state (end)
 
@@ -213,7 +219,7 @@ INSERT: image to show how SSR should be implemented
   \caption{Architecture overview\cite{blog-architecture}}
 \end{figure}
 
-TODO: update this image with more recent architecture
+TODO: update this image with more recent architecture %%
 
 % section overview (end)
 
@@ -227,7 +233,7 @@ PoC in instantsearch.js and ReactInstantsearch for the RefinementList %%
 \section{Complete implementation} % (fold)
 \label{sec:complete_implementation}
 
-Obviously this isn't final and too detailed.
+Obviously this isn't final and too detailed. %%
 
 \begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
 // stores.js
