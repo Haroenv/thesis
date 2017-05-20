@@ -147,6 +147,8 @@ const result = {
 
 Because of this structure, a connector can be made for every refinement. It will change something in a refinement, and subscribe for the changes to the results, and only needs to take one key into account. Ultimately this leads to a more understandable API for people using this library.
 
+This state container is called {\tt InstantSearch}, because it's meant to be used in both InstantSearch.js, React InstantSearch, the upcoming Vue InstantSearch, as well as other community versions of InstantSearch, see also section \ref{sec:usage_in_libraries} for more detail on that.
+
 % section organizing_state (end)
 
 \section{Handling state changes} % (fold)
@@ -169,11 +171,9 @@ function toggleDistinct(previousState) {
 }
 
 state.refineRaw(toggleDistinct);
-\end{lstlisting} 
+\end{lstlisting}
 
-%
-
-In future JavaScript engines\footnote{spread properties on Objects are currently a Stage 3 proposal for ECMAScript\cite{es-prop-spread}}, it will be able to write this kind of code using spread properties on Objects. This kind of pattern would look like this then:
+In future JavaScript engines\footnote{spread properties on Objects are currently a Stage 3 proposal for ECMAScript\cite{es-prop-spread}, which means they are starting to be implemented by browsers, but it isn't part of the standard yet.}, it will be able to write this kind of code using spread properties on Objects. This kind of pattern would look like this then:
 
 \begin{lstlisting}[caption={Toggling the {\tt DISTINCT} parameter when object spread is available},label={lst:is-core-raw}]
 function toggleDistinct(previousState) {
@@ -185,6 +185,20 @@ function toggleDistinct(previousState) {
 
 state.refineRaw(toggleDistinct);
 \end{lstlisting}
+
+IMAGE: %%
+  state -> createInstantSearch
+
+
+The complete state container is structured in the same way as a single refinement. It's a factory function, returning an Object. This object has three functions: 
+
+\begin{enumerate}
+  \item {\tt get state()}
+  \item {\tt subscribe()}
+  \item {\tt setState()} or {\tt refine()}
+\end{enumerate}
+
+A basic {\tt store}
 
 %%
 Research:
