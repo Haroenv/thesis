@@ -39,7 +39,6 @@ It also has a secondary effect, which is that it keeps everyone up to date with 
 
 This is also a venue in which in a short time, deep knowledge about the API parameters and the layers of abstraction is acquired. This has a similar influence on the understanding of libraries as using the libraries in a production website.
 
-%% change title
 \section{Making search interfaces with Algolia} % (fold)
 \label{sec:making_search_interfaces_with_algolia}
 
@@ -48,7 +47,7 @@ There have been several phases in the life of Algolia regarding building user in
 In the context of a search experience, the state of a page are the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} when using Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
 
 \begin{figure}[H]
-\label{figure:js-helper-state}
+\label{figure:current-refinements}
   \centering
   \includegraphics[width=0.6\textwidth]{../assets/current-refinements.png}
   \caption{Current Refinements in React InstantSearch\cite{ris-storybooks}}
@@ -61,7 +60,7 @@ When an abstraction for the search state has been made, it becomes a lot more st
 However, when using the JavaScript Helper, there are still two major roadblocks that are left in userspace. These roadblocks are linked to more advanced components, like for example a refinement list. A refinement list is a component that holds a list of possible filters which are relevant to the currently set refinements. It will also show how many results there would be, if that filter is chosen.
 
 \begin{figure}[H]
-\label{figure:js-helper-state}
+\label{figure:refinementlist-ris}
   \centering
   \includegraphics[width=0.6\textwidth]{../assets/refinementlist.png}
   \caption{a RefinementList in React InstantSearch\cite{ris-storybooks}}
@@ -112,7 +111,7 @@ Before being a separate concept, the ``Helper'' was an integral part of the Java
 
 This means that when making a search experience, a new instance --- further called \emph{the} Helper for that view --- of the Helper is created. When it is being initialized, it creates a bond with a JavaScript API client instance, to be used for sending the API calls to the servers.
 
-This Helper exposes functions to modify the current state. It has three kinds of those functions %%
+This Helper exposes functions to modify the current state. It has three kinds of those functions, which are:
 
 \begin{enumerate}
   \item facets
@@ -122,7 +121,9 @@ This Helper exposes functions to modify the current state. It has three kinds of
 
 The Helper uses an observer pattern to be able to express listening to what happens in the search state, regardless of where it comes from. By attaching listeners to the instance, it's possible to react to every change that happens, and update the UI. This way there's only one central source of truth.
 
-By providing a central place of truth for state, %%
+By providing a central place of truth for search state, a lot of the complexity in user land disappears immediately. When making a component that needs to change a facet, but it is only active when a different filter has been set, becomes simple, since all that needs to be used is a check on {\tt helper.getState()}, and if the condition is met, a {\tt helper.toggleFacetRefinement()} can be called.
+
+Every time a new search request needs to be fetched, the {\tt results} observer is being triggered, and the search user interface can be updated with those new results.
 
 \begin{figure}[H]
 \label{figure:js-helper-state}
@@ -131,7 +132,14 @@ By providing a central place of truth for state, %%
   \caption{Handling state with the JavaScript Helper\cite{js-helper-concepts}}
 \end{figure}
 
-It also handles the ``Hierarchical faceting''\cite{hierarchical-faceting}~. Hierarchical faceting %%
+The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. For example a phone could be %%
+
+\begin{figure}[H]
+\label{figure:hierarchical-facets}
+  \centering
+  \includegraphics[width=0.6\textwidth, draft]{../assets/hierarchical-facets.pdf}
+  \caption{Structure of a hierarchical facet in the Algolia dashboard}
+\end{figure}
 
 % subsection algolia_js_Helper (end)
 
