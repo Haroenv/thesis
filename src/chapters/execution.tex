@@ -154,9 +154,17 @@ This state container is called {\tt InstantSearch}, because it's meant to be use
 \section{Handling state changes} % (fold)
 \label{sec:handling_state_changes}
 
+\subsection{InstantSearch}
+\label{ssec:instantsearch}
+
+The InstantSearch state container is exposed as a factory function creating a new container. The {\tt createInstantSearch} function inherits from the {\tt createStore} function used in other parts of the library, see figure \ref{figure:createstore_inheritance} for the complete architecture. It allows to be subscribed to with a function as argument, %%
+
 While all three keys of the state container will change over time, they each work in a slightly different way. The {\tt results} key is described in section \ref{sec:getting_responses_from_the_api}, and is tracked fairly straightforward. Every time a new API response comes in, it will completely overwrite the previous state of that key. 
 
-All raw parameters are being rewritten in place, similar to how {\tt setState} works in React, a function called {\tt refineRaw} is exposed on a state container. This function expects a function as an argument. It receives the previous state for the refinements as its parameter, and is expected to return the new state object, based on whatever happened that needs to change.
+\subsection{Raw refinements}
+\label{ssec:raw-refinments}
+%% find react setState
+All raw parameters are being rewritten in place, similar to how {\tt setState} works in React~\cite{react_setstate}~. A function called {\tt refineRaw} is exposed on a state container. This function expects a function as an argument. It receives the previous state for the refinements as its parameter, and is expected to return the new state object, based on whatever happened that needs to change.
 
 This pattern allows a developer to have the freedom to change whatever parameters are necessary to change, while having access to the complete truth at that point easily. An example of toggling the {\tt DISTINCT} parameter, for example on an event listener for a button with that purpose would look like this:
 
@@ -186,9 +194,8 @@ function toggleDistinct(previousState) {
 state.refineRaw(toggleDistinct);
 \end{lstlisting}
 
-IMAGE: %%
-  state -> createInstantSearch
-
+\subsection{Refinements}
+\label{ssec:refinments}
 
 The complete state container is structured in the same way as a single refinement. It's a factory function, returning an Object. This object has three functions: 
 
@@ -199,6 +206,44 @@ The complete state container is structured in the same way as a single refinemen
 \end{enumerate}
 
 A basic {\tt store}
+
+\begin{figure}[H]
+\label{figure:createstore_inheritance}
+  \centering
+  \includegraphics[width=.5\textwidth, draft]{../assets/createStore.pdf}
+  \caption{InstantSearch Core store organisation.}
+\end{figure}
+
+\subsection{Subscribing}
+\label{ssec:Subscribing}
+
+While at any moment it's possible to call the state getter on an InstantSearch store or a refinement, a programmer might want to know how state changes overtime, and get notified about the new change. If only the state getter would be implemented, a naive way to find out about changes, is repeatedly asking for the current state like this:
+
+\begin{lstlisting}[caption={Naive way to find out about changed state},label={lst:is-core-naive-subscribe}]
+// holder for the state
+let currentState = {};
+
+function update() {
+  // reassign the state
+  currentState = store.state;
+  requestAnimationFrame(update);
+}
+
+// call the update function when a new frame is being drawn
+requestAnimationFrame(update);
+\end{lstlisting}
+
+After that, the {\tt currentState} variable might be used wherever it's needed, and make the needed UI changes. Depending on the type of framework used for this, it might either have a very big impact, or be optimised away, but it isn't always ideal.
+
+%% cite vue site
+For a framework like Vue\cite{vue-site}, this approach is close to the way to go. There is no implicit need for reassigning a local variable, since the {\tt store} is available with a getter. Vue will track the changes to all getters on objects with a process called ``reactive values''.
+
+Vue will trigger a new render on every frame where there has been time for it, which gives it the time to call a getter function on every frame seamlessly. 
+
+However, not all frameworks implement this kind of reactivity. React for example will only look at the props and context of a component. It would be possible to pass down the {\tt store.state} getter as part of React context, but it would cause unneeded renders, since that part of optimisation is left over to the user land of a React app. 
+
+%% cite redux
+For frameworks like React, a {\tt subscribe()} function is available at the store prototype. Similar to Redux\cite{redux-github}, a state management library that works very well with React, this function expects a single function as the argument. This function will be called at every time the state changes, be it either by changing refinements, or by new results being returned.
 
 %%
 Research:
