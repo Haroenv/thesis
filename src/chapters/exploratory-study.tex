@@ -6,7 +6,7 @@
 \section{Discovery}
 \label{sec:discovery}
 
-A way to discover all intricacies of an ecosystem is to use it in a lot of different ways. Before jumping into making a new library or improving an existing one, one should use it sufficiently. 
+A way to discover all intricacies of an ecosystem is to use it in a lot of different ways. Before jumping into making a new library or improving an existing one, one should use it sufficiently.
 
 To do that, two main methods are used. Firstly it is to convert an existing search implementation using InstantSearch.js\cite{instantsearch-js} to use React InstantSearch in a more complex heavily used production website. For that purpose the website of the package manager Yarn\cite{yarn-site} was chosen.
 
@@ -35,14 +35,14 @@ At Algolia, customer support is not done by specific employees hired to do custo
 
 This has as an effect that when someone starts in the company, after a few weeks, they get to interact with clients who use Algolia in very varied ways. Connecting to the users keeps the maintainers in an advantageous position, since it's very simple to find out what features to focus on, and bugs that weren't anticipated.
 
-It also has a secondary effect, which is that it keeps everyone up to date with what is possible with a lot of different implementations. 
+It also has a secondary effect, which is that it keeps everyone up to date with what is possible with a lot of different implementations.
 
 This is also a venue in which in a short time, deep knowledge about the API parameters and the layers of abstraction is acquired. This has a similar influence on the understanding of libraries as using the libraries in a production website.
 
 \section{Making search interfaces with Algolia} % (fold)
 \label{sec:making_search_interfaces_with_algolia}
 
-There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the REST API with the Algolia JavaScript client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using technologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement. 
+There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the REST API with the Algolia JavaScript client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using technologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement.
 
 In the context of a search experience, the state of a page are the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} when using Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
 
@@ -68,7 +68,7 @@ However, when using the JavaScript Helper, there are still two major roadblocks 
 
 To make a component like a RefinementList, the struggle is one one side that a lot of different functions have to be called to be able to get the data, since behind the screens actually two API queries happen. One to get the counts and one to get the results. The second hurdle that would need to be crossed is the actual rendering. A user would need to decide which markup structure to use, as well as the accessibility and usability implications of it.
 
-To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js} was released by Algolia. It gives users of the library a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in. 
+To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js} was released by Algolia. It gives users of the library a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in.
 
 InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript library for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. That -- ironically -- means that using InstantSearch.js in a React application is not a trivial operation.
 
@@ -91,7 +91,7 @@ When using just the JavaScript client, it can be noticed that all state should b
 
 Making a user interface with just the JavaScript client requires you to take ownership of the search state. An intuitive to deal with the state then, is saving it as part as the DOM, for example by setting attributes.
 
-This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to see if the extra refinement is possible. 
+This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to see if the extra refinement is possible.
 
 \begin{figure}[H]
 \label{figure:js-client-state}
@@ -169,7 +169,15 @@ Connectors happened in v2 of instantsearch
 \subsection{React InstantSearch} % (fold)
 \label{sub:react_instantearch}
 
-Add a layer of state on top of the helper. Good because it hides the Helper in {\tt connectors}. Problem: Helper is still kinda visible but not really and that causes wrong expectations %%
+React InstantSearch doesn't directly use the JavaScript Helper, but it rather stores its component state in a separate container. This container is being managed by an {\tt InstantSearchManager}. It will take in the parameters to change at any given moment by the components, and transfer that into both a state to be used by the components, as well as sending requests.
+
+Similar to the newer v2 version of InstantSearch.js, described in \ref{ssub:instantsearch_js_connectors}, React InstantSearch introduced the concept of connectors and components, that together make a widget.
+
+A connector will define to the InstantSearch Manager what parameters are being tracked, and thus will be updated on every time new results come in. These connectors expose a {\tt refine} function, which depending on the exact widget will be called with a string, array, object or number.
+
+React InstantSearch doesn't stop at that place, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the DOM. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
+
+React InstantSearch proposes two different ways of countering this lack of visibility: the {\tt Configure} widget, and {\tt createConnector}.
 
 \begin{figure}[H]
 \label{figure:is-react-state}
@@ -178,7 +186,37 @@ Add a layer of state on top of the helper. Good because it hides the Helper in {
   \caption{Handling state with React InstantSearch}
 \end{figure}
 
-RIS also has connectors, they came out at release, not v2, repeat a bit the info here, but don't over-repeat. %%
+\subsubsection{Configure}
+\label{ssub:ris-configure}
+
+The configure widget is a widget, which does not expose rendering, but rather only exists for the props being set on it. Every prop that is set on a Configure widget is being passed down towards the used Algolia JavaScript client.
+
+\begin{lstlisting}[caption={Configure in an InstantSearch container},label={lst:ris-configure}]
+const App = ({isDistinct, children}) => (
+  <InstantSearch
+    appId="latency"
+    apiKey="6be0576ff61c053d5f9a3225e2a90f76"
+    indexName="ikea"
+  >
+    <Configure distinct={isDistinct} />
+    {children}
+  </InstantSearch>
+);
+\end{lstlisting}
+
+Here an app component is being made, which will take in as props a boolean which decides whether to set the {\tt DISTINCT} parameter to true or false, and the children of that app.
+
+React causes a new render every time something changes in the props. Because of that behaviour, the mapping from the props on Configure, together with the props of other widgets can happen at render time.
+
+\subsubsection{createConnector}
+\label{ssub:ris-createconnector}
+
+Every widget has its corresponding connector, as well as a few connectors that exist without default widget. A non-exhaustive list of connectors that exist without default rendering implementation are:
+
+\begin{itemize}
+  \item {\tt connectAutoComplete}
+  \item {\tt connectRange}
+\end{itemize}
 
 % subsection react_instantearch (end)
 
