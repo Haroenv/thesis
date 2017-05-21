@@ -211,12 +211,20 @@ React causes a new render every time something changes in the props. Because of 
 \subsubsection{createConnector}
 \label{ssub:ris-createconnector}
 
-Every widget has its corresponding connector, as well as a few connectors that exist without default widget. A non-exhaustive list of connectors that exist without default rendering implementation are:
+Every widget has its corresponding connector, as well as a few connectors that exist without default widget. A list of connectors that currently exist without default rendering implementation are:
 
 \begin{itemize}
   \item {\tt connectAutoComplete}
   \item {\tt connectRange}
 \end{itemize}
+
+The AutoComplete and Range components only exist as a connector, because they imply significant style and DOM knowledge. Since there exist a few third-party implementations of these components that can be used with external data, it's fairly straightforward to use the connector Higher order Component as a way to pass through the data to the component, and call the {\tt refine()} function in click handlers. 
+
+However providing a connector for every single possible widget would not be feasible. Therefore a factory function {\tt createConnector} exists.
+
+TODO: explain createConnector
+
+%%
 
 % subsection react_instantearch (end)
 

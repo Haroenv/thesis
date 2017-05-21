@@ -163,8 +163,8 @@ While all three keys of the state container will change over time, they each wor
 
 \subsection{Raw refinements}
 \label{ssec:raw-refinments}
-%% find react setState
-All raw parameters are being rewritten in place, similar to how {\tt setState} works in React~\cite{react_setstate}~. A function called {\tt refineRaw} is exposed on a state container. This function expects a function as an argument. It receives the previous state for the refinements as its parameter, and is expected to return the new state object, based on whatever happened that needs to change.
+
+All raw parameters are being rewritten in place, similar to how {\tt setState} works in React~\cite{react-doc-state}~. A function called {\tt refineRaw} is exposed on a state container. This function expects a function as an argument. It receives the previous state for the refinements as its parameter, and is expected to return the new state object, based on whatever happened that needs to change.
 
 This pattern allows a developer to have the freedom to change whatever parameters are necessary to change, while having access to the complete truth at that point easily. An example of toggling the {\tt DISTINCT} parameter, for example on an event listener for a button with that purpose would look like this:
 
