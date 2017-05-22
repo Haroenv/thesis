@@ -264,7 +264,11 @@ This pattern is very close to previous method, subscriptions, but then as part o
 
 Since the observables implementation in JavaScript is a proposal, a reference implementation has been made by zenparsing, the author of the proposal. The library called {\tt zen-observable}\cite{zenparsing-observable} is extending the API of the Observable proposal slightly, but in its core, it has the same concepts.
 
-An instance of an Observable is returned from the store interface, by using the {\tt symbol-observable}\cite{symbol-observable} ponyfill module. A ponyfill\cite{ponyfill}
+An instance of an Observable is returned from the store interface, by using the {\tt symbol-observable}\cite{symbol-observable} ponyfill module. A ponyfill\cite{ponyfill} is a module with the functionality of an upcoming language API, made with the current capabilities of the platform. The difference between a polyfill and a ponyfill is that a polyfill will overwrite the implementation of the API if it is implemented in browsers, while a ponyfill intentionally uses a slightly different name.
+
+Just like in the previous section, an Observable will expose a subscribe function. The difference here is that it expects to be subscribed with an object. This object contains three functions, that are called when respectively the {\tt next}, {\tt error} or {\tt complete} event have been called by the observable.
+
+Having a interoperability layer with observables means that InstantSearch means that it will work well with the frameworks that use observables as a core of their infrastructure. Angular is an example of a framework that has observables --- in the form of RxJS --- as an important part of its way to work with events.
 
 %%
 Research:
