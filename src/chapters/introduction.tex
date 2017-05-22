@@ -7,9 +7,9 @@ This thesis is divided in two parts. The first part explores the existing Algoli
 
 The place to discover the complete internals of InstantSearch and React InstantSearch that was chosen is the Yarn website~\cite{yarn-site}~. Yarn is a package manager built on top of npm~\cite{npm-github}~. It has been built from the ground up with a new registry, mirroring all changes to npm, and with a new client that only supports modern environments.
 
-In the end of December, Algolia launched search on the Yarn website by replicating this registry again, but this time in an Algolia index. A search experience in InstantSearch.js was added~\cite{yarn-pr-add-algolia} at that time. To make this experience better --- after a meeting with core team members of the Yarn project --- the decision was made to improve how and where the search was, as well as making a detail page. This is described in the first the exploratory study, section \ref{ssec:yarn}.
+In the end of December, Algolia launched search on the Yarn website by replicating this registry again, but this time in an Algolia index. A search experience in InstantSearch.js was added~\cite{yarn-pr-add-algolia} at that time. To make this experience better --- after a meeting with core team members of the Yarn project --- the decision was made to improve how and where the search was, as well as making a detail page. This is described in the first the exploratory study, section \ref{sec:discovery}.
 
-The current state of handling the state of a search using Algolia methods, as well as the history of this process is described in chapter \ref{sec:what_is_even_wrong_with_the_helper}
+The current state of handling the state of a search using Algolia methods, as well as the history of this process is described in chapter \ref{sec:making_search_interfaces_with_algolia}.
 
 The main goal is making {\tt instantsearch-core}. InstantSearch.js was released as a library to ease the use of working with Algolia in 2015, which was built on top of the helper~\cite{algolia-js-helper} directly, and called the methods to refine at helper-level. InstantSearch Core is a layer of abstraction to set state based on widgets and asks Algolia for the results of a certain ``widget configuration''. The result of this will allow for more rapid development of instantsearch for frameworks other than React~\cite{react-doc}~.
 
