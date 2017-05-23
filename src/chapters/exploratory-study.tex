@@ -47,10 +47,10 @@ There have been several phases in the life of Algolia regarding building user in
 In the context of a search experience, the state of a page are the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} when using Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
 
 \begin{figure}[H]
-\label{figure:current-refinements}
   \centering
   \includegraphics[width=0.6\textwidth]{../assets/current-refinements.png}
   \caption{Current Refinements in React InstantSearch\cite{ris-storybooks}}
+  \label{figure:current-refinements}
 \end{figure}
 
 To avoid having users to keep the state of their search experience by themselves, the Algolia JavaScript helper~\cite{algolia-js-helper} was written. Its goal is to be a reference to the state of the search, and provide ways to change the state.
@@ -60,10 +60,10 @@ When an abstraction for the search state has been made, it becomes a lot more st
 However, when using the JavaScript Helper, there are still two major roadblocks that are left in userspace. These roadblocks are linked to more advanced components, like for example a refinement list. A refinement list is a component that holds a list of possible filters which are relevant to the currently set refinements. It will also show how many results there would be, if that filter is chosen.
 
 \begin{figure}[H]
-\label{figure:refinementlist-ris}
   \centering
   \includegraphics[width=0.4\textwidth]{../assets/refinementlist.png}
   \caption{a RefinementList in React InstantSearch\cite{ris-storybooks}}
+  \label{figure:refinementlist-ris}
 \end{figure}
 
 To make a component like a RefinementList, the struggle is one one side that a lot of different functions have to be called to be able to get the data, since behind the screens actually two API queries happen. One to get the counts and one to get the results. The second hurdle that would need to be crossed is the actual rendering. A user would need to decide which markup structure to use, as well as the accessibility and usability implications of it.
@@ -94,10 +94,10 @@ Making a user interface with just the JavaScript client requires you to take own
 This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to see if the extra refinement is possible.
 
 \begin{figure}[H]
-\label{figure:js-client-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/js-client-state.pdf}
   \caption{Handling state with the JavaScript client}
+  \label{figure:js-client-state}
 \end{figure}
 
 Adding a ``Clear All'' button in this structure is not trivial. There needs to be either a query for all elements that need to be updated, or they need to be kept up to date in a list. Then for each of those elements the relevant attributes would need to be updated or removed.
@@ -126,19 +126,21 @@ By providing a central place of truth for search state, a lot of the complexity 
 Every time a new search request needs to be fetched, the {\tt results} observer is being triggered, and the search user interface can be updated with those new results.
 
 \begin{figure}[H]
-\label{figure:js-helper-state}
   \centering
   \includegraphics[width=0.6\textwidth]{../assets/helper-cycle.pdf}
   \caption{Handling state with the JavaScript Helper\cite{js-helper-concepts}}
+  \label{figure:js-helper-state}
 \end{figure}
 
-The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. For example a phone could be %%
+The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
+
+As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here a {\tt hierarchicalCategory} 
 
 \begin{figure}[H]
-\label{figure:hierarchical-facets}
   \centering
   \includegraphics[width=0.6\textwidth]{../assets/hierarchical-dashboard.png}
   \caption{Structure of a hierarchical facet in the Algolia dashboard}
+  \label{figure:hierarchical-facets}
 \end{figure}
 
 % subsection algolia_js_Helper (end)
@@ -149,10 +151,10 @@ The functions of the Helper don't stop there, since more advanced use cases like
 rely on helper, expose it. Problem: very hard to make new components because you don't know how the Helper works, and there's only a carte blanche component. %%
 
 \begin{figure}[H]
-\label{figure:is-js-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-js-state.pdf}
   \caption{Handling state with InstantSearch.js v1}
+  \label{figure:is-js-state}
 \end{figure}
 
 \subsubsection{Connectors} % (fold)
@@ -180,10 +182,10 @@ React InstantSearch doesn't stop at that place, it completely abstracts away the
 React InstantSearch proposes two different ways of countering this lack of visibility: the {\tt Configure} widget, and {\tt createConnector}.
 
 \begin{figure}[H]
-\label{figure:is-react-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-react-state.pdf}
   \caption{Handling state with React InstantSearch}
+  \label{figure:is-react-state}
 \end{figure}
 
 \subsubsection{Configure}
@@ -234,10 +236,10 @@ TODO: explain createConnector
 No more using helper, mapping attribute/component state to algolia state directly. %%
 
 \begin{figure}[H]
-\label{figure:is-core-state}
   \centering
   \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-state.pdf}
   \caption{Handling state with the InstantSearch Core}
+  \label{figure:is-core-state}
 \end{figure}
 
 % subsection the_future (end)
