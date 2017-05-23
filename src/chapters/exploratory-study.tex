@@ -127,14 +127,14 @@ Every time a new search request needs to be fetched, the {\tt results} observer 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\textwidth]{../assets/helper-cycle.pdf}
+  \includegraphics[width=0.5\textwidth]{../assets/helper-cycle.pdf}
   \caption{Handling state with the JavaScript Helper\cite{js-helper-concepts}}
   \label{figure:js-helper-state}
 \end{figure}
 
 The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
 
-As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here a {\tt hierarchicalCategory} 
+As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} attribute will be used as a hierarchical facet. To be able to do that, it should be an object, with {\tt lvlX} keys, where $X$ is the level of indentation. Inside each level $>$ is used as a level separator. That way an item could appear in multiple categories per level.
 
 \begin{figure}[H]
   \centering
