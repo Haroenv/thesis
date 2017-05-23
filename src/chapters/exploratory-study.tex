@@ -233,7 +233,13 @@ TODO: explain createConnector
 \subsection{The future} % (fold)
 \label{sub:the_future}
 
-No more using helper, mapping attribute/component state to algolia state directly. %%
+In the future, if InstantSearch Core is chosen as the new abstraction level, there would not be a need to abstract away the JavaScript Helper. 
+
+Since InstantSearch Core, as described in section \ref{sec:organizing_state}, maps the state of the each component to its attribute name. In there it has a type and a value, which makes it very easy to know which widgets to render.
+
+When using InstantSearch Core, the libraries using it would be able to expose it as a way to expand towards other connectors and widgets that aren't provided by default.
+
+That way, the experience of creating other connectors will feel like a native feature, instead of a separate library that a user would need to learn and understand first.
 
 \begin{figure}[H]
   \centering
