@@ -224,9 +224,15 @@ The AutoComplete and Range components only exist as a connector, because they im
 
 However providing a connector for every single possible widget would not be feasible. Therefore a factory function {\tt createConnector} exists.
 
-TODO: explain createConnector
+To make a connector, the {\tt createConnector} function is being called with an Object as its argument. This can be seen as an abstract class, in which some to all of the default behaviour can be overridden. 
 
-%%
+The most important key of that Object is the {\tt refine} function. This function will take in some parameters defined by the Component using the new custom connector, but also the current search state, as well as some other data about the current search.
+
+While this is not extremely hard, it's still a bridge to cross, since it requires users to \emph{really} understand how function composition works, and have to have a complete understanding of the architecture of React InstantSearch.
+
+Although this sounds like it's hard to make very complicated and extended user interfaces using React InstantSearch, that is not exactly the case. Because the existing connectors cover most of the Algolia parameters that map to a user interface, these connectors allow for user interfaces that aren't necessarily predictable when designing the APIs. 
+
+For example, it's perfectly possible to make a calendar input using a range connector, while the first use case was simply for numbers.
 
 % subsection react_instantearch (end)
 
