@@ -226,7 +226,7 @@ However providing a connector for every single possible widget would not be feas
 
 To make a connector, the {\tt createConnector} function is being called with an Object as its argument. This can be seen as an abstract class, in which some to all of the default behaviour can be overridden. 
 
-The most important key of that Object is the {\tt refine} function. This function will take in some parameters defined by the Component using the new custom connector, but also the current search state, as well as some other data about the current search.
+The most important key of that Object is the {\tt refine} function. This function will take in some parameters defined by the Component using the new custom connector, but also the current search state, as well as some other data about the current search~\cite{react-instantsearch-custom-connectors}~.
 
 While this is not extremely hard, it's still a bridge to cross, since it requires users to \emph{really} understand how function composition works, and have to have a complete understanding of the architecture of React InstantSearch.
 
