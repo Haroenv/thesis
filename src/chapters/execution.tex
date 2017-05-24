@@ -286,7 +286,48 @@ it replaces the {\tt response} in the state with an action
 \section{Rendering refinements} % (fold)
 \label{sec:rendering_refinements}
 
-Stuff to think about: dynamic facets as core part of this API or not? %%
+When using InstantSearch to render refinement in a widget or a connector, it comes down to three distinct steps:
+
+\begin{enumerate}
+  \item create the refinement
+  \item update the relevant DOM with the data from Algolia
+  \item send refinements when certain events are triggered
+\end{enumerate}
+
+The things that need to happen here are almost exactly what needs to happen when making a connector using InstantSearch.js. React InstantSearch is more of an exception here, since it uses the functional composition of connector functions.
+
+In regular JavaScript, these paradigms could go over the heads of normal developers, which is why the choice to leave the two definitions of connectors.
+
+\subsection{Creating a refinement}
+\label{subs:creating_a_refinement}
+
+To create a refinement, two steps happen. Firstly a new refinement container is created. This has a very similar structure as described in section \ref{ssec:refinments}. The next step is to register that refinement to the InstantSearch store.
+
+As an example, a refinement list is created from the ``brands''  %%
+
+\begin{lstlisting}[caption={Creating a refinement},label={lst:creating-refinement}]
+import { createRefinementlist } from 'instantsearch-core/refinements';
+
+const brands = createRange({attributeName: 'brands'});
+
+export default brands;
+\end{lstlisting}
+
+blimbo: do it cool and register %%
+
+\begin{lstlisting}[caption={Registering a refinement},label={lst:registering-refinement}]
+import { store } 
+\end{lstlisting}
+
+\subsection{Updating or creating DOM with Algolia data}
+\label{subs:data_to_dom}
+
+Simple dom making yo %%
+
+\subsection{Calling the {\tt refine} function}
+\label{subs:refining}
+
+yo press the button %%
 
 % section rendering_refinements (end)
 
@@ -339,32 +380,7 @@ PoC in instantsearch.js and ReactInstantsearch for the RefinementList %%
 \section{Complete implementation} % (fold)
 \label{sec:complete_implementation}
 
-Obviously this isn't final and too detailed. %%
 
-\begin{lstlisting}[caption={Using instantsearch-core},label={lst:is-core-usage}]
-// stores.js
-import algoliasearch from 'algoliasearch';
-import { createStore } from 'instantsearch-core';
-
-const appId = 'OFCNCOG2CU';
-const apiKey = 'f54e21fa3a2a0160595bb058179bfb1e';
-const indexName = 'products_asc';
-
-const client = algoliasearch(appId, apiKey);
-const productsStore = createStore(client, indexName);
-
-export productsStore;
-
-// widget.js
-import { setQuery } from 'instantsearch-core/actions/query';
-import { productsStore } from './stores';
-
-function onInput(event) {
-  event.preventDefault();
-
-  productsStore.refine(setQuery(event.target.value));
-}
-\end{lstlisting}
 
 % section complete_implementation (end)
 
