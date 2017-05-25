@@ -193,7 +193,7 @@ state.refineRaw(toggleDistinct);
 In future JavaScript engines\footnote{spread properties on Objects are currently a Stage 3 proposal for ECMAScript\cite{es-prop-spread}, which means they are starting to be implemented by browsers, but it isn't part of the standard yet.}, it will be able to write this kind of code using spread properties on Objects. This kind of pattern would look like this then:
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[caption={Toggling the {\tt DISTINCT} parameter when Object spread is available},label={lst:is-core-raw}]
+\begin{lstlisting}[caption={Toggling the {\tt DISTINCT} parameter when Object spread is available},label={lst:is-core-raw-es2015}]
 function toggleDistinct(previousState) {
   return {
     ...previousState,
@@ -260,7 +260,7 @@ Vue will trigger a new render on every frame where there has been time for it, w
 \subsubsection{Subscribe function}
 \label{ssub:subscribe_function}
 
-Not all frameworks implement this kind of reactivity. React for example will only look at the props and context of a component. It would be possible to pass down the {\tt store.state} getter as part of React context, but it would cause unneeded renders, since that part of optimisation is left over to the user land of a React app. 
+Not all frameworks implement this kind of reactivity. React for example will only look at the \gls{props} and context of a component. It would be possible to pass down the {\tt store.state} getter as part of React context, but it would cause unneeded renders, since that part of optimisation is left over to the user land of a React app. 
 
 For frameworks like React, a {\tt subscribe()} function is available at the store prototype. Similar to Redux\cite{redux-glossary-store}, a state management library that works very well with React, this function expects a single function as the argument. This function will be called at every time the state changes, be it either by changing refinements, or by new results being returned.
 
@@ -352,7 +352,7 @@ yo press the button and update the dom %%
 
 The API also allows for an initialisation with a certain state passed in. This means that it's possible to save a state Object in a location, and then later restart the search from that data. 
 
-This is useful for three major use cases. The first is URL synchronisation. For URL synchronisation the structure would be to first listen on every state change with {\tt .subscribe()}, and then asynchronously transform that to query parameters to set. If a user comes to a page with query parameters, a function to take in the query string and put out a state Object would then be called. After that point a new InstantSearch Core instance can be built with the {\tt preloadedState} parameter set in the constructor.
+This is useful for three major use cases. The first is \gls{url} synchronisation. For URL synchronisation the structure would be to first listen on every state change with {\tt .subscribe()}, and then asynchronously transform that to query parameters to set. If a user comes to a page with query parameters, a function to take in the query string and put out a state Object would then be called. After that point a new InstantSearch Core instance can be built with the {\tt preloadedState} parameter set in the constructor.
 
 \begin{figure}[H]
   \centering

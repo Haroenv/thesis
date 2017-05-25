@@ -1,23 +1,59 @@
 % !TEX root = ../main.tex
 
-\chapter{List with used symbols and abbreviations}
+\newglossaryentry{jsx}
+{
+  name=jsx,
+  description={XML-like JavaScript interface that passes its children and props as arguments to a given function. In React, this function is React.createElement}
+}
+ 
+\newglossaryentry{ngram}
+{
+  name={n-gram},
+  description={a sequence of a specified number of characters occurring in a word\cite{kimbrell1988searching}}
+}
+ 
+\newglossaryentry{userspace}
+{
+  name=userspace,
+  description={also called user space or userland is the code that a programmer writes, which usually makes use of libraries and frameworks}
+}
 
-\begin{abbreviations}
-\item[API] Application Programming Interface
-\item[attribute] an attribute is a value of an Object in an Algolia index
-\item[DOM] Document Object Model
-\item[DX] Developer Experience
-\item[ECMAScript] technical name for JavaScript
-\item[JS] JavaScript
-\item[JSON] JavaScript Object Notation
-\item[jsx] XML-like JavaScript interface that passes its children and props as arguments to a given function. In React, this function is React.createElement
-\item[library] also called a \emph{module} or a \emph{package}, is a piece of code that is made available to others, which has as goal sharing knowledge and making certain programming concepts smoother to use and know
-\item[n-gram] a sequence of a specified number of characters occurring in a word\cite{kimbrell1988searching}
-\item[props] A React terminology for arguments on a jsx function. These correspond to either DOM attribute, properties or simply data that is passed down depending on the context
-\item[refinement] any type of filter applied to a search query. Some examples are query, range and page
-\item[REST] Representational State Transfer\cite{fielding2000architectural}
-\item[SaaS] Software as a Service
-\item[SSR] Server Side Rendering
-\item[userspace] also called user space or userland is the code that a programmer writes, which usually makes use of libraries and frameworks
-\item[XML] Extensible Markup Language
-\end{abbreviations}
+\newglossaryentry{refinement}
+{
+  name=refinement,
+  description={any type of filter applied to a search query. Some examples are query, range and page}
+}
+
+\newglossaryentry{props}
+{
+  name=props,
+  description={A React terminology for arguments on a jsx function. These correspond to either DOM attribute, properties or simply data that is passed down depending on the context}
+}
+
+\newglossaryentry{attribute}
+{
+  name=attribute,
+  description={a value of an Object in an Algolia index}
+}
+
+\newglossaryentry{library}
+{
+  name=library,
+  description={also called a \emph{module} or a \emph{package}, is a piece of code that is made available to others, which has as goal sharing knowledge and making certain programming concepts smoother to use and know}
+}
+
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{ssr}{SSR}{Server Side Rendering}
+\newacronym{xml}{XML}{Extensible Markup Language}
+\newacronym{saas}{SaaS}{Software as a Service}
+\newacronym{rest}{REST}{Representational State Transfer\cite{fielding2000architectural}}
+\newacronym{dom}{DOM}{Document Object Model}
+\newacronym{dx}{DX}{Developer Experience}
+\newacronym{ECMAScript}{ECMAScript}{European Computer Manufacturers Association International Script, the standard of JavaScript}
+\newacronym{js}{JS}{JavaScript}
+\newacronym{json}{JSON}{JavaScript Object Notation}
+\newacronym{url}{URL}{Uniform Resource Location}
+
+\printglossary[type=\acronymtype]
+
+\printglossary

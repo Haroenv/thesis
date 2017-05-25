@@ -11,3 +11,12 @@
 *.synctex.gz
 *.pdf
 !**/assets/*.pdf
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+!.vscode
