@@ -356,7 +356,12 @@ The API also allows for an initialisation with a certain state passed in. This m
 
 This is useful for three major use cases. The first is URL synchronisation. For URL synchronisation the structure would be to first listen on every state change with {\tt .subscribe()}, and then asynchronously transform that to query parameters to set. If a user comes to a page with query parameters, a function to take in the query string and put out a state object would then be called. After that point a new InstantSearch Core instance can be built with the {\tt preloadedState} parameter set in the constructor.
 
-INSERT: image to show how URL-sync should be implemented %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-url-sync.pdf}
+  \caption{Synchronisation with the querystring using InstantSearch Core}
+  \label{figure:is-core-url-sync}
+\end{figure} %%
 
 Similarly it is also possible to do that process with a different medium than query parameters, for example {\tt localStorage}. For that reason this process is left over to the user, possibly with other small packages dealing with browser inconsistencies on top of it. 
 
@@ -370,7 +375,12 @@ This pattern is also useful for when Server Side Rendering (SSR) is implemented.
   \item start the IS instance frontend with preloadedState: {\tt window.PRELOADED\_STATE} %%
 \end{enumerate}
 
-INSERT: image to show how SSR should be implemented %%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-ssr.pdf}
+  \caption{Server Side Rendering with InstantSearch Core}
+  \label{figure:is-core-ssr}
+\end{figure} %%
 
 % section saved_state (end)
 
@@ -394,11 +404,3 @@ TODO: update this image with more recent architecture %%
 PoC in instantsearch.js and ReactInstantsearch for the RefinementList %%
 
 % section usage_in_libraries (end)
-
-\section{Complete implementation} % (fold)
-\label{sec:complete_implementation}
-
-
-
-% section complete_implementation (end)
-
