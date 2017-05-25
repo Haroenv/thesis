@@ -14,7 +14,7 @@ The second part is a run-down of all possible ways to make a search interface us
 \section{Discovery}
 \label{sec:discovery}
 
-A way to discover all intricacies of an ecosystem is to use it in a lot of different ways. Before jumping into making a new library or improving an existing one, one should use it sufficiently.
+A way to discover all intricacies of an ecosystem is to use it in a lot of different ways. Before jumping into making a new \gls{library} or improving an existing one, one should use it sufficiently.
 
 To do that, two main methods are used. Firstly it is to convert an existing search implementation using InstantSearch.js\cite{instantsearch-js} to use React InstantSearch in a more complex heavily used production website. For that purpose the website of the package manager Yarn\cite{yarn-site} was chosen.
 
@@ -39,7 +39,7 @@ The Yarn project is evolving from having metadata from the npm packages in an in
 \subsection{Support}
 \label{support}
 
-At Algolia, customer support is not done by specific employees hired to do customer requests, but actually by the engineers and developers working on the code. This is a very varied list of people, who range from knowing a lot about a particular client or frontend library, since they wrote it, to people working on the \gls{saas} client serving all requests.
+At Algolia, customer support is not done by specific employees hired to do customer requests, but actually by the engineers and developers working on the code. This is a very varied list of people, who range from knowing a lot about a particular client or frontend \gls{library}, since they wrote it, to people working on the \gls{saas} client serving all requests.
 
 This has as an effect that when someone starts in the company, after a few weeks, they get to interact with clients who use Algolia in very varied ways. Connecting to the users keeps the maintainers in an advantageous position, since it's very simple to find out what features to focus on, and bugs that weren't anticipated.
 
@@ -50,7 +50,7 @@ This is also a venue in which in a short time, deep knowledge about the API para
 \section{Making search interfaces with Algolia} % (fold)
 \label{sec:making_search_interfaces_with_algolia}
 
-There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the REST API with the Algolia JavaScript client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using technologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement.
+There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the \acrshort{rest} API with the Algolia JavaScript client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using technologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement.
 
 In the context of a search experience, the state of a page are the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} when using Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
 
@@ -65,7 +65,7 @@ To avoid having users to keep the state of their search experience by themselves
 
 When an abstraction for the search state has been made, it becomes a lot more straight-forward to make reason about what a certain action actually does. For example, it becomes trivial to make for example a button that changes the page of the search results.
 
-However, when using the JavaScript Helper, there are still two major roadblocks that are left in userspace. These roadblocks are linked to more advanced components, like for example a refinement list. A refinement list is a component that holds a list of possible filters which are relevant to the currently set refinements. It will also show how many results there would be, if that filter is chosen.
+However, when using the JavaScript Helper, there are still two major roadblocks that are left in \gls{userspace}. These roadblocks are linked to more advanced components, like for example a refinement list. A refinement list is a component that holds a list of possible filters which are relevant to the currently set refinements. It will also show how many results there would be, if that filter is chosen.
 
 \begin{figure}[H]
   \centering
@@ -76,20 +76,20 @@ However, when using the JavaScript Helper, there are still two major roadblocks 
 
 To make a component like a RefinementList, the struggle is one one side that a lot of different functions have to be called to be able to get the data, since behind the screens actually two API queries happen. One to get the counts and one to get the results. The second hurdle that would need to be crossed is the actual rendering. A user would need to decide which markup structure to use, as well as the accessibility and usability implications of it.
 
-To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js} was released by Algolia. It gives users of the library a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in.
+To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js} was released by Algolia. It gives users of the \gls{library} a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in.
 
-InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript library for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. That -- ironically -- means that using InstantSearch.js in a React application is not a trivial operation.
+InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript \gls{library} for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. That -- ironically -- means that using InstantSearch.js in a React application is not a trivial operation.
 
-Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the DOM, but also expose another concept called connectors, which expose only the data that is relevant to a component, and a way to refine on it, relevant to that refinement.
+Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the \acrshort{dom}, but also expose another concept called connectors, which expose only the data that is relevant to a component, and a way to refine on it, relevant to that refinement.
 
-This evolution makes for three distinct phases in how state has been handled, based on which library is used.
+This evolution makes for three distinct phases in how state has been handled, based on which \gls{library} is used.
 
 \subsection{Algolia JavaScript client} % (fold)
 \label{sub:algolia_js_client}
 
-When Algolia pivoted in 2013 to a SaaS product~\cite{algolia-blog-saas}, API clients~\cite{algolia-blog-lauch} for six programming languages were immediately available. JavaScript has always been important because of the focus on speed that Algolia has.
+When Algolia pivoted in 2013 to a \acrshort{saas} product~\cite{algolia-blog-saas}, API clients~\cite{algolia-blog-lauch} for six programming languages were immediately available. JavaScript has always been important because of the focus on speed that Algolia has.
 
-There are two major options to make a search experience. The first is to send a request from the frontend to the search service, where a JSON response is returned, which then is uses to render results in client side code. The other is sending that same request via a form on an application-specific backend, and constructing the results there, and eventually sending a completely new page back as a result to the user's query.
+There are two major options to make a search experience. The first is to send a request from the frontend to the search service, where a \acrshort{json} response is returned, which then is uses to render results in client side code. The other is sending that same request via a form on an application-specific backend, and constructing the results there, and eventually sending a completely new page back as a result to the user's query.
 
 Algolia has a preference for clients to construct the results on the frontend, mostly because it's a lot faster. Algolia has infrastructure~\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, every millisecond matters.
 
@@ -97,7 +97,7 @@ The JavaScript client~\cite{algolia-js-client} is the lowest useful level of abs
 
 When using just the JavaScript client, it can be noticed that all state should be handled inside the application code. That means keeping track whether a certain refinement has been set and unset, and keeping this consistent within the application code. Furthermore, the application needs to be aware when Algolia should be queried, and then handling all of the incoming results, dealing with out-of-order responses etc.
 
-Making a user interface with just the JavaScript client requires you to take ownership of the search state. An intuitive to deal with the state then, is saving it as part as the DOM, for example by setting attributes.
+Making a user interface with just the JavaScript client requires you to take ownership of the search state. An intuitive to deal with the state then, is saving it as part as the \acrshort{dom}, for example by setting attributes.
 
 This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to see if the extra refinement is possible.
 
@@ -115,7 +115,7 @@ Adding a ``Clear All'' button in this structure is not trivial. There needs to b
 \subsection{Algolia JavaScript Helper} % (fold)
 \label{sub:algolia_js_helper}
 
-Before being a separate concept, the ``Helper'' was an integral part of the JavaScript API client~\cite{algolia-blog-js-client}~. In 2015 it was moved out as a standalone library with as its main feature handling state of a search experience.
+Before being a separate concept, the ``Helper'' was an integral part of the JavaScript API client~\cite{algolia-blog-js-client}~. In 2015 it was moved out as a standalone \gls{library} with as its main feature handling state of a search experience.
 
 This means that when making a search experience, a new instance --- further called \emph{the} Helper for that view --- of the Helper is created. When it is being initialized, it creates a bond with a JavaScript API client instance, to be used for sending the API calls to the servers.
 
@@ -142,7 +142,7 @@ Every time a new search request needs to be fetched, the {\tt results} observer 
 
 The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
 
-As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} attribute will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
+As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} \gls{attribute} will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
 
 \begin{figure}[H]
   \centering
@@ -185,17 +185,17 @@ Connectors happened in v2 of instantsearch
 \subsubsection{Vue InstantSearch} % (fold)
 \label{ssub:vue_instantsearch}
 
-Vue InstantSearch is the newest version of InstantSearch, which takes a similar strategy to InstantSearch.js, but mixing in the power of the Vue library, by exposing components, and not a ``proprietary'' format of widgets.
+Vue InstantSearch is the newest version of InstantSearch, which takes a similar strategy to InstantSearch.js, but mixing in the power of the Vue \gls{library}, by exposing components, and not a ``proprietary'' format of widgets.
 
-In contrast to InstantSearch.js, not the JavaScript Helper is being used to communicate with the Algolia REST API, but a new small layer on top of it. As described in more detail in section \ref{ssec:Subscribing}, Vue will take in account the {\tt getters} of an Object. These getters are written as a function, which will be called periodically by the Vue library. 
+In contrast to InstantSearch.js, not the JavaScript Helper is being used to communicate with the Algolia \acrshort{rest} API, but a new small layer on top of it. As described in more detail in section \ref{ssec:Subscribing}, Vue will take in account the {\tt getters} of an Object. These getters are written as a function, which will be called periodically by the Vue \gls{library}. 
 
 To be able to take the current refinements in a performance aware way, the 
 
 Vue InstantSearch is a project mostly done by Raymond Rutjes, but with me in all meetings about it, and with the complete thought process being done shared by both parties.
 
-In the future, Vue InstantSearch will be the first library to try the experimentation described in chapter \ref{chp:execution}, since it explicitly made it close to the API of InstantSearch Core.
+In the future, Vue InstantSearch will be the first \gls{library} to try the experimentation described in chapter \ref{chp:execution}, since it explicitly made it close to the API of InstantSearch Core.
 
-As an experiment with Lucas Bonomi, a way to use the connectors of InstantSearch.js with Moon --- a library very close to Vue in it's API --- has been made internally. This proves that connectors will be a way to make InstantSearch available to various other programming libraries in the future.
+As an experiment with Lucas Bonomi, a way to use the connectors of InstantSearch.js with Moon --- a \gls{library} very close to Vue in it's API --- has been made internally. This proves that connectors will be a way to make InstantSearch available to various other programming libraries in the future.
 
 % subsubsection vue_instantsearch (end)
 
@@ -211,9 +211,9 @@ Similar to the newer v2 version of InstantSearch.js, described in \ref{ssub:inst
 
 A connector will define to the InstantSearch Manager what parameters are being tracked, and thus will be updated on every time new results come in. These connectors expose a {\tt refine} function, which depending on the exact widget will be called with a string, array, Object or number.
 
-The connectors in React InstantSearch are implemented as higher order components, also called decorators. They will merge the props that a component receives with the props that will come from the Algolia implementation. This method of distributing data to children is also used by other popular React libraries like React Router and React Redux.
+The connectors in React InstantSearch are implemented as higher order components, also called decorators. They will merge the \gls{props} that a component receives with the \gls{props} that will come from the Algolia implementation. This method of distributing data to children is also used by other popular React libraries like React Router and React Redux.
 
-React InstantSearch doesn't stop at that place, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the DOM. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
+React InstantSearch doesn't stop at that place, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the \acrshort{dom}. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
 
 React InstantSearch proposes two different ways of countering this lack of visibility: the {\tt Configure} widget, and {\tt createConnector}.
 
@@ -227,7 +227,7 @@ React InstantSearch proposes two different ways of countering this lack of visib
 \subsubsection{Configure}
 \label{ssub:ris-configure}
 
-The configure widget is a widget, which does not expose rendering, but rather only exists for the props being set on it. Every prop that is set on a Configure widget is being passed down towards the used Algolia JavaScript client.
+The configure widget is a widget, which does not expose rendering, but rather only exists for the \gls{props} being set on it. Every prop that is set on a Configure widget is being passed down towards the used Algolia JavaScript client.
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Configure in an InstantSearch container},label={lst:ris-configure}]
@@ -244,16 +244,16 @@ const App = ({isDistinct, children}) => (
 \end{lstlisting}
 \end{minipage}
 
-Here an app component is being made, which will take in as props a boolean which decides whether to set the {\tt DISTINCT} parameter to true or false, and the children of that app.
+Here an app component is being made, which will take in as \gls{props} a boolean which decides whether to set the {\tt DISTINCT} parameter to true or false, and the children of that app.
 
-React causes a new render every time something changes in the props. Because of that behaviour, the mapping from the props on Configure, together with the props of other widgets can happen at render time.
+React causes a new render every time something changes in the \gls{props}. Because of that behaviour, the mapping from the \gls{props} on Configure, together with the \gls{props} of other widgets can happen at render time.
 
 \subsubsection{createConnector}
 \label{ssub:ris-createconnector}
 
 Every widget has its corresponding connector, as well as a few connectors that exist without default widget. A list of connectors that currently exist without default rendering implementation are {\tt connectAutoComplete} and {\tt connectRange}.
 
-The AutoComplete and Range components only exist as a connector, because they imply significant style and DOM knowledge. Since there exist a few third-party implementations of these components that can be used with external data, it's fairly straightforward to use the connector Higher order Component as a way to pass through the data to the component, and call the {\tt refine()} function in click handlers. 
+The AutoComplete and Range components only exist as a connector, because they imply significant style and \acrshort{dom} knowledge. Since there exist a few third-party implementations of these components that can be used with external data, it's fairly straightforward to use the connector Higher order Component as a way to pass through the data to the component, and call the {\tt refine()} function in click handlers. 
 
 However providing a connector for every single possible widget would not be feasible. Therefore a factory function {\tt createConnector} exists.
 
@@ -274,11 +274,11 @@ For example, it's perfectly possible to make a calendar input using a range conn
 
 In the future, if InstantSearch Core is chosen as the new abstraction level, there would not be a need to abstract away the JavaScript Helper. 
 
-Since InstantSearch Core, as described in section \ref{sec:organizing_state}, maps the state of the each component to its attribute name. In there it has a type and a value, which makes it very easy to know which widgets to render.
+Since InstantSearch Core, as described in section \ref{sec:organizing_state}, maps the state of the each component to its \gls{attribute} name. In there it has a type and a value, which makes it very easy to know which widgets to render.
 
 When using InstantSearch Core, the libraries using it would be able to expose it as a way to expand towards other connectors and widgets that aren't provided by default.
 
-That way, the experience of creating other connectors will feel like a native feature, instead of a separate library that a user would need to learn and understand first.
+That way, the experience of creating other connectors will feel like a native feature, instead of a separate \gls{library} that a user would need to learn and understand first.
 
 \begin{figure}[H]
   \centering
