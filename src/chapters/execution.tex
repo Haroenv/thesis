@@ -33,8 +33,7 @@ There are two kinds of widgets, interactive widgets and display-only widgets. Di
 
 The other widgets are interactive widgets. They also take their display value from the response, to show which facets are enabled, or which refinement is already made. All of them also expose a {\tt refine()} function. This function will be called whenever is applicable in that case, and uses Helper methods like {\tt helper.state.toggleRefinement} to actually apply their change on the search state.
 
-%%
-talk about the difference between storing parameters and storing widget state
+%% talk about the difference between storing parameters and storing widget state
 
 \subsection{Structuring a state container}
 \label{sub:structuring_a_state_container}
@@ -266,7 +265,7 @@ Not all frameworks implement this kind of reactivity. React for example will onl
 
 For frameworks like React, a {\tt subscribe()} function is available at the store prototype. Similar to Redux\cite{redux-glossary-store}, a state management library that works very well with React, this function expects a single function as the argument. This function will be called at every time the state changes, be it either by changing refinements, or by new results being returned.
 
-%%
+%% say that you then pass that data through using props or context
 
 \subsubsection{Observables}
 \label{ssub:observables}
@@ -317,7 +316,7 @@ In regular JavaScript, these paradigms could go over the heads of normal develop
 
 To create a refinement, two steps happen. Firstly a new refinement container is created. This has a very similar structure as described in section \ref{ssec:refinments}. The next step is to register that refinement to the InstantSearch store.
 
-As an example, a refinement list is created from the ``brands''  %%
+As an example, a refinement list is created from the ``brands'' attribute. %%
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Creating a refinement},label={lst:creating-refinement}]
