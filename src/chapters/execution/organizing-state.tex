@@ -1,0 +1,151 @@
+% !TEX root = ../../main.tex
+
+\section{Organizing state} % (fold)
+\label{sec:organizing_state}
+
+\subsection{Widgets and connectors}
+\label{sub:widgets_and_connectors}
+
+The big difference between using Algolia with the Helper compared to InstantSearch is the notion of widgets. In the current implementations there are ten core widgets. Each of these widgets is split up in its logic (a connector) and its display logic (a component). Together these widgets are:
+
+\begin{itemize}
+  \item SearchBox
+  \item Hits
+  \item RefinementList
+  \item Range
+  \item Pagination
+  \item ClearAll
+  \item CurrentRefinements
+  \item Sort By
+  \item Highlight
+  \item Snippet
+\end{itemize}
+
+There are two kinds of widgets, interactive widgets and display-only widgets. Display-only widgets read the current results and applied \glspl{refinement} from the Algolia response. The display-only widgets are Hits, which is a representation of all the results. The other two are Highlight and Snippet, which take an attribute, and display the snipped and highlighted result from the Algolia response.
+
+The other widgets are interactive widgets. They also take their display value from the response, to show which facets are enabled, or which \gls{refinement} is already made. All of them also expose a {\tt refine()} function. This function will be called whenever is applicable in that case, and uses Helper methods like {\tt helper.state.toggleRefinement} to actually apply their change on the search state.
+
+%% talk about the difference between storing parameters and storing widget state
+
+\subsection{Structuring a state container}
+\label{sub:structuring_a_state_container}
+
+In the InstantSearch Core implementation the choice has been made to structure state in three divisions. One for the result that comes from each \acrshort{api} call, one for raw parameters like {\tt DISTINCT} and another division for the actual \glspl{refinement}.
+
+Since InstantSearch Core is a JavaScript \gls{library}, there is not much choice for a container. A {\tt Map}\cite{mdn-map} could be used as the actual value for the {\tt result} key, but since it's not widely supported and has a significantly less elegant \acrshort{api}, and they generally consume more memory in smaller Objects. Since in the general case, Algolia results contain about 20 hits, and a finite amount of filters, using {\tt Object} is perfectly reasonable.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={The state container of InstantSearch Core},label={lst:is-core-state-1}]
+const state = {
+  refinements,
+  rawParameters,
+  result,
+};
+\end{lstlisting}
+\end{minipage}
+
+Here, the most interesting container is the {\tt refinement} container. It's structured as another {\tt Object} with a key for every \gls{attribute} name which is being refined, and is inspired by the structure of the state {\tt Object} in React InstantSearch\cite{react-instantsearch-search-state}.
+
+Every \gls{attribute} is another {\tt Object}, with a {\tt type} key, and a {\tt value} key. For each of the possible \glspl{refinement}, a value that is relevant is chosen. 
+
+A menu for example is a \gls{refinement} that takes a \gls{attribute} that has been set up for faceting\cite{algolia-set-up-faceting} and has a single value. For that reason a menu takes in a string as a value. A list is a \gls{refinement} that is exactly the same, but takes a list of strings to be able to set up multiple refined values for that attribute.
+
+Having a structure like this implies that it is trivial to see if any \glspl{refinement} have been set, including the query. This is useful for when an interface is constructed that only shows a search bar until the first character is typed. After that a more elaborate interface shows up to fill the screen with other filters.
+
+If every refinement would be set, the \glspl{refinement} key of the search state would be:
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={\Glspl{refinement} in InstantSearch Core},label={lst:is-core-state-2}]
+const refinements = {
+  color: {
+    type: 'menu',
+    value: 'blue',
+  },
+  products: {
+    type: 'hierarchicalMenu',
+    value: 'Laptops > Surface',
+  },
+  brand: {
+    type: 'list',
+    value: ['apple', 'samsung'],
+  },
+  price: {
+    type: 'range',
+    value: {
+      min: 20,
+      max: 3000
+    },
+  },
+  freeShipping: {
+    type: 'toggle',
+    value: false,
+  },
+  query: {
+    type: 'query',
+    value: 'pizza',
+  },
+  page: {
+    type: 'page',
+    value: 1,
+  },
+};
+\end{lstlisting}
+\end{minipage}
+
+To be able to handle a lot of cases that can't be foreseen by the \glspl{refinement}, or to handle settings that aren't visible to the user, a {\tt rawParameters} key is available in the search state. 
+
+These \gls{attribute} names will be used in the results, exactly as they are in the query, and always supersede the \glspl{refinement}, since usually when someone needs custom parameters that aren't provided by a refinement, they have a good reason for that.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Passing raw Algolia parameters to InstantSearch Core},label={lst:is-core-state-3}]
+const rawParameters = {
+  distinct: true,
+  page: 3,
+};
+\end{lstlisting}
+\end{minipage}
+
+Finally, and maybe more importantly are the results. The results are not exactly the same as how they come in from the Algolia \acrshort{api}. The differentiator is that there is a slight reordering to match the structure of the {\tt refinement} block.
+
+This solves an interesting problem with InstantSearch.js. Whenever something needs to be done which isn't provided by the \gls{library}, a so-called custom widget needs to be written. To be able to call any Algolia related functionality, the Helper is used. 
+
+When certain functionality is needed, there's a gap in terminology between the widgets and the actual Algolia parameters. For example: what's called a menu widget in InstantSearch.js, is called a hierarchicalRefinement. In most cases this doesn't really matter, but when someone needs to recreate a widget without a connector, they should know that the terminology can be different.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Results container in the InstantSearch Core state},label={lst:is-core-state-4}]
+const result = {
+  color: {
+    type: 'menu',
+    value: [
+      {
+        label: 'red',
+        count: 10,
+      },
+      {
+        label: 'blue',
+        count: 100,
+      },
+    ],
+  },
+  (*@{\vdots}@*)
+  hits: [
+    {
+      ObjectID: '0x1f355',
+      color: 'blue',
+     (*@{\vdots}@*)
+    },
+    (*@{\vdots}@*)
+  ],
+  meta: { 
+    processingTimeMS: 5,
+    (*@{\vdots}@*)
+  },
+};
+\end{lstlisting}
+\end{minipage}
+
+Because of this structure, a connector can be made for every refinement. It will change something in a refinement, and subscribe for the changes to the results, and only needs to take one key into account. Ultimately this leads to a more understandable \acrshort{api} for people using this \gls{library}.
+
+This state container is called {\tt InstantSearch}, because it's meant to be used in both InstantSearch.js, React InstantSearch, the upcoming Vue InstantSearch, as well as other community versions of InstantSearch, see also section \ref{sec:usage_in_libraries} for a more complete study on that.
+
+% section organizing_state (end)
