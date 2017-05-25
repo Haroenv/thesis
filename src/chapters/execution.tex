@@ -253,7 +253,6 @@ requestAnimationFrame(update);
 
 After that, the {\tt currentState} variable might be used wherever it's needed, and make the needed UI changes. Depending on the type of framework used for this, it might either have a very big impact, or be optimised away, but it isn't always ideal.
 
-%% cite vue site
 For a framework like Vue\cite{vue-reactivity}, this approach is close to the way to go. There is no implicit need for reassigning a local variable, since the {\tt store} is available with a getter. Vue will track the changes to all getters on Objects with a process called ``reactive values''.
 
 Vue will trigger a new render on every frame where there has been time for it, which gives it the time to call a getter function on every frame seamlessly. 
