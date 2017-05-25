@@ -142,7 +142,7 @@ Every time a new search request needs to be fetched, the {\tt results} observer 
 
 The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
 
-As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} attribute will be used as a hierarchical facet. To be able to do that, it should be an object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
+As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} attribute will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
 
 \begin{figure}[H]
   \centering
@@ -172,13 +172,33 @@ rely on helper, expose it. Problem: very hard to make new components because you
 \subsubsection{Connectors} % (fold)
 \label{ssub:instantsearch_js_connectors}
 
-A concept first explored in React InstantSearch --- 
+A concept first explored in React InstantSearch --- described in \ref{sub:react_instantearch} --- are connectors. In InstantSearch.js, this is being added to version 2.0.0, which is currently available as a beta version. 
+
+Since making React InstantSearch was taking a significant impact on the amount of the team working on all InstantSearch implementations, %%
 
 Connectors happened in v2 of instantsearch
 -> expose each of the widgets cleanly
 -> I helped in the design + implem %%
 
 % subsubsection instantsearch_js_connectors (end)
+
+\subsubsection{Vue InstantSearch} % (fold)
+\label{ssub:vue_instantsearch}
+
+Vue InstantSearch is the newest version of InstantSearch, which takes a similar strategy to InstantSearch.js, but mixing in the power of the Vue library, by exposing components, and not a ``proprietary'' format of widgets.
+
+In contrast to InstantSearch.js, not the JavaScript Helper is being used to communicate with the Algolia REST API, but a new small layer on top of it. As described in more detail in section \ref{ssec:Subscribing}, Vue will take in account the {\tt getters} of an Object. These getters are written as a function, which will be called periodically by the Vue library. 
+
+To be able to take the current refinements in a performance aware way, the 
+
+Vue InstantSearch is a project mostly done by Raymond Rutjes, but with me in all meetings about it, and with the complete thought process being done shared by both parties.
+
+In the future, Vue InstantSearch will be the first library to try the experimentation described in chapter \ref{chp:execution}, since it explicitly made it close to the API of InstantSearch Core.
+
+As an experiment with Lucas Bonomi, a way to use the connectors of InstantSearch.js with Moon --- a library very close to Vue in it's API --- has been made internally. This proves that connectors will be a way to make InstantSearch available to various other programming libraries in the future.
+
+% subsubsection vue_instantsearch (end)
+
 
 % subsection instantsearch_js (end)
 
@@ -189,7 +209,7 @@ React InstantSearch doesn't directly use the JavaScript Helper, but it rather st
 
 Similar to the newer v2 version of InstantSearch.js, described in \ref{ssub:instantsearch_js_connectors}, React InstantSearch introduced the concept of connectors and components, that together make a widget.
 
-A connector will define to the InstantSearch Manager what parameters are being tracked, and thus will be updated on every time new results come in. These connectors expose a {\tt refine} function, which depending on the exact widget will be called with a string, array, object or number.
+A connector will define to the InstantSearch Manager what parameters are being tracked, and thus will be updated on every time new results come in. These connectors expose a {\tt refine} function, which depending on the exact widget will be called with a string, array, Object or number.
 
 The connectors in React InstantSearch are implemented as higher order components, also called decorators. They will merge the props that a component receives with the props that will come from the Algolia implementation. This method of distributing data to children is also used by other popular React libraries like React Router and React Redux.
 
