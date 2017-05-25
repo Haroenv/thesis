@@ -3,6 +3,14 @@
 \chapter{Exploratory study} % (fold)
 \label{chp:exploratory_study}
 
+The exploratory study is an important part of this research, since there already are a lot of libraries that have been made to make user interfaces using Algolia.
+
+There's no point in proposing new ideas, and then figuring out that it already was tried, and dismissed for a reason that didn't come up yet. 
+
+For that reason, this study is divided in to main points. The first point is discovery. In that section the methods in which the existing libraries are being used are explained, as well as the method used in this research to discover them. 
+
+The second part is a run-down of all possible ways to make a search interface using JavaScript and Algolia. 
+
 \section{Discovery}
 \label{sec:discovery}
 
@@ -148,7 +156,9 @@ As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets
 \subsection{InstantSearch.js} % (fold)
 \label{sub:instantsearch_js}
 
-InstantSearch.js was the solution to keeping from people building the same solutions over and over. 
+InstantSearch.js was the solution to keeping from people building the same solutions over and over. Its goal is to bridge the gap between the JavaScript helper, which has a very extensive API and users, who don't always have time to grok all the options. 
+
+The chosen new method of building these user interfaces, is by wrapping the JavaScript helper methods inside multiple widgets. %%
 
 rely on helper, expose it. Problem: very hard to make new components because you don't know how the Helper works, and there's only a carte blanche component. %%
 
@@ -161,6 +171,8 @@ rely on helper, expose it. Problem: very hard to make new components because you
 
 \subsubsection{Connectors} % (fold)
 \label{ssub:instantsearch_js_connectors}
+
+A concept first explored in React InstantSearch --- 
 
 Connectors happened in v2 of instantsearch
 -> expose each of the widgets cleanly
@@ -178,6 +190,8 @@ React InstantSearch doesn't directly use the JavaScript Helper, but it rather st
 Similar to the newer v2 version of InstantSearch.js, described in \ref{ssub:instantsearch_js_connectors}, React InstantSearch introduced the concept of connectors and components, that together make a widget.
 
 A connector will define to the InstantSearch Manager what parameters are being tracked, and thus will be updated on every time new results come in. These connectors expose a {\tt refine} function, which depending on the exact widget will be called with a string, array, object or number.
+
+The connectors in React InstantSearch are implemented as higher order components, also called decorators. They will merge the props that a component receives with the props that will come from the Algolia implementation. This method of distributing data to children is also used by other popular React libraries like React Router and React Redux.
 
 React InstantSearch doesn't stop at that place, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the DOM. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
 
@@ -217,12 +231,7 @@ React causes a new render every time something changes in the props. Because of 
 \subsubsection{createConnector}
 \label{ssub:ris-createconnector}
 
-Every widget has its corresponding connector, as well as a few connectors that exist without default widget. A list of connectors that currently exist without default rendering implementation are:
-
-\begin{itemize}
-  \item {\tt connectAutoComplete}
-  \item {\tt connectRange}
-\end{itemize}
+Every widget has its corresponding connector, as well as a few connectors that exist without default widget. A list of connectors that currently exist without default rendering implementation are {\tt connectAutoComplete} and {\tt connectRange}.
 
 The AutoComplete and Range components only exist as a connector, because they imply significant style and DOM knowledge. Since there exist a few third-party implementations of these components that can be used with external data, it's fairly straightforward to use the connector Higher order Component as a way to pass through the data to the component, and call the {\tt refine()} function in click handlers. 
 
