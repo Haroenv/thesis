@@ -148,6 +148,8 @@ As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets
 \subsection{InstantSearch.js} % (fold)
 \label{sub:instantsearch_js}
 
+InstantSearch.js was the solution to keeping from people building the same solutions over and over. 
+
 rely on helper, expose it. Problem: very hard to make new components because you don't know how the Helper works, and there's only a carte blanche component. %%
 
 \begin{figure}[H]
@@ -193,6 +195,7 @@ React InstantSearch proposes two different ways of countering this lack of visib
 
 The configure widget is a widget, which does not expose rendering, but rather only exists for the props being set on it. Every prop that is set on a Configure widget is being passed down towards the used Algolia JavaScript client.
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Configure in an InstantSearch container},label={lst:ris-configure}]
 const App = ({isDistinct, children}) => (
   <InstantSearch
@@ -205,6 +208,7 @@ const App = ({isDistinct, children}) => (
   </InstantSearch>
 );
 \end{lstlisting}
+\end{minipage}
 
 Here an app component is being made, which will take in as props a boolean which decides whether to set the {\tt DISTINCT} parameter to true or false, and the children of that app.
 

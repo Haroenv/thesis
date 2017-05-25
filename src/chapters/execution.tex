@@ -43,6 +43,7 @@ In the InstantSearch Core implementation the choice has been made to structure s
 
 Since InstantSearch Core is a JavaScript library, there isn't much choice for a container. A {\tt Map}\cite{mdn-map} could be used as the actual value for the {\tt result} key, but since it's not widely supported and has a significantly less elegant API, and they generally consume more memory in smaller objects. Since in the general case, Algolia results contain about 20 hits, and a finite amount of filters, using {\tt Object} is perfectly reasonable.
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={The state container of InstantSearch Core},label={lst:is-core-state-1}]
 const state = {
   refinements,
@@ -50,6 +51,7 @@ const state = {
   result,
 };
 \end{lstlisting}
+\end{minipage}
 
 Here, the most interesting container is the {\tt refinements} container. It's structured as another {\tt Object} with a key for every attribute name which is being refined, and is inspired by the structure of the state {\tt Object} in React InstantSearch\cite{react-instantsearch-search-state}.
 
@@ -61,6 +63,7 @@ Having a structure like this implies that it is trivial to see if any refinement
 
 If every refinement would be set, the refinements key of the search state would be:
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Refinements in InstantSearch Core},label={lst:is-core-state-2}]
 const refinements = {
   color: {
@@ -96,17 +99,20 @@ const refinements = {
   },
 };
 \end{lstlisting}
+\end{minipage}
 
 To be able to handle a lot of cases that can't be foreseen by the refinements, or to handle settings that aren't visible to the user, a {\tt rawParameters} key is available in the search state. 
 
 These attribute names will be used in the results, exactly as they are in the query, and always supersede the refinements, since usually when someone needs custom parameters that aren't provided by a refinement, they have a good reason for that.
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Passing raw Algolia parameters to InstantSearch Core},label={lst:is-core-state-3}]
 const rawParameters = {
   distinct: true,
   page: 3,
 };
 \end{lstlisting}
+\end{minipage}
 
 Finally, and maybe more importantly are the results. The results are not exactly the same as how they come in from the Algolia API. The differentiator is that there is a slight reordering to match the structure of the {\tt refinements} block.
 
@@ -114,6 +120,7 @@ This solves an interesting problem with InstantSearch.js. Whenever something nee
 
 When certain functionality is needed, there's a gap in terminology between the widgets and the actual Algolia parameters. For example: what's called a menu widget in InstantSearch.js, is called a hierarchicalRefinement. In most cases this doesn't really matter, but when someone needs to recreate a widget without a connector, they should know that the terminology can be different.
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Results container in the InstantSearch Core state},label={lst:is-core-state-4}]
 const result = {
   color: {
@@ -144,6 +151,7 @@ const result = {
   },
 };
 \end{lstlisting}
+\end{minipage}
 
 Because of this structure, a connector can be made for every refinement. It will change something in a refinement, and subscribe for the changes to the results, and only needs to take one key into account. Ultimately this leads to a more understandable API for people using this library.
 
@@ -168,6 +176,7 @@ All raw parameters are being rewritten in place, similar to how {\tt setState} w
 
 This pattern allows a developer to have the freedom to change whatever parameters are necessary to change, while having access to the complete truth at that point easily. An example of toggling the {\tt DISTINCT} parameter, for example on an event listener for a button with that purpose would look like this:
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Toggling the {\tt DISTINCT} parameter},label={lst:is-core-raw}]
 function toggleDistinct(previousState) {
   // set the distinct parameter as the opposite of previously
@@ -180,9 +189,11 @@ function toggleDistinct(previousState) {
 
 state.refineRaw(toggleDistinct);
 \end{lstlisting}
+\end{minipage}
 
 In future JavaScript engines\footnote{spread properties on Objects are currently a Stage 3 proposal for ECMAScript\cite{es-prop-spread}, which means they are starting to be implemented by browsers, but it isn't part of the standard yet.}, it will be able to write this kind of code using spread properties on Objects. This kind of pattern would look like this then:
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Toggling the {\tt DISTINCT} parameter when object spread is available},label={lst:is-core-raw}]
 function toggleDistinct(previousState) {
   return {
@@ -193,6 +204,7 @@ function toggleDistinct(previousState) {
 
 state.refineRaw(toggleDistinct);
 \end{lstlisting}
+\end{minipage}
 
 \subsection{Refinements}
 \label{ssec:refinments}
@@ -224,6 +236,7 @@ The big differentiator between some of the big frontend frameworks nowadays is h
 
 While at any moment it's possible to call the state getter on an InstantSearch store or a refinement, a programmer might want to know how state changes overtime, and get notified about the new change. If only the state getter would be implemented, a naive way to find out about changes, is repeatedly asking for the current state like this:
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Naive way to find out about changed state},label={lst:is-core-naive-subscribe}]
 // holder for the state
 let currentState = {};
@@ -237,6 +250,7 @@ function update() {
 // call the update function when a new frame is being drawn
 requestAnimationFrame(update);
 \end{lstlisting}
+\end{minipage}
 
 After that, the {\tt currentState} variable might be used wherever it's needed, and make the needed UI changes. Depending on the type of framework used for this, it might either have a very big impact, or be optimised away, but it isn't always ideal.
 
@@ -305,6 +319,7 @@ To create a refinement, two steps happen. Firstly a new refinement container is 
 
 As an example, a refinement list is created from the ``brands''  %%
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Creating a refinement},label={lst:creating-refinement}]
 import { createRefinementlist } from 'instantsearch-core/refinements';
 
@@ -312,12 +327,15 @@ const brands = createRange({attributeName: 'brands'});
 
 export default brands;
 \end{lstlisting}
+\end{minipage}
 
 blimbo: do it cool and register %%
 
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Registering a refinement},label={lst:registering-refinement}]
 import { store } 
 \end{lstlisting}
+\end{minipage}
 
 \subsection{Updating or creating DOM with Algolia data}
 \label{subs:data_to_dom}
