@@ -8,7 +8,14 @@
 
 The InstantSearch state container is exposed as a factory function creating a new container. The {\tt createInstantSearch} function inherits from the {\tt createStore} function used in other parts of the \gls{library}, see figure \ref{figure:createstore_inheritance} for the complete architecture. It allows to be subscribed to with a function as argument that will be called each time a change happens to the state, with the new state as arguments.
 
-While all three keys of the state container will change over time, they each work in a slightly different way. The {\tt results} key is described in section \ref{sec:getting_responses_from_the_api}, and is tracked fairly straightforward. Every time a new \acrshort{api} response comes in, it will completely overwrite the previous state of that key. 
+While all three keys of the state container will change over time, they each work in a slightly different way. The {\tt results} key is described in section \ref{sec:getting_responses_from_the_api}, and is tracked fairly straightforward. Every time a new \acrshort{api} response comes in, it will completely overwrite the previous state of that key.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../assets/is-core-architecture.pdf}
+  \caption{Architecture overview}
+  \label{figure:core-architecture}
+\end{figure}
 
 \subsection{Raw \glspl{refinement}}
 \label{ssec:raw-refinments}
