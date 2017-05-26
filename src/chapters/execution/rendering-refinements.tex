@@ -68,7 +68,7 @@ componentWillUnmount() {
 \subsection{Updating or creating \acrshort{dom} with Algolia data}
 \label{subs:data_to_dom}
 
-Once the data is in the state of the component --- regardless if this is a React component, handling state in a node is possible with attributes as well --- a rendering can be made. A list of values 
+Once the data is in the state of the component --- regardless if this is a React component, handling state in a node is possible with attributes as well --- a rendering can be made. A list of values has been put inside the React state in the previous step, and will thus always be the source of truth. 
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Taking the data from the refinement and applying it to DOM},label={lst:core-react-dom}]
@@ -85,10 +85,14 @@ render() {
 \end{lstlisting}
 \end{minipage}
 
-%%
+Every time the component state changes, React will diff this \acrshort{dom} with the previous state of the document when this render function is being called. This kind of pattern is also possible to be written in vanilla JavaScript without much of a performance hit, unless it will update often, in which case optimisations can be made.
 
 \subsection{Calling the {\tt refine} function}
 \label{subs:refining}
+
+When rendering each item of the list, event listeners can be added to the \acrshort{dom} elements. In these event listeners, the {\tt refine} function that the created refinement exposes should be called.
+
+A simplified example of an {\tt onclick} event listener in the earlier defined render function would look like this:
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Refining on a user action},label={lst:core-react-refine}]
@@ -105,6 +109,6 @@ render() {
 \end{lstlisting}
 \end{minipage}
 
-%%
+When using vanilla JavaScript operations, the event listener would also need to be removed on the removal of a certain \acrshort{dom} node.
 
 % section rendering_refinements (end)

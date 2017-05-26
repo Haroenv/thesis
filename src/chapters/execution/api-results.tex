@@ -7,12 +7,13 @@ Until now, all state operations only applied to the local view, but no \acrshort
 
 A subscription to the main state is made to make sure that every time the state changes, a new \acrshort{api} request can be done. Once this request fulfils, a function called {\tt \_\_setResults} can be called with the new values that are returned from the API.
 
-To be able 
+To be able to use the refinements smoothly, a transformation needs to happen before setting those results as actual state. Every type of refinement has a function called {\tt mapResultToState}. This function will be called for each of the existing types of refinements in the current state.
 
-another function listens to changes in state %%
-
-it transforms params into a JS client request
-
-it replaces the {\tt response} in the state with an action
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth, draft]{../assets/results-to-state.pdf}
+  \caption{Mapping \acrshort{api} responses to InstantSearch state}
+  \label{figure:results-to-state}
+\end{figure} %%
 
 % section getting_responses_from_the_api (end)
