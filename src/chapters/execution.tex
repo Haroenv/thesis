@@ -78,11 +78,14 @@ export default brands;
 \end{lstlisting}
 \end{minipage}
 
-blimbo: do it cool and register %%
+Once this refinement is created, it can be registered in another module. %%
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Registering a refinement},label={lst:registering-refinement}]
-import { store } 
+import store from './store';
+import brands from './brands';
+
+store.register(brands);
 \end{lstlisting}
 \end{minipage}
 
