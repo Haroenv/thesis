@@ -9,7 +9,7 @@ This is useful for three major use cases. The first is \acrshort{url} synchronis
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-url-sync.pdf}
+  \includegraphics[width=0.8\textwidth]{../assets/is-core-url-sync.pdf}
   \caption{Synchronisation with the querystring using InstantSearch Core}
   \label{figure:is-core-url-sync}
 \end{figure} %%
@@ -28,9 +28,11 @@ To allow for this pattern, the following steps need to be executed:
   \item start the InstantSearch instance frontend with {\tt window.PRELOADED\_STATE} as {\tt preloadedState}
 \end{enumerate}
 
+Having a hook to define state before rendering will allow one to create each refinement on the fly. This means that, while the \acrshort{api} request goes through on the server once, just the needed resources will be fetched a second time from the client-side application. 
+
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-ssr.pdf}
+  \includegraphics[height=0.4\textheight]{../assets/is-core-ssr.pdf}
   \caption{Server Side Rendering with InstantSearch Core}
   \label{figure:is-core-ssr}
 \end{figure} %%
