@@ -1,0 +1,110 @@
+% !TEX root = ../../main.tex
+
+\section{Rendering \glspl{refinement}} % (fold)
+\label{sec:rendering_refinements}
+
+When using InstantSearch to render refinement in a widget or a connector, it comes down to three distinct steps:
+
+\begin{enumerate}
+  \item create the refinement
+  \item update the relevant \acrshort{dom} with the data from Algolia
+  \item send \glspl{refinement} when certain events are triggered
+\end{enumerate}
+
+The things that need to happen here are almost exactly what needs to happen when making a connector using InstantSearch.js. React InstantSearch is more of an exception here, since it uses the functional composition of connector functions.
+
+In regular JavaScript, these paradigms could go over the heads of normal developers, which is why the choice to leave the two definitions of connectors.
+
+\subsection{Creating a refinement}
+\label{subs:creating_a_refinement}
+
+To create a refinement, two steps happen. Firstly a new refinement container is created. This has a very similar structure as described in section \ref{ssec:refinments}. The next step is to register that refinement to the InstantSearch store.
+
+As an example, a refinement list is created from the ``brands'' attribute. It's possible to have a default refinement state, in case of either settings that are true by default or for saving and reloaded state, as described in section \ref{sec:saved_state}. Once this refinement is created, it can be used in a different wherever.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Creating a refinement},label={lst:creating-refinement}]
+import { createRefinementlist } from 'instantsearch-core/refinements';
+
+const brands = createRefinementlist({attributeName: 'brands'});
+\end{lstlisting}
+\end{minipage}
+
+In this case, the InstantSearch store has been created in a different file, and will be imported in the refinement file. This is fairly straightforward, and will update the internal state of the refinement, as soon as another refinement would change the same data, or if new data for that refinement comes in. 
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Registering a refinement},label={lst:registering-refinement}]
+import store from './store';
+
+store.register(brands);
+\end{lstlisting}
+\end{minipage}
+
+This refinement can then be subscribed to, to update the data of a component. For example if the component is a React component, the component state could be updated with the store state. 
+
+When registering a component, it's also very important to unregister once the component is no longer relevant. This can usually be done in a component cleanup hook. In React this is called {\tt componentWillUnmount}.
+
+For that purpose, the {\tt InstantSearch.register} function, just like a {\tt store.subscribe} function, will remove the current listener from the list of listeners to call on every change.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={InstantSearch Core inside a React component},label={lst:core-react}]
+constructor(props) {
+  super(props);
+  this.state = { list: [] };
+}
+
+componentDidMount() {
+  this.brands = createRefinementlist({ attributeName: 'brands' });
+  this.unregister = store.register(this.brands);
+  this.brands.subscribe((list) => this.setState);
+}
+
+componentWillUnmount() {
+  this.unregister();
+}
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Updating or creating \acrshort{dom} with Algolia data}
+\label{subs:data_to_dom}
+
+Once the data is in the state of the component --- regardless if this is a React component, handling state in a node is possible with attributes as well --- a rendering can be made. A list of values 
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Taking the data from the refinement and applying it to DOM},label={lst:core-react-dom}]
+render() {
+  const { list } = this.state;
+  return (
+    <ul>
+      {list.map(({ label, value }, index) => (
+        <li>{label}</li>
+      ))}
+    </ul>
+  );
+};
+\end{lstlisting}
+\end{minipage}
+
+%%
+
+\subsection{Calling the {\tt refine} function}
+\label{subs:refining}
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Refining on a user action},label={lst:core-react-refine}]
+render() {
+  const { list } = this.state;
+  return (
+    <ul>
+      {list.map(({ label, value }, index) => (
+        <li onClick={this.brands.refine(value)}>{label}</li>
+      ))}
+    </ul>
+  );
+};
+\end{lstlisting}
+\end{minipage}
+
+%%
+
+% section rendering_refinements (end)

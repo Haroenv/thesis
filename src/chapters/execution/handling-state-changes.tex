@@ -58,14 +58,14 @@ The complete state container is structured in the same way as a single refinemen
   \item {\tt setState()} or {\tt refine()}
 \end{enumerate}
 
-A basic {\tt store}
+A basic {\tt store} will call all of the subscribers with the new state, as soon as {\tt setState} is being called. This simple subscriber pattern allows one store to work the same for the main state container, as well as for refinements. In refinements, the {\tt setState} function is being renamed to {\tt refine}, because this is the terminology used by other InstantSearch flavours, and fits well with the name of a {\tt refinement}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\textwidth, draft]{../assets/createStore.pdf}
   \caption{InstantSearch Core store organisation.}
   \label{figure:createstore_inheritance}
-\end{figure}
+\end{figure} %%
 
 \subsection{Subscribing}
 \label{ssec:Subscribing}
@@ -105,6 +105,10 @@ Vue will trigger a new render on every frame where there has been time for it, w
 Not all frameworks implement this kind of reactivity. React for example will only look at the \gls{props} and context of a component. It would be possible to pass down the {\tt store.state} getter as part of React context, but it would cause unneeded renders, since that part of optimisation is left over to the user land of a React app. 
 
 For frameworks like React, a {\tt subscribe()} function is available at the store prototype. Similar to Redux\cite{redux-glossary-store}, a state management \gls{library} that works very well with React, this function expects a single function as the argument. This function will be called at every time the state changes, be it either by changing \glspl{refinement}, or by new results being returned.
+
+This data can then either be passed through as a global variable, via props or via a context, which is an abstraction over props that aren't visible to the user.
+
+To allow unsubscription from a refinement or store, the return value of {\tt .subscribe} is its own cleanup function, which in that case simply has to be called during the cleanup phase.
 
 %% say that you then pass that data through using props or context
 

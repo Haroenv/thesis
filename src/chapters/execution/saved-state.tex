@@ -1,0 +1,36 @@
+% !TEX root = ../../main.tex
+
+\section{Saved state} % (fold)
+\label{sec:saved_state}
+
+The \acrshort{api} also allows for an initialisation with a certain state passed in. This means that it's possible to save a state Object in a location, and then later restart the search from that data. 
+
+This is useful for three major use cases. The first is \acrshort{url} synchronisation. For \acrshort{url} synchronisation the structure would be to first listen on every state change with {\tt .subscribe()}, and then asynchronously transform that to query parameters to set. If a user comes to a page with query parameters, a function to take in the query string and put out a state Object would then be called. After that point a new InstantSearch Core instance can be built with the {\tt preloadedState} parameter set in the constructor.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-url-sync.pdf}
+  \caption{Synchronisation with the querystring using InstantSearch Core}
+  \label{figure:is-core-url-sync}
+\end{figure} %%
+
+Similarly it is also possible to do that process with a different medium than query parameters, for example {\tt localStorage}. For that reason this process is left over to the user, possibly with other small packages dealing with browser inconsistencies on top of it. 
+
+This pattern is also useful for when \acrfull{ssr} is implemented. When ...%%
+
+\begin{enumerate}
+  \item execute the IS function once
+  \item render the output as html
+  \item also output the state Object in a global Object
+  \item send that html to the client
+  \item start the IS instance frontend with preloadedState: {\tt window.PRELOADED\_STATE} %%
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/is-core-ssr.pdf}
+  \caption{Server Side Rendering with InstantSearch Core}
+  \label{figure:is-core-ssr}
+\end{figure} %%
+
+% section saved_state (end)

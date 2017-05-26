@@ -1,0 +1,26 @@
+% !TEX root = ../../main.tex
+
+\section{Terminology}
+\label{sec:terminology}
+
+To work with the Algolia \acrshort{api}, the first step is pushing by uploading schemaless \acrshort{json} Objects to an \gls{index}. The fact that the data is schemaless allows for a flexible data structure, because not every Object needs to have all types defined. For example clothing could have a ``colour'' attribute that does not make sense for a bar of chocolate.
+
+Retrieving relevant results for a query in Algolia is done by a so-called tie-breaking algorithm. A user will set up what the order of importance for each rule is. For example, a name should be very important, but its order should be analysed not on alphabetical order, but on a list of criteria. While these criteria can be changed per \gls{index}, it's advised to keep the default ordering, which is:
+
+\begin{enumerate}
+  \item Typo
+  \item Geo (if applicable)
+  \item Words
+  \item Proximity
+  \item Attribute
+  \item Exact
+  \item Custom
+\end{enumerate}
+
+This means that the first results will be those without any typos, followed by those that are very close if location is relevant in that query. After that, if the query contains of multiple words, the results with the most matching words will come. If there are the same amount of words in two results, the one where those words are the closest together will come first --- for example ``George Clooney'' is more relevant than ``I like my neighbour George, he's nothing like Clooney''. The next criterion is which attribute the result is in. When deciding which attributes are searchable, a user will implicitly decide which order the attributes will be sorted in. For example, the name might be more relevant than the description. In that case, a user will put the {\tt name} attribute first in the searchable attributes. If the attribute in which the match happens is exactly the same, matches that match a whole word, versus just a prefix of a word will be considered more relevant~\cite{algolia-relevance}~.
+
+Finally, custom relevance can be put into account when sorting. The custom ranking is an attribute that can be sorted ascending ord descending, and will contain business relevance. In the example of Yarn, the number of monthly downloads will decide as a last factor, which match will show up first. This allows for a algorithm which can be changed on the fly, by having multiple indices that replicate each other, but have different index settings.
+
+Algolia uses this tie-breaking algorithm as one of its main features and differentiators from other searching engines like Lucene or ElasticSearch. Most, if not all, of its competitors use a \acrshort{tfidf} algorithm. \acrshort{tfidf} stands for ``\acrlong{tfidf}'', which works very well for big documents of text, for example a website or a pdf document. Algolia however is focused on database entries, which have the advantage of already being structured.
+
+Executing a query is done via a \acrshort{rest} \acrshort{api}. While it's possible to send http requests, Algolia expects this to be done via the JavaScript client, which will set parameters for each filter. Most filters either take the value for a certain \gls{attribute}, or be a standalone filter. A library that is higher level than the JavaScript \acrshort{api} client should still allow to set each parameter without making it very complicated.

@@ -1,0 +1,18 @@
+% !TEX root = ../../main.tex
+
+\section{Getting responses from the \acrshort{api}} % (fold)
+\label{sec:getting_responses_from_the_api}
+
+Until now, all state operations only applied to the local view, but no \acrshort{api} calls have been made. Since Algolia queries are called via its \acrshort{api}, it's very important that these \acrshort{api} calls will happen as soon as something in the query state changes. 
+
+A subscription to the main state is made to make sure that every time the state changes, a new \acrshort{api} request can be done. Once this request fulfils, a function called {\tt \_\_setResults} can be called with the new values that are returned from the API.
+
+To be able 
+
+another function listens to changes in state %%
+
+it transforms params into a JS client request
+
+it replaces the {\tt response} in the state with an action
+
+% section getting_responses_from_the_api (end)
