@@ -16,14 +16,16 @@ This is useful for three major use cases. The first is \acrshort{url} synchronis
 
 Similarly it is also possible to do that process with a different medium than query parameters, for example {\tt localStorage}. For that reason this process is left over to the user, possibly with other small packages dealing with browser inconsistencies on top of it. 
 
-This pattern is also useful for when \acrfull{ssr} is implemented. When ...%%
+This pattern is also useful for when \acrfull{ssr} is implemented. When implementing \acrlong{ssr}, instead of sending an empty \acrshort{dom} and JavaScript to the browser, the first render will be done on the server instead. After that step, the client-side rendering will take over --- also called hydrating --- the \acrshort{dom} in order for it to become interactive. When dealing with asynchronously fetching data --- which is the case when using the Algolia \acrshort{api} --- not the first render will be sent to the client, but rather the first render after a fetch has been completed.
+
+To allow for this pattern, the following steps need to be executed:
 
 \begin{enumerate}
-  \item execute the IS function once
+  \item execute the InstantSearch function once
   \item render the output as html
-  \item also output the state Object in a global Object
+  \item also output the state Object in a global Object in a script tag
   \item send that html to the client
-  \item start the IS instance frontend with preloadedState: {\tt window.PRELOADED\_STATE} %%
+  \item start the InstantSearch instance frontend with {\tt window.PRELOADED\_STATE} as {\tt preloadedState}
 \end{enumerate}
 
 \begin{figure}[H]
