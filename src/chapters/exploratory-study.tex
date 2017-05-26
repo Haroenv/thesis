@@ -3,11 +3,11 @@
 \chapter{Exploratory study} % (fold)
 \label{chp:exploratory_study}
 
-The exploratory study is an important part of this research, since there already are a lot of libraries that have been made to make user interfaces using Algolia.
+The exploratory study is an important part of this research, since there already are lots of libraries that have been made to make search user interfaces with Algolia.
 
-There's no point in proposing new ideas, and then figuring out that it already was tried, and dismissed for a reason that didn't come up yet. 
+There's no point in proposing new ideas, and then figuring out that it was already tried, and dismissed for a reason that didn't come up yet. 
 
-For that reason, this study is divided in to main points. The first point is discovery. In that section the methods in which the existing libraries are being used are explained, as well as the method used in this research to discover them. 
+For that reason, this study is divided into two main points. The first point is discovery. In that section the methods in which the existing libraries are being used are explained, as well as the method used in this research to discover them. 
 
 The second part is a run-down of all possible ways to make a search interface using JavaScript and Algolia. 
 
@@ -52,7 +52,7 @@ This is also a venue in which in a short time, deep knowledge about the \acrshor
 
 There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the \acrshort{rest} \acrshort{api} with the Algolia JavaScript client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using technologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement.
 
-In the context of a search experience, the state of a page are the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} when using Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
+In the context of a search experience, the state of a page are the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} in the Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
 
 \begin{figure}[H]
   \centering
@@ -156,7 +156,7 @@ As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets
 \subsection{InstantSearch.js} % (fold)
 \label{sub:instantsearch_js}
 
-InstantSearch.js was the solution to keeping from people building the same solutions over and over. Its goal is to bridge the gap between the JavaScript helper, which has a very extensive \acrshort{api} and users, who don't always have time to grok all the options. 
+InstantSearch.js was the solution to help people avoiding building the same solutions repeatedly. Its goal is to bridge the gap between the JavaScript Helper --- which has a very extensive \acrshort{api} --- and its users, who don't always have time to grok all the options.
 
 The chosen new method of building these user interfaces, is by wrapping the JavaScript helper methods inside multiple widgets. %%
 
@@ -274,7 +274,7 @@ For example, it's perfectly possible to make a calendar input using a range conn
 
 In the future, if InstantSearch Core is chosen as the new abstraction level, there would not be a need to abstract away the JavaScript Helper. 
 
-Since InstantSearch Core, as described in section \ref{sec:organizing_state}, maps the state of the each component to its \gls{attribute} name. In there it has a type and a value, which makes it very easy to know which widgets to render.
+Since InstantSearch Core, as described in section \ref{sec:organizing_state}, maps the state of the each component to its \gls{attribute} name. Each attribute contains an object with the type of refinement used, as well as a value. This value can be different datatypes, depending on the type of refinement. This structure makes it straightforward to render only the needed widgets and keep their data updated.
 
 When using InstantSearch Core, the libraries using it would be able to expose it as a way to expand towards other connectors and widgets that aren't provided by default.
 
