@@ -11,30 +11,28 @@
   \input{chapters/abstract}
   \input{chapters/preface}
 
-  % TOC
   \setcounter{tocdepth}{3}
   \tableofcontents
-  % end TOC
 
   \input{chapters/list-abbrevs}
   \input{chapters/introduction}
 
 \mainmatter
-  % main content
+
   \input{chapters/presentation}
   \input{chapters/research-question}
   \input{chapters/action-plan}
   \input{chapters/exploratory-study}
   \input{chapters/execution}
   \input{chapters/conclusion}
-  %\input{chapters/appendices}
-  % end main content
 
+{
 \backmatter
-
-  % references
-  \nocite{*}  
+  \nocite{*}
   \bibliographystyle{ieeetr}
   \bibliography{references}
-  % end references
+}
+
+\input{chapters/appendices}
+
 \end{document}
