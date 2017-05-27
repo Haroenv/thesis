@@ -172,9 +172,11 @@ An example for hierarchical facets is given in figure \ref{figure:hierarchical-f
 \subsection{InstantSearch.js} % (fold)
 \label{sub:instantsearch_js}
 
-InstantSearch.js was the solution to help people avoiding building the same solutions repeatedly. Its goal is to bridge the gap between the JavaScript Helper --- which has a very extensive \acrshort{api} --- and its users, who don't always have time to grok all the options.
+InstantSearch.js was the solution to help people avoiding building the same solutions repeatedly. Its goal is to bridge the gap between the JavaScript Helper --- which has a very extensive \acrshort{api} --- and its users, who don't always have time to \gls{grok} all the options.
 
-The chosen new method of building these user interfaces, is by wrapping the JavaScript helper methods inside multiple widgets. %%
+The chosen new method of building these user interfaces, is by wrapping the JavaScript Helper methods inside multiple widgets. This allows for a smaller API surface at the first point, and is easy to understand.
+
+As a drawback of this structure, all of the internal representation of the widget rendering are being abstracted away. To be able to have a custom \acrshort{dom} structure, a solution had to be found. This solution is embedding the Hogan library to create \acrshort{dom}.
 
 rely on helper, expose it. Problem: very hard to make new components because you don't know how the Helper works, and there's only a carte blanche component. %%
 
@@ -183,7 +185,7 @@ rely on helper, expose it. Problem: very hard to make new components because you
   \includegraphics[width=0.5\textwidth]{../assets/is-js-state.pdf}
   \caption{Handling state with InstantSearch.js v1}
   \label{figure:is-js-state}
-\end{figure} %%
+\end{figure}
 
 \subsubsection{Connectors} % (fold)
 \label{ssub:instantsearch_js_connectors}

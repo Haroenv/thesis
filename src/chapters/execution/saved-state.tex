@@ -12,7 +12,7 @@ This is useful for three major use cases. The first is \acrshort{url} synchronis
   \includegraphics[width=0.8\textwidth]{../assets/is-core-url-sync.pdf}
   \caption{Synchronisation with the querystring using InstantSearch Core}
   \label{figure:is-core-url-sync}
-\end{figure} %%
+\end{figure}
 
 Similarly it is also possible to do that process with a different medium than query parameters, for example {\tt localStorage}. For that reason this process is left over to the user, possibly with other small packages dealing with browser inconsistencies on top of it. 
 
@@ -22,9 +22,9 @@ To allow for this pattern, the following steps need to be executed:
 
 \begin{enumerate}
   \item execute the InstantSearch function once
-  \item render the output as html
+  \item render the output as \acrshort{html}
   \item also output the state Object in a global Object in a script tag
-  \item send that html to the client
+  \item send that \acrshort{html} to the client
   \item start the InstantSearch instance frontend with {\tt window.PRELOADED\_STATE} as {\tt preloadedState}
 \end{enumerate}
 
@@ -35,6 +35,6 @@ Having a hook to define state before rendering will allow one to create each ref
   \includegraphics[height=0.4\textheight]{../assets/is-core-ssr.pdf}
   \caption{Server Side Rendering with InstantSearch Core}
   \label{figure:is-core-ssr}
-\end{figure} %%
+\end{figure}
 
 % section saved_state (end)
