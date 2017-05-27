@@ -15,32 +15,18 @@
       ]
     },
     {
-      "command": "bibtex",
-      "args": [
-        "%DOCFILE%"
-      ]
-    },
-    {
       "command": "makeglossaries",
       "args": [
         "%DOCFILE%"
       ]
     },
     {
-      "command": "pdflatex",
+      "command": "latexmk",
       "args": [
         "-synctex=1",
         "-interaction=nonstopmode",
         "-file-line-error",
-        "%DOC%"
-      ]
-    },
-    {
-      "command": "pdflatex",
-      "args": [
-        "-synctex=1",
-        "-interaction=nonstopmode",
-        "-file-line-error",
+        "-pdf",
         "%DOC%"
       ]
     }

@@ -5,7 +5,7 @@
 
 To work with the Algolia \acrshort{api}, the first step is pushing by uploading schemaless \acrshort{json} Objects to an \gls{index}. The fact that the data is schemaless allows for a flexible data structure, because not every Object needs to have all types defined. For example clothing could have a ``colour'' attribute that does not make sense for a bar of chocolate.
 
-Retrieving relevant results for a query in Algolia is done by a so-called tie-breaking algorithm. A user will set up what the order of importance for each rule is. For example, a name should be very important, but its order should be analysed not on alphabetical order, but on a list of criteria. While these criteria can be changed per \gls{index}, it's advised to keep the default ordering, which is:
+Retrieving relevant results for a query in Algolia is done by a so-called tie-breaking algorithm. A user will set up what the order of importance for each rule is. For example names are very important, yet their order should be analysed not on alphabetical order, rather on a list of criteria. While these criteria can be changed per \gls{index}, it's advised to keep the default ordering, which is:
 
 \begin{enumerate}
   \item Typo
