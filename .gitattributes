@@ -1,1 +1,17 @@
 .sketch filter=lfs diff=lfs merge=lfs -text
+src/assets/action-plan-gantt.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/action-plan.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/algolia-logo-light.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/create-store.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/helper-cycle.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/info-page.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/is-core-architecture.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/is-core-ssr.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/is-core-state.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/is-core-url-sync.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/is-js-state.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/is-react-state.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/js-client-state.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/logo.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/n-grams.pdf filter=lfs diff=lfs merge=lfs -text
+src/assets/title-page.pdf filter=lfs diff=lfs merge=lfs -text

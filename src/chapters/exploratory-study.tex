@@ -31,6 +31,13 @@ The Algolia team already worked on integrating Algolia search into the Yarn webs
 
 The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} that takes in packages in the npm repository, and joins that together with places that have more information, like GitHub, and the amount of monthly downloads per package.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{../assets/yarn-search.png}
+  \caption{Search results on the Yarn website in May 2017}
+  \label{figure:yarn-search}
+\end{figure}
+
 This search experience was such a success that one week prior to the start of the internship in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook offices in London --- Facebook has the main contributors to the Yarn project --- to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
 
 The Yarn project is evolving from having metadata from the npm packages in an index, used only on the Yarn website, to a free to use \acrshort{api}, which can make great search available to anyone who wants to make a project leveraging the ecosystem. The first other website that will use this data will be the online code editor \href{https://codesandbox.io}{CodeSandbox.io} for the interface where users can add dependencies to their projects. A lot of other integrations are expected in the time coming after this service will be formally announced.
@@ -44,6 +51,13 @@ At Algolia, customer support is not done by specific employees hired to do custo
 This has as an effect that when someone starts in the company, after a few weeks, they get to interact with clients who use Algolia in very varied ways. Connecting to the users keeps the maintainers in an advantageous position, since it's very simple to find out what features to focus on, and bugs that weren't anticipated.
 
 It also has a secondary effect, which is that it keeps everyone up to date with what is possible with a lot of different implementations.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{../assets/helpscout-integration.png}
+  \caption{Company chat integration for the support interface}
+  \label{figure:support}
+\end{figure}
 
 This is also a venue in which in a short time, deep knowledge about the \acrshort{api} parameters and the layers of abstraction is acquired. This has a similar influence on the understanding of libraries as using the libraries in a production website.
 
@@ -105,10 +119,10 @@ This however isn't very efficient, since that implies that when the query needs 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\textwidth, height=0.2\textheight, draft]{../assets/js-client-state.pdf}
+  \includegraphics[width=0.6\textwidth]{../assets/js-client-state.pdf}
   \caption{Handling state with the JavaScript client}
   \label{figure:js-client-state}
-\end{figure} %%
+\end{figure}
 
 Adding a ``Clear All'' button in this structure is not trivial. There needs to be either a query for all elements that need to be updated, or they need to be kept up to date in a list. Then for each of those elements the relevant attributes would need to be updated or removed.
 
@@ -144,14 +158,14 @@ Every time a new search request needs to be fetched, the {\tt results} observer 
 
 The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
 
-As an example for hierarchical facets, in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} \gls{attribute} will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{../assets/hierarchical-dashboard.png}
   \caption{Structure of a hierarchical facet in the Algolia dashboard}
   \label{figure:hierarchical-facets}
 \end{figure}
+
+An example for hierarchical facets is given in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} \gls{attribute} will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
 
 % subsection algolia_js_Helper (end)
 
@@ -166,7 +180,7 @@ rely on helper, expose it. Problem: very hard to make new components because you
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth, height=0.2\textheight, draft]{../assets/is-js-state.pdf}
+  \includegraphics[width=0.5\textwidth]{../assets/is-js-state.pdf}
   \caption{Handling state with InstantSearch.js v1}
   \label{figure:is-js-state}
 \end{figure} %%
@@ -276,7 +290,9 @@ For example, it's perfectly possible to make a calendar input using a range conn
 
 In the future, if InstantSearch Core is chosen as the new abstraction level, there would not be a need to abstract away the JavaScript Helper. 
 
-Since InstantSearch Core, as described in section \ref{sec:organizing_state}, maps the state of the each component to its \gls{attribute} name. Each attribute contains an object with the type of refinement used, as well as a value. This value can be different datatypes, depending on the type of refinement. This structure makes it straightforward to render only the needed widgets and keep their data updated.
+Since InstantSearch Core --- as described in section \ref{sec:organizing_state} --- maps the state of the each component to its \gls{attribute} name, a widget can be described both by its type and by its attribute. Refining a single attribute with multiple types of attributes is rarely --- if ever --- applicable, but it's common to have multiple identical types of refinement.
+
+Each attribute contains an object with the type of refinement used, as well as a value. This value can be different datatypes, depending on the type of refinement. This structure makes it straightforward to render only the needed widgets and keep their data updated.
 
 When using InstantSearch Core, the libraries using it would be able to expose it as a way to expand towards other connectors and widgets that aren't provided by default.
 
