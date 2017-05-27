@@ -111,4 +111,13 @@ render() {
 
 When using vanilla JavaScript operations, the event listener would also need to be removed on the removal of a certain \acrshort{dom} node.
 
+\subsection{Dynamic \glspl{refinement}}
+\label{dynamic_refinements}
+
+In more complex examples, where the exact refinements to render isn't identical from one query to another, for example: when a search result mostly results televisions, refinements for screen size should become visible. 
+
+To allow for these patterns at client side, two requests would need to happen, as well as structured data. Each record has two \glspl{attribute}: {\tt properties} and {\tt relevant\_properties}. At every keystroke, a first request is sent to the Algolia \acrshort{api} is done, which will not request any hits, but will only request the {\tt relevant\_properties} as facets to retrieve~\cite{dynamic-faceting}~.
+
+The result from this query can then be transformed into one which has the type of refinement for each filter. Once the $n$ most relevant facets to refine are chosen, a complete \acrshort{api} call can be done with those facets enabled. Once the user stops typing, they can use the currently visible \glspl{refinement} to refine their search even more.
+
 % section rendering_refinements (end)
