@@ -5,9 +5,7 @@
 
 The exploratory study is an important part of this research, since there already are lots of libraries that have been made to make search user interfaces with Algolia.
 
-There's no point in proposing new ideas, and then figuring out that it was already tried, and dismissed for a reason that didn't come up yet. 
-
-For that reason, this study is divided into two main points. The first point is discovery. In that section the methods in which the existing libraries are being used are explained, as well as the method used in this research to discover them. 
+There's no point in proposing new ideas, and then figuring out that it was already tried, and dismissed for good reasons. To be able to both gather information about the existing solutions, but also find new solutions, this study is divided into two main points. The first point is discovery. In that section the methods in which the existing libraries are being used are explained, as well as the method used in this research to discover them. 
 
 The second part is a run-down of all possible ways to make a search interface using JavaScript and Algolia. 
 
@@ -70,7 +68,7 @@ In the context of a search experience, the state of a page are the active refine
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\textwidth]{../assets/current-refinements.png}
+  \includegraphics[width=0.7\textwidth]{../assets/current-refinements.png}
   \caption{Current Refinements in React InstantSearch\cite{ris-storybooks}}
   \label{figure:current-refinements}
 \end{figure}
@@ -81,14 +79,14 @@ When an abstraction for the search state has been made, it becomes a lot more st
 
 However, when using the JavaScript Helper, there are still two major roadblocks that are left in \gls{userspace}. These roadblocks are linked to more advanced components, like for example a refinement list. A refinement list is a component that holds a list of possible filters which are relevant to the currently set refinements. It will also show how many results there would be, if that filter is chosen.
 
+To make a component like a RefinementList, the struggle is one one side that a lot of different functions have to be called to be able to get the data, since behind the screens actually two \acrshort{api} queries happen. One to get the counts and one to get the results. The second hurdle that would need to be crossed is the actual rendering. A user would need to decide which markup structure to use, as well as the accessibility and usability implications of it.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.4\textwidth]{../assets/refinementlist.png}
   \caption{a RefinementList in React InstantSearch\cite{ris-storybooks}}
   \label{figure:refinementlist-ris}
 \end{figure}
-
-To make a component like a RefinementList, the struggle is one one side that a lot of different functions have to be called to be able to get the data, since behind the screens actually two \acrshort{api} queries happen. One to get the counts and one to get the results. The second hurdle that would need to be crossed is the actual rendering. A user would need to decide which markup structure to use, as well as the accessibility and usability implications of it.
 
 To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js} was released by Algolia. It gives users of the \gls{library} a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in.
 
@@ -151,22 +149,23 @@ Every time a new search request needs to be fetched, the {\tt results} observer 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.4\textwidth]{../assets/helper-cycle.pdf}
+  \includegraphics[width=0.6\textwidth]{../assets/helper-cycle.pdf}
   \caption{Handling state with the JavaScript Helper\cite{js-helper-concepts}}
   \label{figure:js-helper-state}
 \end{figure}
 
 The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
 
+An example for hierarchical facets is given in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} \gls{attribute} will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
+
+While hierarchical faceting is a core part of the search experience that users expect, it requires non-trivial knowledge of how to display these interfaces, and this thus seen as a ``niche'' feature. A need for higher level paradigms comes up in these situations.
+
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{../assets/hierarchical-dashboard.png}
+  \includegraphics[width=0.6\textwidth]{../assets/hierarchical-dashboard.png}
   \caption{Structure of a hierarchical facet in the Algolia dashboard}
   \label{figure:hierarchical-facets}
 \end{figure}
-
-An example for hierarchical facets is given in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} \gls{attribute} will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
-
 % subsection algolia_js_Helper (end)
 
 \subsection{InstantSearch.js} % (fold)
@@ -176,27 +175,81 @@ InstantSearch.js was the solution to help people avoiding building the same solu
 
 The chosen new method of building these user interfaces, is by wrapping the JavaScript Helper methods inside multiple widgets. This allows for a smaller API surface at the first point, and is easy to understand.
 
-As a drawback of this structure, all of the internal representation of the widget rendering are being abstracted away. To be able to have a custom \acrshort{dom} structure, a solution had to be found. This solution is embedding the Hogan library to create \acrshort{dom}.
+As a drawback of this structure, all of the internal representation of the widget rendering are being abstracted away. To be able to have a custom \acrshort{dom} structure, a solution had to be found. This solution is embedding the Hogan library to create \acrshort{dom}. As an effect, there is a mismatch between how the widgets work internally and its public \acrshort{api}.
 
-rely on helper, expose it. Problem: very hard to make new components because you don't know how the Helper works, and there's only a carte blanche component. %%
+To be able to allow making custom widgets, a custom widget can be made using InstantSearch.js. Making a custom widget requires knowledge of how the Algolia JavaScript Helper works, and its differences with the component model.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\textwidth]{../assets/is-js-state.pdf}
-  \caption{Handling state with InstantSearch.js v1}
+  \caption{Handling state with InstantSearch.js}
   \label{figure:is-js-state}
 \end{figure}
 
 \subsubsection{Connectors} % (fold)
 \label{ssub:instantsearch_js_connectors}
 
-A concept first explored in React InstantSearch --- described in \ref{sub:react_instantearch} --- are connectors. In InstantSearch.js, this is being added to version 2.0.0, which is currently available as a beta version. 
+To solve the mismatch between widgets that already exist and the need to define a complete custom rendering for it, connectors are proposed as a new \acrshort{api}. Connectors a concept first explored in React InstantSearch --- described in \ref{sub:react_instantearch} --- are connectors. In InstantSearch.js, connectors are added to version 2.0.0, which is at the time of writing available as a beta version.
 
-Since making React InstantSearch was taking a significant impact on the amount of the team working on all InstantSearch implementations, %%
+Each of the widgets in InstantSearch.js are split up between its rendering, the component, and its Algolia logic, the connector. By doing this, the rendering of a widget is allowed to be chosen freely by the consumer of the \acrshort{api}. For example if another view model than \acrshort{dom} is needed in cases like NativeScript. 
 
-Connectors happened in v2 of instantsearch
--> expose each of the widgets cleanly
--> I helped in the design + implem %%
+Connectors in InstantSearch.js are implemented slightly different than in React InstantSearch in two main points. Firstly in InstantSearch.js more connectors are available than in React InstantSearch. The connectors that aren't available in React InstantSearch, but are in InstantSearch.js are connectors that existed as a separate widget in InstantSearch.js, and are actually derived connectors.
+
+The second difference is architectural. In InstantSearch.js the connectors are available as a factory function, while in React InstantSearch this is a higher order component. A higher order component is a function which takes a React Component as argument and returns a new React Component, while a factory function will take a function as arguments and returns a function that can be used.
+
+Providing these connectors is a first step in consolidating the rendering and logic between several InstantSearch libraries. Once a similar architecture is in place in both libraries, React InstantSearch could depend on the connectors of InstantSearch.js to make its higher order components internally, and components could be shared between both libraries.
+
+To use a connector in InstantSearch.js, the parameters of the widget instance are being passed through to the \acrshort{dom} creation. A {\tt render} function will be called on each change in the InstantSearch state. To be able to create \acrshort{dom} containers on initial rendering, a second argument {\tt isFirstRendering} is in the signature of a connector. If that is {\tt true}, initial \acrshort{dom} creation can be implemented, while the contents of those nodes can update on every render.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Initializing a searchbox connector in InstantSearch.js},label={lst:isjs-connector-searchbox}]
+import instantsearch from 'instantsearch.js';
+
+function render(
+  {
+    query,
+    onHistoryChange,
+    refine,
+    widgetParams,
+  },
+  isFirstRendering,
+) {
+  const {node} = widgetParams;
+  if (isFirstRendering) {
+    node.placeholder = widgetParams.placeholder;
+    node.addEventListener('input', e => refine(e.target.value));
+  }
+}
+
+export default instantsearch.connectors.connectSearchBox(render);
+\end{lstlisting}
+\end{minipage}
+
+Using this custom searchbox inside an InstantSearch instance is exactly the same as implementing the built-in widgets. This is because the same signature is being fulfilled by both implementations.
+
+This pattern has been tested out with jQuery and JavaScript without any libraries for the documentation of InstantSearch.js, but also been experimented inside the etch rendering \gls{library} made for rendering inside the Atom code editor.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Configure in an InstantSearch container},label={lst:isjs-connector-usage}]
+import instantsearch from 'instantsearch.js';
+import searchBox from './customSearchbox';
+
+const search = instantsearch({
+  appId: 'latency',
+  apiKey: '6be0576ff61c053d5f9a3225e2a90f76',
+  indexName: 'instant_search',
+});
+
+search.addWidget(
+  searchBox({
+    node: document.getElementById('search-box'),
+    placeholder: 'Search for products',
+  })
+);
+
+search.start();
+\end{lstlisting}
+\end{minipage}
 
 % subsubsection instantsearch_js_connectors (end)
 
@@ -229,18 +282,18 @@ Similar to the newer v2 version of InstantSearch.js, described in \ref{ssub:inst
 
 A connector will define to the InstantSearch Manager what parameters are being tracked, and thus will be updated on every time new results come in. These connectors expose a {\tt refine} function, which depending on the exact widget will be called with a string, array, Object or number.
 
-The connectors in React InstantSearch are implemented as higher order components, also called decorators. They will merge the \gls{props} that a component receives with the \gls{props} that will come from the Algolia implementation. This method of distributing data to children is also used by other popular React libraries like React Router and React Redux.
-
-React InstantSearch doesn't stop at that place, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the \acrshort{dom}. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
-
-React InstantSearch proposes two different ways of countering this lack of visibility: the {\tt Configure} widget, and {\tt createConnector}.
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{../assets/is-react-state.pdf}
   \caption{Handling state with React InstantSearch}
   \label{figure:is-react-state}
 \end{figure}
+
+The connectors in React InstantSearch are implemented as higher order components, also called decorators. They will merge the \gls{props} that a component receives with the \gls{props} that will come from the Algolia implementation. This method of distributing data to children is also used by other popular React libraries like React Router and React Redux.
+
+React InstantSearch doesn't stop at that place, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the \acrshort{dom}. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
+
+React InstantSearch proposes two different ways of countering this lack of visibility: the {\tt Configure} widget, and {\tt createConnector}.
 
 \subsubsection{Configure}
 \label{ssub:ris-configure}
@@ -306,6 +359,8 @@ That way, the experience of creating other connectors will feel like a native fe
   \caption{Handling state with the InstantSearch Core}
   \label{figure:is-core-state}
 \end{figure}
+
+This structure, which is described in more detail in chapter \ref{chp:execution} extends the JavaScript Helper's functionality to be able express the notion of a \glspl{refinement} or a widget in the library itself. This library allows for a more modular approach towards state handling, since it transforms the \acrshort{api} responses based on which \glspl{refinement} are enabled, since the \glspl{refinement} itself provides how to transform its results to be usable. See also section \ref{sec:getting_responses_from_the_api} for details on that process.
 
 % subsection the_future (end)
 
