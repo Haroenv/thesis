@@ -62,9 +62,9 @@ This is also a venue in which in a short time, deep knowledge about the \acrshor
 \section{Making search interfaces with Algolia} % (fold)
 \label{sec:making_search_interfaces_with_algolia}
 
-There have been several phases in the life of Algolia regarding building user interfaces on the web. In short, first there was only the \acrshort{rest} \acrshort{api} with the Algolia JavaScript client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using technologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement.
+When looking at the timeline in which libraries came out to make search interfaces with Algolia, several phases become apparent. In short, first there was only the \acrshort{rest} \acrshort{api} with the Algolia JavaScript client. Following to that, tutorials were written on how to use Algolia to build full search interfaces using technologies like jQuery, moment.js and other libraries. As a result keeping track of the search state is left over completely to the users to implement.
 
-In the context of a search experience, the state of a page are the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} in the Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
+In the context of a search experience, the state of a page is the active refinements. This can often be seen in a specific widget, which is called {\tt currentRefinements} in the Algolia libraries. To make complex applications, the most important part is to have clean state handling, so that what the users see is always what they are interacting with.
 
 \begin{figure}[H]
   \centering
@@ -73,13 +73,13 @@ In the context of a search experience, the state of a page are the active refine
   \label{figure:current-refinements}
 \end{figure}
 
-To avoid having users to keep the state of their search experience by themselves, the Algolia JavaScript helper~\cite{algolia-js-helper} was written. Its goal is to be a reference to the state of the search, and provide ways to change the state.
+To avoid having users to keep the state of their search experience by themselves, the Algolia JavaScript helper~\cite{algolia-js-helper} was written. Its goal is to be a reference to the state of the search, and provide ways to change this state.
 
-When an abstraction for the search state has been made, it becomes a lot more straight-forward to make reason about what a certain action actually does. For example, it becomes trivial to make for example a button that changes the page of the search results.
+When an abstraction for the search state is made, it becomes a lot more straight-forward to reason about what a certain action actually does. For example, it becomes trivial to make for example a button that changes the page of the search results.
 
 However, when using the JavaScript Helper, there are still two major roadblocks that are left in \gls{userspace}. These roadblocks are linked to more advanced components, like for example a refinement list. A refinement list is a component that holds a list of possible filters which are relevant to the currently set refinements. It will also show how many results there would be, if that filter is chosen.
 
-To make a component like a RefinementList, the struggle is one one side that a lot of different functions have to be called to be able to get the data, since behind the screens actually two \acrshort{api} queries happen. One to get the counts and one to get the results. The second hurdle that would need to be crossed is the actual rendering. A user would need to decide which markup structure to use, as well as the accessibility and usability implications of it.
+To make a component like a RefinementList, the struggle is that a lot of different functions have to be called to be able to get the data, since behind the screens actually two \acrshort{api} queries happen. One to get the counts and one to get the results. The second hurdle that would need to be crossed is the actual rendering. A user would need to decide which markup structure to use, as well as the accessibility and usability implications of it.
 
 \begin{figure}[H]
   \centering
@@ -92,7 +92,7 @@ To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js
 
 InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript \gls{library} for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. While the fact that the \gls{library} uses React behind the scenes is an implementation detail, it -- unfortunately -- means that using InstantSearch.js in a React application is not a trivial operation.
 
-Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the \acrshort{dom}, but also expose another concept called connectors, which expose only the data that is relevant to a component, and a way to refine on it, relevant to that refinement.
+Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the \acrshort{dom}, but also expose another concept called connectors, which expose only the data that is relevant to that component, and a way to refine it.
 
 This evolution makes for three distinct phases in how state has been handled, based on which \gls{library} is used.
 
@@ -189,7 +189,7 @@ To be able to allow making custom widgets, a custom widget can be made using Ins
 \subsubsection{Connectors} % (fold)
 \label{ssub:instantsearch_js_connectors}
 
-To solve the mismatch between widgets that already exist and the need to define a complete custom rendering for it, connectors are proposed as a new \acrshort{api}. Connectors a concept first explored in React InstantSearch --- described in \ref{sub:react_instantearch} --- are connectors. In InstantSearch.js, connectors are added to version 2.0.0, which is at the time of writing available as a beta version.
+To solve the mismatch between widgets that already exist and the need to define a complete custom rendering for it, connectors are proposed as a new \acrshort{api}. Connectors are a concept first explored in React InstantSearch, further described in \ref{sub:react_instantearch}. In InstantSearch.js, connectors are added to version 2.0.0, which is at the time of writing available as a beta version.
 
 Each of the widgets in InstantSearch.js are split up between its rendering, the component, and its Algolia logic, the connector. By doing this, the rendering of a widget is allowed to be chosen freely by the consumer of the \acrshort{api}. For example if another view model than \acrshort{dom} is needed in cases like NativeScript. 
 
@@ -260,11 +260,9 @@ Vue InstantSearch is the newest version of InstantSearch, which takes a similar 
 
 In contrast to InstantSearch.js, not the JavaScript Helper is being used to communicate with the Algolia \acrshort{rest} \acrshort{api}, but a new small layer on top of it. As described in more detail in section \ref{ssec:Subscribing}, Vue will take in account the {\tt getters} of an Object. These getters are written as a function, which will be called periodically by the Vue \gls{library}. 
 
-To be able to take the current refinements in a performance aware way, the 
+To be able to take the current refinements in a performance aware way, the %% helper wrapped in getter
 
-Vue InstantSearch is a project mostly done by Raymond Rutjes, but with me in all meetings about it, and with the complete thought process being done shared by both parties.
-
-Vue InstantSearch is a project done in co-creation with Raymond Rutjes. The complete thought process is done by both parties. The execution of the project is a task Raymond Rutjes is working on. In the future, Vue InstantSearch will be the first \gls{library} to try the experimentation described in chapter \ref{chp:execution}, since it explicitly made it close to the \acrshort{api} of InstantSearch Core.
+Vue InstantSearch is a project done in co-creation with Raymond Rutjes. The complete thought process is done by both parties. The execution of the project is a task Raymond Rutjes is working on. In the future, Vue InstantSearch will be the first \gls{library} to try the experimentation described in chapter \ref{chp:execution}, since Vue InstantSearch is explicitly made with a implementation, close to the \acrshort{api} of InstantSearch Core.
 
 As an experiment with Lucas Bonomi, a way to use the connectors of InstantSearch.js with Moon --- a \gls{library} very close to Vue in it's \acrshort{api} --- has been made internally. This proves that connectors will be a way to make InstantSearch available to various other programming libraries in the future.
 
@@ -291,7 +289,7 @@ A connector will define to the InstantSearch Manager what parameters are being t
 
 The connectors in React InstantSearch are implemented as higher order components, also called decorators. They will merge the \gls{props} that a component receives with the \gls{props} that will come from the Algolia implementation. This method of distributing data to children is also used by other popular React libraries like React Router and React Redux.
 
-React InstantSearch doesn't stop at that place, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the \acrshort{dom}. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
+React InstantSearch doesn't stop there, it completely abstracts away the JavaScript Helper, and makes it impossible to actually use the Helper functions. This is done with a similar reason in how React abstracts away the \acrshort{dom}. When you'd change something in the JavaScript Helper, but not in the state tracking of React InstantSearch, it would cause confusion, and possibly collusions.
 
 React InstantSearch proposes two different ways of countering this lack of visibility: the {\tt Configure} widget, and {\tt createConnector}.
 
@@ -345,7 +343,7 @@ For example, it's perfectly possible to make a calendar input using a range conn
 
 In the future, if InstantSearch Core is chosen as the new abstraction level, there would not be a need to abstract away the JavaScript Helper. 
 
-Since InstantSearch Core --- as described in section \ref{sec:organizing_state} --- maps the state of the each component to its \gls{attribute} name, a widget can be described both by its type and by its attribute. Refining a single attribute with multiple types of attributes is rarely --- if ever --- applicable, but it's common to have multiple identical types of refinement.
+Since InstantSearch Core maps the state of the each component to its \gls{attribute} name, a widget can be described both by its type and by its attribute. Refining a single attribute with multiple types of attributes is rarely --- if ever --- applicable, but it's common to have multiple identical types of refinement.
 
 Each attribute contains an object with the type of refinement used, as well as a value. This value can be different datatypes, depending on the type of refinement. This structure makes it straightforward to render only the needed widgets and keep their data updated.
 
@@ -360,7 +358,7 @@ That way, the experience of creating other connectors will feel like a native fe
   \label{figure:is-core-state}
 \end{figure}
 
-This structure, which is described in more detail in chapter \ref{chp:execution} extends the JavaScript Helper's functionality to be able express the notion of a \glspl{refinement} or a widget in the library itself. This library allows for a more modular approach towards state handling, since it transforms the \acrshort{api} responses based on which \glspl{refinement} are enabled, since the \glspl{refinement} itself provides how to transform its results to be usable. See also section \ref{sec:getting_responses_from_the_api} for details on that process.
+This structure, which is described in more detail in chapter \ref{chp:execution} extends the JavaScript Helper's functionality to be able to express the notion of a \glspl{refinement} or a widget in the library itself. This library allows for a more modular approach towards state handling, since it transforms the \acrshort{api} responses based on which \glspl{refinement} are enabled, since the \glspl{refinement} itself provides how to transform its results to be usable.
 
 % subsection the_future (end)
 

@@ -19,4 +19,5 @@
 *.gls
 *.glsdefs
 *.ist
+*.lof
 !.vscode
