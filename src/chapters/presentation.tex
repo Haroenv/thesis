@@ -191,21 +191,38 @@ Algolia helps their users to deliver an intuitive search-as-you-type experience 
 
 \subsection{Operational goals}
 
-%% todo
+\subsubsection{Enable to find data at the speed of thought}
 
-\subsection{How Algolia achieves their goals} 
+Algolia gives the users of their clients' websites or mobile applications fast access to what they’re looking for. The aim of Algolia is to serve the best results at the speed of a keystroke.
 
-%% todo
+\begin{itemize}
+  \item Making searching content on a website or mobile application find-as-you-type fast, which requires extreme speed and optimized relevance.
+  \item Getting results in milliseconds, refreshed at every keystroke.
+  \item Combining business specifications and users' interests in the ranking of clients.
+  Unifying searching and browsing for online and mobile users
+\end{itemize}
 
-%%%
+\subsubsection{Stop suggesting queries and give relevant autocomplete}
 
-\subsection{de rest} %%
+Algolia not only enables searching data in in milliseconds across all the sections of the service, they also display the clients' own combination of results in a rich autocomplete menu. The users won't need to learn the sitemap anymore to find what they're looking for.
 
-Algolia~\cite{algolia-home} is a company founded in Paris, but now has its headquarters in San Francisco, US, although most of the development happens in Paris. Their goal is to help people discover content they want to find, which is achieved by a \acrshort{saas} search offering.
+\subsubsection{Build a search experience which is accessible to all developers}
 
-People upload their data onto Algolia's infrastructure, where the data is split up into \glspl{ngram}~\cite{kimbrell1988searching}~. Using \glspl{ngram} results in creating a nested data structure that’s very fast to search in and has features like typo-tolerance, faceting etc.\ at  the cost of a slightly higher indexing time (a few seconds to a minute).\cite{paris-nlp-algolia}
+\begin{itemize}
+  \item Configure a user friendly search engine thanks to a transparent and intuitive ranking algorithm.
+  \item Test, debug and optimize the relevance of results via a unique dashboard.
+  \item The hosted \acrshort{api}, which is constantly updated, comes with 10 clients, 3 mobile \acrshortpl{sdk} and comprehensive documentation.
+\end{itemize}
 
-The story doesn't end there, because \acrfull{dx} is held in a very high standard at Algolia. There are \acrshort{api} clients for a lot of languages~\cite{doc-api-clients}~. In JavaScript and mobile the offering goes further than that, by offering what’s called InstantSearch~\cite{instantsearch-js, react-instantsearch, instantsearch-android, instantsearch-ios}~. These are a set of libraries orchestrating all parts of a good search experience.
+\subsection{How Algolia achieves their goals}
+
+To achieve these goals Algolia provides an \acrshort{api} to build all search experiences providing autocomplete and a results page used to require different solutions. Algolia's clients can use the same search engine across all user experiences and platforms.
+
+
+Clients upload their data onto Algolia's infrastructure, where the data is split up into \glspl{ngram}~\cite{kimbrell1988searching}~. Using \glspl{ngram} results in creating a nested data structure that’s very fast to search in and has features like typo-tolerance, faceting etc.\ at the cost of a slightly higher indexing time (a few seconds to a minute)~\cite{paris-nlp-algolia}~.
+
+%% doesn't end there is dom
+The story doesn't end there, because \acrfull{dx} is held in a very high standard at Algolia. There are \acrshort{api} clients for over 10 languages~\cite{doc-api-clients}, and community-provided libraries for even more environments. In JavaScript and mobile the offering goes further than that, by offering what’s called InstantSearch~\cite{instantsearch-js, react-instantsearch, instantsearch-android, instantsearch-ios}~. These are a set of libraries orchestrating all parts of a good search experience.
 
 \begin{figure}[H]
   \centering
@@ -217,7 +234,7 @@ The story doesn't end there, because \acrfull{dx} is held in a very high standar
 \section{Work environment}
 \label{sec:work-environment}
 
-Algolia is divided into several ``squads''. According to an internal handbook an Algolia squad is
+Algolia is divided into several ``squads''\footnote{The exact name of these squads and what they do evolves over time}. According to an internal handbook an Algolia squad is
 
 \begin{quotation}
   a group of people working on projects that are alike. A squad involves people with different skillsets, profiles \& backgrounds
@@ -273,4 +290,4 @@ In the other parts of the office there are couches and other places where you ca
 \end{minipage}
 \end{figure}
 
-To further emphasise these different work environments, the future office that will be moved in by the end of 2017 will have more of these alternative modes of working. %% better sentence
+To further emphasize these different work environments, the future office that will be moved in by the end of 2017 will have more of these alternative modes of working. %% better sentence

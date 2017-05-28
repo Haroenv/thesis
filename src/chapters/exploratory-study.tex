@@ -90,7 +90,7 @@ To make a component like a RefinementList, the struggle is one one side that a l
 
 To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js} was released by Algolia. It gives users of the \gls{library} a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in.
 
-InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript \gls{library} for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. That -- ironically -- means that using InstantSearch.js in a React application is not a trivial operation.
+InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript \gls{library} for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. While the fact that the \gls{library} uses React behind the scenes is an implementation detail, it -- unfortunately -- means that using InstantSearch.js in a React application is not a trivial operation.
 
 Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the \acrshort{dom}, but also expose another concept called connectors, which expose only the data that is relevant to a component, and a way to refine on it, relevant to that refinement.
 
@@ -154,7 +154,7 @@ Every time a new search request needs to be fetched, the {\tt results} observer 
   \label{figure:js-helper-state}
 \end{figure}
 
-The functions of the Helper don't stop there, since more advanced use cases like ``Hierarchical faceting''\cite{hierarchical-faceting} are being handled. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
+The JavaScript helper doesn't only have a different observer model than the JavaScript client, it also implements more advanced use cases like ``Hierarchical faceting''~\cite{hierarchical-faceting}~. Hierarchical faceting is a concept, which requires the structure of the data to be formatted in a particular way to denote hierarchy. 
 
 An example for hierarchical facets is given in figure \ref{figure:hierarchical-facets}. Here the {\tt hierarchicalCategory} \gls{attribute} will be used as a hierarchical facet. To be able to do that, it should be an Object, with {\tt lvlX} keys, where {\tt X} is the level of indentation. Inside each level the ``{\tt >}''-character is used as a level separator. That way an item could appear in multiple categories per level.
 
@@ -171,7 +171,7 @@ While hierarchical faceting is a core part of the search experience that users e
 \subsection{InstantSearch.js} % (fold)
 \label{sub:instantsearch_js}
 
-InstantSearch.js was the solution to help people avoiding building the same solutions repeatedly. Its goal is to bridge the gap between the JavaScript Helper --- which has a very extensive \acrshort{api} --- and its users, who don't always have time to \gls{grok} all the options.
+InstantSearch.js was the solution to help people avoiding building the same interfacing code repeatedly. Its goal is to bridge the gap between the JavaScript Helper --- which has a very extensive \acrshort{api} --- and its users, who don't always have time to \gls{grok} all the options.
 
 The chosen new method of building these user interfaces, is by wrapping the JavaScript Helper methods inside multiple widgets. This allows for a smaller API surface at the first point, and is easy to understand.
 
