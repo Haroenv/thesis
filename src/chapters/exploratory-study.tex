@@ -260,7 +260,7 @@ Vue InstantSearch is the newest version of InstantSearch, which takes a similar 
 
 In contrast to InstantSearch.js, not the JavaScript Helper is being used to communicate with the Algolia \acrshort{rest} \acrshort{api}, but a new small layer on top of it. As described in more detail in section \ref{ssec:Subscribing}, Vue will take in account the {\tt getters} of an Object. These getters are written as a function, which will be called periodically by the Vue \gls{library}. 
 
-To be able to take the current refinements in a performance aware way, the %% helper wrapped in getter
+To be able to take the current refinements in a performance aware way, Vue InstantSearch wraps the JavaScript Helper in a class, which exposes getters. As described in \ref{sec:handling_state_changes}, Vue will get notified of changes each time the data of the JavaScript Helper changes.
 
 Vue InstantSearch is a project done in co-creation with Raymond Rutjes. The complete thought process is done by both parties. The execution of the project is a task Raymond Rutjes is working on. In the future, Vue InstantSearch will be the first \gls{library} to try the experimentation described in chapter \ref{chp:execution}, since Vue InstantSearch is explicitly made with a implementation, close to the \acrshort{api} of InstantSearch Core.
 
