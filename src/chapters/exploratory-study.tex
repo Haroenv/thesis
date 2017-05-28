@@ -14,9 +14,9 @@ The second part is a run-down of all possible ways to make a search interface us
 
 A way to discover all intricacies of an ecosystem is to use it in a lot of different ways. Before jumping into making a new \gls{library} or improving an existing one, one should use it sufficiently.
 
-To do that, two main methods are used. Firstly it is to convert an existing search implementation using InstantSearch.js\cite{instantsearch-js} to use React InstantSearch in a more complex heavily used production website. For that purpose the website of the package manager Yarn\cite{yarn-site} was chosen.
+For this purpose, two main methods are used. The first method is to convert an existing search implementation using InstantSearch.js\cite{instantsearch-js} to use React InstantSearch in a more complex heavily used production website. For that purpose the website of the package manager Yarn\cite{yarn-site} was chosen.
 
-The other method chosen for this goal is being a full member of the support experience at Algolia. Every developer takes care of their own libraries in all support channels, which helps in finding out whether certain things are wanted by customers, or certain others are not. This also helps in finding bugs and understanding weaknesses in the product.
+The other method chosen for this goal is being a full member of the support experience at Algolia. Every developer takes care of their own libraries in all support channels, which helps in finding out whether certain features are wanted by customers, or certain others are not. This also helps in finding bugs and understanding weaknesses in the product.
 
 \subsection{Yarn} % (fold)
 \label{ssec:yarn}
@@ -25,9 +25,9 @@ Yarn is an open source package manager developed jointly by engineers at Faceboo
 
 In both the npm and Yarn ecosystem code is shared in packages --- also called modules --- which all have a {\tt package.json} file that describes metadata on the package, together with all the code. Yarn and npm share the npm repository for having the packages of the ecosystem.
 
-The Algolia team already worked on integrating Algolia search into the Yarn website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it’s possible to look up packages at a very impressive speed at \href{https://yarnpkg.com/search}{yarnpkg.com/search}. Making small fixes in the codebase\footnote{These fixes are the GitHub pull requests \href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335} respectively} in the past made the project and research on further improving that search experience proved to be a very exciting endeavour.
+The Algolia team already worked on integrating Algolia search into the Yarn website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it’s possible to look up packages at a very impressive speed at \href{https://yarnpkg.com/search}{yarnpkg.com/search}. Making small fixes in the codebase\footnote{These fixes are the GitHub pull requests \href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335} respectively} in the past, made the author a good candidate to improve this experience.
 
-The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} that takes in packages in the npm repository, and joins that together with places that have more information, like GitHub, and the amount of monthly downloads per package.
+The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} that takes in packages in the npm repository, and joins this data together with other venues with more information, like GitHub, and the number of monthly downloads per package.
 
 \begin{figure}[H]
   \centering
@@ -36,15 +36,15 @@ The metadata in the npm and Yarn repository is being enriched by an indexing pro
   \label{figure:yarn-search}
 \end{figure}
 
-This search experience was such a success that one week prior to the start of the internship in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook offices in London --- Facebook has the main contributors to the Yarn project --- to explore the possibilities of making a detail page for the search, and integrating it even more into the website.
+This search experience was such a success that one week prior to the start of the internship in Paris, some of the team members (Sylvain Utard, Kevin Granger and Vincent Voyer) went to the Facebook offices in London --- Facebook has the main contributors to the Yarn project --- to explore the possibilities of making a detail page for the search, and making the search accessible from every page to widen its usage.
 
-The Yarn project is evolving from having metadata from the npm packages in an index, used only on the Yarn website, to a free to use \acrshort{api}, which can make great search available to anyone who wants to make a project leveraging the ecosystem. The first other website that will use this data will be the online code editor \href{https://codesandbox.io}{CodeSandbox.io} for the interface where users can add dependencies to their projects. A lot of other integrations are expected in the time coming after this service will be formally announced.
+The Yarn project is evolving from having metadata from the npm packages in an index, used only on the Yarn website, to a being free to use \acrshort{api}, which can make great search available to anyone who wants to make a project leveraging the ecosystem. The first third-party website that will use this data will be the online code editor \href{https://codesandbox.io}{CodeSandbox.io} for the interface where users can add dependencies to their projects. A lot more integrations are expected in the time coming after this service will be formally announced.
 
 % subsection yarn (end)
 \subsection{Support}
 \label{support}
 
-At Algolia, customer support is not done by specific employees hired to do customer requests, but actually by the engineers and developers working on the code. This is a very varied list of people, who range from knowing a lot about a particular client or frontend \gls{library}, since they wrote it, to people working on the \gls{saas} client serving all requests.
+At Algolia, customer support is not done by specific employees hired to do customer requests, but actually by the engineers and developers working on the code. This is a very varied list of people, who range from people knowing a lot about a particular client or frontend \gls{library}, since they wrote it, to people working on the \gls{saas} client serving all requests.
 
 This has as an effect that when someone starts in the company, after a few weeks, they get to interact with clients who use Algolia in very varied ways. Connecting to the users keeps the maintainers in an advantageous position, since it's very simple to find out what features to focus on, and bugs that weren't anticipated.
 
@@ -113,7 +113,7 @@ When using just the JavaScript client, it can be noticed that all state should b
 
 Making a user interface with just the JavaScript client requires you to take ownership of the search state. An intuitive to deal with the state then, is saving it as part as the \acrshort{dom}, for example by setting attributes.
 
-This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to see if the extra refinement is possible.
+This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to check if the extra refinement is possible.
 
 \begin{figure}[H]
   \centering
@@ -315,7 +315,7 @@ const App = ({isDistinct, children}) => (
 
 Here an app component is being made, which will take in as \gls{props} a boolean which decides whether to set the {\tt DISTINCT} parameter to true or false, and the children of that app.
 
-React causes a new render every time something changes in the \gls{props}. Because of that behaviour, the mapping from the \gls{props} on Configure, together with the \gls{props} of other widgets can happen at render time.
+React causes a new render every time something changes in the \gls{props}. Because of that behaviour, the mapping from the \gls{props} on Configure, together with the \gls{props} more widgets can happen at render time.
 
 \subsubsection{createConnector}
 \label{ssub:ris-createconnector}

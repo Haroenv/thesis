@@ -48,7 +48,7 @@ Every \gls{attribute} is another {\tt Object}, with a {\tt type} key, and a {\tt
 
 A menu for example is a \gls{refinement} that takes a \gls{attribute} that has been set up for faceting\cite{algolia-set-up-faceting} and has a single value. For that reason a menu takes in a string as a value. A list is a \gls{refinement} that is exactly the same, but takes a list of strings to be able to set up multiple refined values for that attribute.
 
-Having a structure like this implies that it is trivial to see if any \glspl{refinement} have been set, including the query. This is useful for when an interface is constructed that only shows a search bar until the first character is typed. After that a more elaborate interface shows up to fill the screen with other filters.
+Having a structure like this implies that it is trivial to verify if any \glspl{refinement} have been set, including the query. This is useful for when an interface is constructed that only shows a search bar until the first character is typed. After that a more elaborate interface shows up to fill the screen with other filters.
 
 If every refinement would be set, the \glspl{refinement} key of the search state would be:
 
