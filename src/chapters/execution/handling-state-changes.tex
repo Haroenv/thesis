@@ -120,9 +120,9 @@ To allow unsubscription from a refinement or store, the return value of {\tt .su
 \subsubsection{Observables}
 \label{ssub:observables}
 
-An upcoming proposed standard for \acrshort{ecmascript} is observables.The \acrshort{ecmascript} proposal for Observables is currently stage 0\cite{tc39-observable}, that means that it will not be part of JavaScript until it has been voted for, and went through the process. It's currently not implemented in any browser without libraries. These Observables signify a variable that will change over time, and that will let its subscribers know about the changes.
+An upcoming proposed standard for \acrshort{ecmascript} is observables.The \acrshort{ecmascript} proposal for Observables is currently stage 0\cite{tc39-observable}, that signifies that it will not be part of JavaScript until it has been voted for, and went through the process. It's currently not implemented in any browser without libraries. These Observables signify a variable that will change over time, and that will let its subscribers know about the changes.
 
-This pattern is very close to previous method, subscriptions, but then as part of the language, and not a decided upon standard. Using language features has the advantage that over time more libraries will use this pattern and it will make the \acrshort{api} surface of the \gls{library} smaller.
+This pattern is very close to previous method, subscriptions, but then as part of the language, and not as a decided upon standard. Using language features has the advantage that over time more libraries will use this pattern and it will make the \acrshort{api} surface of the \gls{library} smaller.
 
 Since the observables implementation in JavaScript is a proposal, a reference implementation has been made by zenparsing, the author of the proposal. The \gls{library} called {\tt zen-observable}\cite{zenparsing-observable} is extending the \acrshort{api} of the Observable proposal slightly, but in its core, it has the same concepts.
 
@@ -130,6 +130,6 @@ An instance of an Observable is returned from the store interface, by using the 
 
 Just like in the previous section, an Observable will expose a subscribe function. The difference here is that it expects to be subscribed with an Object. This Object contains three functions, that are called when respectively the {\tt next}, {\tt error} or {\tt complete} event have been called by the observable.
 
-Having a interoperability layer with observables means that InstantSearch means that it will work well with the frameworks that use observables as a core of their infrastructure. Angular is an example of a framework that has observables --- in the form of RxJS\cite{angular-rx} --- as an important part of its way to work with events.
+Having a interoperability layer with observables implies that InstantSearch will work well with the frameworks that use observables as a core of their infrastructure. Angular is an example of a framework that has observables --- in the form of RxJS\cite{angular-rx} --- as an important part of its way to work with events.
 
 % section handling_state_changes (end)
