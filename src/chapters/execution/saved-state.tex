@@ -5,7 +5,7 @@
 
 The \acrshort{api} also allows for an initialisation with a certain state passed in. This means that it's possible to save a state Object in a location, and then later restart the search from that data. 
 
-This is useful for three major use cases. The first is \acrshort{url} synchronisation. For \acrshort{url} synchronisation the structure would be to first listen on every state change with {\tt .subscribe()}, and then asynchronously transform that to query parameters to set. If a user comes to a page with query parameters, a function to take in the query string and put out a state Object would then be called. After that point a new InstantSearch Core instance can be built with the {\tt preloadedState} parameter set in the constructor.
+This is useful for three major use cases. The first is \acrfull{url} synchronisation. For \acrshort{url} synchronisation the structure would be to first listen on every state change with {\tt .subscribe()}, and then asynchronously transform that to query parameters to set. If a user comes to a page with query parameters, a function to take in the query string and put out a state Object would then be called. After that point a new InstantSearch Core instance can be built with the {\tt preloadedState} parameter set in the constructor.
 
 \begin{figure}[H]
   \centering
@@ -22,7 +22,7 @@ To allow for this pattern, the following steps need to be executed:
 
 \begin{enumerate}
   \item execute the InstantSearch function once
-  \item render the output as \acrshort{html}
+  \item render the output as \acrfull{html}
   \item also output the state Object in a global Object in a script tag
   \item send that \acrshort{html} to the client
   \item start the InstantSearch instance frontend with {\tt window.PRELOADED\_STATE} as {\tt preloadedState}

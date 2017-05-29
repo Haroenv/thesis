@@ -103,7 +103,7 @@ What was noticed when creating React InstantSearch is that \emph{playing nice} w
 
 When Algolia pivoted in 2013 to a \acrshort{saas} product~\cite{algolia-blog-saas}, \acrshort{api} clients~\cite{algolia-blog-lauch} for six programming languages were immediately available. JavaScript has always been important because of the focus on speed that Algolia has.
 
-There are two major options to make a search experience. The first is to send a request from the frontend to the search service, where a \acrshort{json} response is returned, which then is used to render results in client side code. The other is sending that same request via a form on an application-specific backend, and constructing the results there, and eventually sending a completely new page back as a result to the user's query.
+There are two major options to make a search experience. The first is to send a request from the frontend to the search service, where a \acrfull{json} response is returned, which then is used to render results in client side code. The other is sending that same request via a form on an application-specific backend, and constructing the results there, and eventually sending a completely new page back as a result to the user's query.
 
 Algolia has a preference for clients to construct the results on the frontend, mostly because it's a lot faster. Algolia has infrastructure~\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, every millisecond matters~\cite{google-slow}~.
 
@@ -111,7 +111,7 @@ The JavaScript client~\cite{algolia-js-client} is the lowest useful level of abs
 
 When using just the JavaScript client, it can be noticed that all state should be handled inside the application code. That means keeping track whether a certain refinement has been set and unset, and keeping this consistent within the application code. Furthermore, the application needs to be aware when Algolia should be queried, and then handling all of the incoming results, dealing with out-of-order responses etc.
 
-Making a user interface with just the JavaScript client requires you to take ownership of the search state. An intuitive to deal with the state then, is saving it as part as the \acrshort{dom}, for example by setting attributes.
+Making a user interface with just the JavaScript client requires you to take ownership of the search state. An intuitive to deal with the state then, is saving it as part as the \acrfull{dom}, for example by setting attributes.
 
 This however isn't very efficient, since that implies that when the query needs to be changed somehow, there need to happen a lot of checks to check if the extra refinement is possible.
 
