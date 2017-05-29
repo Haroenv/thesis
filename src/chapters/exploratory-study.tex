@@ -27,7 +27,7 @@ In both the npm and Yarn ecosystem code is shared in packages --- also called mo
 
 The Algolia team already worked on integrating Algolia search into the Yarn website~\cite{yarn-pr-add-algolia}~. Since the very beginning of 2017, it's possible to look up packages at a very impressive speed at \href{https://yarnpkg.com/search}{yarnpkg.com/search}. Making small fixes in the codebase\footnote{These fixes are the GitHub pull requests \href{https://github.com/yarnpkg/website/pulls/208}{yarnpkg/website\#208}, \href{https://github.com/yarnpkg/website/pulls/210}{yarnpkg/website\#210}, \href{https://github.com/yarnpkg/website/pulls211}{yarnpkg/website\#211} and \href{https://github.com/yarnpkg/website/pulls/335}{yarnpkg/website\#335} respectively} in the past, made the author a good candidate to improve this experience.
 
-The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} that takes in packages in the npm repository, and joins this data together with other venues with more information, like GitHub, and the number of monthly downloads per package.
+The metadata in the npm and Yarn repository is being enriched by an indexing process\cite{npm-search} which requests info on packages in the npm repository and joins this data together with other venues with more information, like GitHub, and the number of monthly downloads per package.
 
 \begin{figure}[H]
   \centering
@@ -88,11 +88,11 @@ To make a component like a RefinementList, the struggle is that a lot of differe
   \label{figure:refinementlist-ris}
 \end{figure}
 
-To solve both of these problems, in 2015 InstantSearch.js~\cite{instantsearch-js} was released by Algolia. It gives users of the \gls{library} a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in.
+To solve both of these problems InstantSearch.js~\cite{instantsearch-js} was released in 2015 by Algolia. It gives users of the \gls{library} a hook for every widget to mount it to their application, as well as leaving the possibility to change some of the markup structure by having a templating system built-in.
 
 InstantSearch.js uses React behind the scenes. React\cite{react-doc} is a popular JavaScript \gls{library} for building user interfaces. One key thing of what React does is that it takes ownership of a part of a document structure. While the fact that the \gls{library} uses React behind the scenes is an implementation detail, it -- unfortunately -- means that using InstantSearch.js in a React application is not a trivial operation.
 
-Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the \acrshort{dom}, but also expose another concept called connectors, which expose only the data that is relevant to that component, and a way to refine it.
+Frameworks often impose a certain way of writing code that doesn't work well for libraries that are supposed to be used in a framework-agnostic manner. For that reason, when making React InstantSearch~\cite{react-instantsearch} in 2016, the choice was made to not only expose components that mount to the \acrshort{dom}, but also expose another concept called connectors, which expose only the data that is relevant to that component, and a way to refine it.
 
 This evolution makes for three distinct phases in how state has been handled, based on which \gls{library} is used.
 
@@ -105,7 +105,7 @@ When Algolia pivoted in 2013 to a \acrshort{saas} product~\cite{algolia-blog-saa
 
 There are two major options to make a search experience. The first is to send a request from the frontend to the search service, where a \acrshort{json} response is returned, which then is used to render results in client side code. The other is sending that same request via a form on an application-specific backend, and constructing the results there, and eventually sending a completely new page back as a result to the user's query.
 
-Algolia has a preference for clients to construct the results on the frontend, mostly because it's a lot faster. Algolia has infrastructure~\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, every millisecond matters.
+Algolia has a preference for clients to construct the results on the frontend, mostly because it's a lot faster. Algolia has infrastructure~\cite{algolia-infra} all around the world, and thus having an extra roundtrip to wherever the backend of a client is, can take hundreds of milliseconds more. Since search seems slow as soon as the timeout takes more than 50ms, every millisecond matters~\cite{google-slow}~.
 
 The JavaScript client~\cite{algolia-js-client} is the lowest useful level of abstraction, and handles things like retry strategies, dropped requests, dynamic routing based on location and request fallbacks. Because it originally was the only way to query Algolia, it also supports setting individual parameters before searching.
 
